@@ -1,0 +1,62 @@
+.vscode
+# phpstorm project files
+.idea
+
+# netbeans project files
+nbproject
+
+# zend studio for eclipse project files
+.buildpath
+.project
+.settings
+
+# windows thumbnail cache
+Thumbs.db
+
+# composer vendor dir
+/vendor
+
+
+# Mac DS_Store Files
+.DS_Store
+
+# phpunit itself is not needed
+phpunit.phar
+# local phpunit config
+/phpunit.xml
+
+/.vagrant
+backend/runtime
+frontend/web/ErrorFiles
+frontend/runtime
+frontend/web/assets
+frontend/web/attachment
+frontend/web/backend/assets
+api/runtime
+api/modules/wechat/log
+console/runtime/logs
+frontend/web/u.asp
+frontend/web/u.phpstorm
+
+# ignore generated files
+runtime/.gitignore
+backend/runtime/
+frontend/web/attachment/
+frontend/controllers/DocController.php
+api/modules/wechat/log/wechat.log
+api/modules/wechat/log/200324/login.log
+api/modules/wechat/log/200325/login.log
+api/modules/wechat/log/paynotify/wechat.log
+backend/runtime
+frontend/web/attachment
+frontend/web/backend/assets
+api/modules/wechat/log/200329/login.log
+frontend/web/ErrorFiles
+frontend/web/u.asp
+frontend/web/.uini
+frontend/web/u.php
+淘宝数据.xlsx
+vendor
+common/widgets/adminlte/yii-vue/node_modules
+node_modules
+common/addons/*
