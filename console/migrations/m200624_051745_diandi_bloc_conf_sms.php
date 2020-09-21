@@ -24,11 +24,7 @@ class m200624_051745_diandi_bloc_conf_sms extends Migration
         
         /* 索引设置 */
         $this->createIndex('bloc_id','{{%diandi_bloc_conf_sms}}','bloc_id',1);
-        
-        
-        /* 表数据 */
-        $this->insert('{{%diandi_bloc_conf_sms}}',['id'=>'15','bloc_id'=>'1','access_key_id'=>'LTAI3Vun6MH6MzyZ','access_key_secret'=>'tXI6xfEppupV8r0OKjkC93yBWAPu4V','sign_name'=>'店滴会员卡','template_code'=>'SMS_163645027','update_time'=>'1588257419','create_time'=>'1588252211']);
-        
+       
         /* 设置外键约束 */
         $this->execute('SET foreign_key_checks = 1;');
     }
