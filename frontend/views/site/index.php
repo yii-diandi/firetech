@@ -3,16 +3,17 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-22 15:56:49
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-04 21:09:54
+ * @Last Modified time: 2020-10-08 16:04:44
  */
-
 use common\helpers\ImageHelper;
 use richardfan\widget\JSRegister;
 use yii\helpers\Url;
+
 /* @var $this yii\web\View */
 $settings = Yii::$app->settings;
 $title = $settings->get('Website', 'name');
 $intro = $settings->get('Website', 'intro');
+$statcode = $settings->get('Website', 'statcode');
 $this->title = $title.'-'.$intro;
 
 ?>
@@ -24,22 +25,22 @@ $this->title = $title.'-'.$intro;
 			<div class="banner-parallax" data-banner-height="750">
 				<div class="slider-banner">
 					<ul class="slick-slider slider-img-bg">
-						<?php foreach ($slides as $item=>$val):?>
+						<?php foreach ($slides as $item => $val):?>
 							<li>
 								<div class="overlay-colored color-bg-dark opacity-70"></div><!-- .overlay-colored end -->
 								<div class="slide">
-									<img src="<?php echo $val['images']?>" alt="">
+									<img src="<?php echo $val['images']; ?>" alt="">
 									<div class="slide-content">
 										<div class="container">
 											<div class="row">
 												<div class="col-md-10 col-md-offset-1">
 							
 													<div class="banner-center-box text-white text-center">
-														<h5><?php echo $val['title']?></h5>
+														<h5><?php echo $val['title']; ?></h5>
 														<h1>
 														<?php echo $val['description']; ?>
 														</h1>
-														<a class="btn colorful large hover-dark mt-30 move-top"  target="_blank" href="<?php echo $val['menuurl'];?>"><?php echo $val['menuname'];?></a>
+														<a class="btn colorful large hover-dark mt-30 move-top"  target="_blank" href="<?php echo $val['menuurl']; ?>"><?php echo $val['menuname']; ?></a>
 													</div><!-- .banner-center-box end -->
 							
 												</div><!-- .col-md-10 end -->
@@ -48,7 +49,7 @@ $this->title = $title.'-'.$intro;
 									</div><!-- .slide-content end -->
 								</div><!-- .slide end -->
 							</li>
-						<?php endforeach;?>
+						<?php endforeach; ?>
 					</ul><!-- .slick-slider end -->
 				</div><!-- .slider-banner end -->
 			</div><!-- .banner-parallax end -->
@@ -75,17 +76,17 @@ $this->title = $title.'-'.$intro;
 									</div><!-- .section-title end -->
 
 								</div><!-- .col-md-8 end -->
-								<?php foreach($program as $kk=> $list):?>
+								<?php foreach ($program as $kk => $list):?>
 									<div class="col-md-4">
 
 										<div class="box-info box-service-1">
 											<div class="box-icon">
-												<i class="<?= $list['icon'];?>"></i>
+												<i class="<?= $list['icon']; ?>"></i>
 											</div><!-- .box-icon end -->
 											<div class="box-content">
-												<h4><a href="javascript:;"><?php echo $list['title'] ?></a></h4>
+												<h4><a href="javascript:;"><?php echo $list['title']; ?></a></h4>
 												<p>
-													<?php echo $list['description'];?>
+													<?php echo $list['description']; ?>
 		
 												</p>
 											</div><!-- .box-content end -->
@@ -93,7 +94,7 @@ $this->title = $title.'-'.$intro;
 
 									</div><!-- .col-md-4 end -->
 
-								<?php endforeach;?>	
+								<?php endforeach; ?>	
 								<div class="col-md-12">
 									
 									<a class="btn colorful medium hover-dark mt-50 center-horizontal" href="#">查看完整方案</a>
@@ -116,9 +117,9 @@ $this->title = $title.'-'.$intro;
 								<div class="col-md-6 pt-60 pt-md-0">
 				
 									<div class="section-title">
-										<h2><?= $about[0]['title'];?></h2>
+										<h2><?= $about[0]['title']; ?></h2>
 										<p>
-											<?= $about[0]['description'];?>
+											<?= $about[0]['description']; ?>
 										</p>
 										<a class="btn-rm" href="javascript:;">了解更多<i class="fas fa-long-arrow-alt-up"></i></a>
 									</div><!-- .section-title end -->
@@ -127,7 +128,7 @@ $this->title = $title.'-'.$intro;
 								<div class="col-md-6 mt-md-60">
 
 									<div class="img-preview img-featured">
-										<img class="img-1" src=" <?= ImageHelper::tomedia($about[0]['thumb']) ?>" alt="">
+										<img class="img-1" src=" <?= ImageHelper::tomedia($about[0]['thumb']); ?>" alt="">
 									</div><!-- .img-preview end -->
 
 								</div><!-- .col-md-6 end -->
@@ -179,19 +180,19 @@ $this->title = $title.'-'.$intro;
 
 									<div class="slider-services-2">
 										<ul class="slick-slider">
-											<?php foreach ($scene as $kk=> $list):?>
+											<?php foreach ($scene as $kk => $list):?>
 												<li>
 												<div class="box-info box-service-2">
 													<div class="box-content">
-														<h4><a href="javascript:;"><?= $list['title'] ?></a></h4>
+														<h4><a href="javascript:;"><?= $list['title']; ?></a></h4>
 														<p>
-															<?= $list['description'] ?>
+															<?= $list['description']; ?>
 														</p>
-														<a class="btn-rm" href="<?= $list['linkurl'] ?>">了解更多<i class="fas fa-long-arrow-alt-up"></i></a>
+														<a class="btn-rm" href="<?= $list['linkurl']; ?>">了解更多<i class="fas fa-long-arrow-alt-up"></i></a>
 													</div><!-- .box-content end -->
 												</div><!-- .box-info box-service-2 end -->
 											</li>
-											<?php endforeach;?>	
+											<?php endforeach; ?>	
 											
 										</ul><!-- .slick-slider end -->
 									</div><!-- .slider-services-2 end -->
@@ -227,16 +228,16 @@ $this->title = $title.'-'.$intro;
 						
 									<div class="slider-projects">
 										<ul class="slick-slider">
-											<?php foreach ($facility as $kk=> $list):?>
+											<?php foreach ($facility as $kk => $list):?>
 											
 											<li>
 												<div class="box-preview box-project">
 													<div class="box-img img-bg">
-														<a href="javascript:;"><img src="<?= ImageHelper::tomedia($list['thumb'])  ?>" alt=""></a>
+														<a href="javascript:;"><img src="<?= ImageHelper::tomedia($list['thumb']); ?>" alt=""></a>
 														<div class="overlay">
 															<div class="overlay-inner">
 															
-																<h4><a href="javascript:;"><?= $list['title'] ?></a></h4>
+																<h4><a href="javascript:;"><?= $list['title']; ?></a></h4>
 						
 																<ul class="project-categories">
 																	<li><a href="javascript:;">店滴AI</a>,</li>
@@ -247,12 +248,16 @@ $this->title = $title.'-'.$intro;
 													</div><!-- .box-img end -->
 												</div><!-- .box-preview end -->
 											</li>
-											<?php endforeach;?>	
+											<?php endforeach; ?>	
 										</ul><!-- .slick-slider end -->
 									</div><!-- .slider-projects end -->
-									<a class="btn colorful medium hover-dark mt-50 center-horizontal" href="#">联系购买</a>
+									
 						
 								</div><!-- .col-md-12 end -->
+			
+								<a class="btn colorful medium hover-dark mt-50 center-horizontal" href="#">联系购买</a>
+
+									
 							</div><!-- .row end -->
 						</div><!-- .container-fluid end -->
 				
@@ -276,22 +281,22 @@ $this->title = $title.'-'.$intro;
 								</div><!-- .col-md-8 end -->
 								<div class="col-md-12">
 									  <div class="row"> 
-								<?php foreach ($superiority as $kk=> $list):?>
+								<?php foreach ($superiority as $kk => $list):?>
 										<div class="col-lg-4 col-md-6 single-service"> 
 												<div class="inner"> 
 												<div class="title"> 
 												<div class="icon"> 
-												<i class="<?= $list['icon'] ?>"></i> 
+												<i class="<?= $list['icon']; ?>"></i> 
 												</div> 
-												<h4><?= $list['title'] ?></h4> 
+												<h4><?= $list['title']; ?></h4> 
 												</div> 
 												<div class="content"> 
-												<p><?= $list['description'] ?></p> 
+												<p><?= $list['description']; ?></p> 
 												</div> 
 												</div> 
 											</div> 
 
-								<?php endforeach;?>	
+								<?php endforeach; ?>	
 											</div>
 									
 								</div><!-- .col-md-12 end -->
@@ -354,12 +359,12 @@ $this->title = $title.'-'.$intro;
 			
 		</section><!-- #content end -->
 <?php JSRegister::begin([
-    'key' => '3445'
+    'key' => '3445',
 ]); ?>
 <script>
 	$('#relations').click(function(){
 		let name = $('#name').val(),
-		csrfToken = "<?= Yii::$app->request->csrfToken ?>",
+		csrfToken = "<?= Yii::$app->request->csrfToken; ?>",
 		contact = $('#contact').val();
 		if(!name){
 			alert('请输入姓名')
@@ -378,8 +383,8 @@ $this->title = $title.'-'.$intro;
 		},'json');
 		console.log('565655')
 	})
+	
+	<?= $statcode ?>
 
 </script>
 <?php JSRegister::end([]);
-
-		

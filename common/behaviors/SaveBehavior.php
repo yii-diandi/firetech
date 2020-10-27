@@ -3,11 +3,12 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-15 22:50:42
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-06-02 00:54:24
+ * @Last Modified time: 2020-09-24 09:06:20
  */
 
 namespace common\behaviors;
 
+use diandi\admin\models\Bloc;
 use Yii;
 use yii\base\Behavior;
 use yii\db\BaseActiveRecord;
@@ -24,6 +25,8 @@ class SaveBehavior extends Behavior
     public $storeAttribute = 'store_id';
 
     public $blocAttribute = 'bloc_id';
+    
+    public $blocPAttribute = 'bloc_pid';//集团或上级公司
 
     public $attributes = [];
 
@@ -31,10 +34,11 @@ class SaveBehavior extends Behavior
 
     public function init()
     {
+        global $_GPC;
         if (empty($this->attributes)) {
             $this->attributes = [
-                BaseActiveRecord::EVENT_BEFORE_INSERT => [$this->createdAttribute, $this->updatedAttribute, $this->blocAttribute, $this->storeAttribute], //准备数据 在插入之前更新created和updated两个字段
-                BaseActiveRecord::EVENT_BEFORE_UPDATE => [$this->updatedAttribute, $this->blocAttribute, $this->storeAttribute], // 在更新之前更新updated字段
+                BaseActiveRecord::EVENT_BEFORE_INSERT => [$this->createdAttribute, $this->updatedAttribute, $this->blocAttribute, $this->storeAttribute, $this->blocPAttribute], //准备数据 在插入之前更新created和updated两个字段
+                BaseActiveRecord::EVENT_BEFORE_UPDATE => [$this->updatedAttribute, $this->blocAttribute, $this->storeAttribute, $this->blocPAttribute], // 在更新之前更新updated字段
             ];
         }
 
@@ -42,9 +46,11 @@ class SaveBehavior extends Behavior
         $store_id = Yii::$app->service->commonGlobalsService->getStore_id();
 
         // 后台用户使用
-        // if (Yii::$app->user->identity->bloc_id) {
-        //     $bloc_id = Yii::$app->user->identity->bloc_id;
-        // }
+        if (!empty($_GPC['bloc_id']) && $_GPC['bloc_id'] != $bloc_id) {
+            $bloc_id = $_GPC['bloc_id'];
+        }
+
+        $blocPid = Bloc::find()->where(['bloc_id'=>$bloc_id])->select('pid')->one();
 
         // if (Yii::$app->user->identity->store_id) {
         //     $store_id = Yii::$app->user->identity->store_id;
@@ -55,6 +61,7 @@ class SaveBehavior extends Behavior
             $this->updatedAttribute => time(),
             $this->blocAttribute => $bloc_id,
             $this->storeAttribute => $store_id,
+            $this->blocPAttribute => $blocPid['pid'],
         ];
     }
 

@@ -1,4 +1,11 @@
 <?php
+/**
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2020-07-29 01:57:23
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-07-29 01:57:26
+ */
+ 
 
 namespace common\models;
 
@@ -27,7 +34,7 @@ class MessageNoticeLog extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'dd_message_notice_log';
+        return '{{%message_notice_log}}';
     }
 
     /**

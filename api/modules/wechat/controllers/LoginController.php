@@ -3,19 +3,19 @@
 /**
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-05 08:26:29
- * @Last Modified by:   Wang Chunsheng 2192138785@qq.com
- * @Last Modified time: 2020-03-05 11:54:55
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-09-07 10:03:07
  */
 
 namespace api\modules\wechat\controllers;
 
-use backend\controllers\BaseController;
+use api\controllers\AController;
 use Yii;
 
 /**
  * login controller for the `wechat` module
  */
-class LoginController extends BaseController
+class LoginController extends AController
 {
     /**
      * @SWG\Post(path="/wechat/login/index",
@@ -23,8 +23,7 @@ class LoginController extends BaseController
      *     summary="微信接口测试",
      *     @SWG\Response(
      *         response = 200,
-     *         description = "微信接口测试",
-     *         @SWG\Schema(ref = "#/definitions/Aiface")
+     *         description = "微信接口测试"
      *     ),
      *     @SWG\Parameter(
      *      in="formData",

@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-08 12:17:00
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-08 23:03:33
+ * @Last Modified time: 2020-08-06 15:55:07
  */
 // use common\widgets\adminlte\VueJsAsset;
 use yii\helpers\Html;
@@ -49,9 +49,6 @@ if (Yii::$app->controller->action->id === 'login') {
                 min-height: 100vh;
             }
 
-            .firetech-main {
-                margin-top: 20px;
-            }
         </style>
        
     </head>
@@ -63,6 +60,8 @@ if (Yii::$app->controller->action->id === 'login') {
             'content.php',
             ['content' => $content, 'directoryAsset' => $directoryAsset]
         ); ?>
+
+    
 
         <?php $this->endBody(); ?>
     </body>

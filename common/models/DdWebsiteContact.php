@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-14 08:15:56
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-05-14 08:16:10
+ * @Last Modified time: 2020-07-29 01:56:31
  */
 
 namespace common\models;
@@ -23,7 +23,7 @@ class DdWebsiteContact extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'dd_website_contact';
+        return '{{%website_contact}}';
     }
 
     /**

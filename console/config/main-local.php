@@ -1,17 +1,16 @@
 <?php
-
 /**
- * @Author: Wang Chunsheng 2192138785@qq.com
- * @Date:   2020-03-12 20:12:31
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2020-05-09 22:51:22
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-02 01:09:28
+ * @Last Modified time: 2020-08-12 22:34:16
  */
 
 return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=locai',
+            'dsn' => 'mysql:host=127.0.0.1;dbname=locai',
             'tablePrefix' => 'dd_',
             'username' => 'root',
             'password' => 'root',
@@ -21,15 +20,25 @@ return [
                 PDO::ATTR_EMULATE_PREPARES => false,
             ],
         ],
-        'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            'viewPath' => '@common/mail',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
-            'useFileTransport' => true,
+        // 'mongodb' => [
+        //     'class' => '\yii\mongodb\Connection',
+        //     'dsn' => 'mongodb://@localhost:27017/mydatabase',
+        //     'options' => [
+        //         'username' => 'ceshi',
+        //         'password' => 'Password',
+        //     ],
+        // ],
+         /* ------ 缓存 ------ **/
+        'cache' => [
+            'class' => 'yii\redis\Cache',
+        ],
+        /* ------ REDIS ------ **/
+        'redis' => [
+            'class' => 'yii\redis\Connection',
+            'hostname' => 'localhost',
+            'port' => 6379,
+            'database' => 2,
         ],
     ],
     'language' => 'zh-CN',
-
 ];

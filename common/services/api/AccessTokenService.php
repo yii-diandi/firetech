@@ -3,8 +3,8 @@
 /**
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-12 01:50:17
- * @Last Modified by:   Wang Chunsheng 2192138785@qq.com
- * @Last Modified time: 2020-03-12 17:40:33
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-09-16 22:24:17
  */
 
 
@@ -53,8 +53,10 @@ class AccessTokenService extends BaseService
     public function getAccessToken(DdMember $member, $group_id, $cycle_index = 1)
     {
         $model = $this->findModel($member->id, $group_id);
+
         $model->member_id = $member->id;
-        $model->group_id = $group_id;
+        
+        $model->group_id  = $group_id;
 
         /* 是否到期，到期就重置 */
         if ($this->isPeriod($model->access_token) || empty($model->access_token)) {

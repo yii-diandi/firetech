@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-09 01:32:28
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-08 22:13:04
+ * @Last Modified time: 2020-09-07 10:02:59
  */
 
 namespace api\modules\wechat\controllers;
@@ -31,8 +31,7 @@ class BasicsController extends AController
      *     summary="微信接口测试",
      *     @SWG\Response(
      *         response = 200,
-     *         description = "微信接口测试",
-     *         @SWG\Schema(ref = "#/definitions/Aiface")
+     *         description = "微信接口测试"
      *     ),
      *     @SWG\Parameter(
      *      in="query",
@@ -124,13 +123,13 @@ class BasicsController extends AController
             $user = $miniProgram->auth->session($code);
             FileHelper::writeLog($logPath, '登录日志：获取信息'.json_encode($user));
 
-            if ($user['errcode']) {
+            if (key_exists('errcode', $user)) {
                 FileHelper::writeLog($logPath, '登录日志：请求错误信息'.json_encode($user));
 
                 return ResultHelper::json(401, $user['errmsg'], []);
             }
             $users['openid'] = $user['openid'];
-            $users['unionid'] = $user['unionid'];
+            $users['unionid'] = key_exists('unionid', $user) ? $user['unionid'] : '';
         }
         // 查询该openID是否存在
         $res = Yii::$app->fans->signup($users);
@@ -145,8 +144,7 @@ class BasicsController extends AController
      *     summary="获取支付参数",
      *     @SWG\Response(
      *         response = 200,
-     *         description = "获取支付参数",
-     *         @SWG\Schema(ref = "#/definitions/Aiface")
+     *         description = "获取支付参数"
      *     ),
      *     @SWG\Parameter(
      *      in="query",
@@ -197,8 +195,8 @@ class BasicsController extends AController
     public function actionPayparameters()
     {
         global $_GPC;
-        
-        $bloc_id  = Yii::$app->params['bloc_id'];
+      
+        $bloc_id = Yii::$app->params['bloc_id'];
         $store_id = Yii::$app->params['store_id'];
         $data = Yii::$app->request->post();
         // 生成订单
@@ -237,7 +235,6 @@ class BasicsController extends AController
      */
     public function actionNotify()
     {
-        
         $logPath = Yii::getAlias('@runtime/wechat/notify/'.date('ymd').'.log');
         FileHelper::writeLog($logPath, '开始回调'.json_encode(Yii::$app->wechat->payment));
 
@@ -258,7 +255,7 @@ class BasicsController extends AController
                 FileHelper::writeLog($logPath, '订单信息'.json_encode($orderInfo));
 
                 $module = $orderInfo['module'];
-                 
+
                 FileHelper::writeLog($logPath, '下单模块'.$module);
 
                 $notify = Yii::$app->getModule($module)->Notify($message);

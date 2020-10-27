@@ -1,4 +1,11 @@
 <?php
+/**
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2020-07-29 01:54:50
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-07-29 01:54:53
+ */
+ 
 
 namespace common\models;
 
@@ -18,7 +25,7 @@ class DdMemberGroup extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'dd_member_group';
+        return '{{%member_group}}';
     }
 
      /**

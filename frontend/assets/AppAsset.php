@@ -1,4 +1,11 @@
 <?php
+/**
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2020-07-14 08:56:46
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-07-21 22:31:48
+ */
+
 /***
  * @开源软件: 店滴AI-基于AI的软硬件开源解决方案
  * @官方地址: http://www.wayfirer.com/
@@ -20,8 +27,10 @@ class AppAsset extends AssetBundle
 {
     public $sourcePath = '@app/web/resource/';
     public $css = [
-        'css/css-assets.css',
+        // 'css/font-awesome.min.css',
         'css/style.css',
+        'css/css-assets.css',
+        // 'css/ionicons.min.css',
     ];
 
     public $js = [

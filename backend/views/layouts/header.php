@@ -4,15 +4,14 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-28 15:31:10
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-06-24 16:49:24
+ * @Last Modified time: 2020-07-18 00:49:02
  */
 use yii\helpers\Html;
 use common\helpers\ImageHelper;
 
 $settings = Yii::$app->settings;
 $menucate = Yii::$app->service->backendNavService->getMenu('left');
-
-
+$moduleAll =  Yii::$app->params['moduleAll'];
 /* @var $this \yii\web\View */
 /* @var $content string */
 ?>
@@ -34,9 +33,24 @@ $menucate = Yii::$app->service->backendNavService->getMenu('left');
             <span class="icon-bar"></span>
         </a>
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
-            <ul class="nav navbar-nav" id="top-nav">
+        <ul class="nav navbar-nav" id="top-nav">
 
-            </ul>
+        <?php if (Yii::$app->params['is_addons']): ?>
+
+                    <li class="dropdown pull-right" >
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">切换模块 <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <?php foreach ($moduleAll as $key => $value): ?>
+                                <li><a href="module?addons=<?=  $value['module_name'] ?>"><?=  $value['addons']['title'] ?></a></li>
+                                <li class="divider"></li>
+                                
+                            <?php endforeach; ?>
+                        </ul>
+                    </li>
+        <?php endif; ?>
+        </ul>
+        
+           
         </div>
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">

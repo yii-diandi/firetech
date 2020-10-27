@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-05 08:17:26
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-02 19:38:39
+ * @Last Modified time: 2020-08-12 16:21:27
  */
 $config = [
     'components' => [
@@ -33,7 +33,7 @@ if (YII_ENV) {
                 'class' => 'yii\gii\generators\crud\Generator',
                 'templates' => [ //设置我们自己的模板
                     //模板名 => 模板路径
-                    'myCrud' => '@frontend/web/backend/giitpl/crud/default',
+                    'myCrud' => '@frontend/web/backend/giitpl/crud/default'
                 ],
             ],
             'module' => [
@@ -48,6 +48,15 @@ if (YII_ENV) {
                     'default' => '@frontend/web/backend/giitpl/addons/default',
                 ],
             ],
+            'model' => [
+                'class' => 'yii\gii\generators\model\Generator',
+                'templates' => [
+                    'default' => '@frontend/web/backend/giitpl/addons/default',
+                    'mymodel' => '@frontend/web/backend/giitpl/model/default'
+
+                ],
+            ],
+
         ],
     ];
 }

@@ -3,15 +3,18 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-03 07:34:16
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-08 21:46:37
+ * @Last Modified time: 2020-09-18 11:27:08
  */
 
 namespace backend\controllers;
 
+use common\helpers\CacheHelper;
 use Yii;
 use yii\web\Controller;
 use diandi\admin\models\Menu;
 use diandi\addons\modules\searchs\DdAddons;
+use diandi\admin\models\AddonsUser;
+use Smarty;
 
 class BaseController extends Controller
 {
@@ -29,6 +32,14 @@ class BaseController extends Controller
     // 检索的模型名称，区分大小写
     public $modelSearchName = '';
 
+    public $smart;
+
+    // 赋值额外变量
+    
+    private $_params;
+    
+    public $cache;
+    
     public function beforeAction($action)
     {
         global $_GPC;
@@ -44,16 +55,26 @@ class BaseController extends Controller
         if (in_array(Yii::$app->controller->module->id, $modules)) {
             Yii::$app->params['plugins'] = Yii::$app->controller->module->id;
         }
-
+        
         $requestedRoute = '/'.\Yii::$app->controller->id;
         $nav = Yii::$app->service->backendNavService->getMenu();
-
         Yii::$app->params['addons'] = Yii::$app->service->commonGlobalsService->getAddons();
+     
         $module = Yii::$app->params['addons'];
 
         $moduleName = $DdAddons->find()->where(['identifie' => Yii::$app->params['addons']])->asArray()->one();
 
+        Yii::$app->params['moduleAll']  = [];
+     
+
         $is_addons = $moduleName ? true : false;
+        if($is_addons){
+            $AddonsUser = new AddonsUser();
+            $module_names = $AddonsUser->find()->where([
+                'user_id' => Yii::$app->user->id,
+            ])->with(['addons'])->asArray()->all();
+            Yii::$app->params['moduleAll']  = $module_names?$module_names:[];
+        }
         Yii::$app->params['is_addons'] = $is_addons; //  empty($menutypes['type']) ? $nav['top'][0]['mark'] : $menutypes['type'];
         Yii::$app->params['module'] = $moduleName; //  empty($menutypes['type']) ? $nav['top'][0]['mark'] : $menutypes['type'];
 
@@ -75,10 +96,19 @@ class BaseController extends Controller
         // 设置模板标题
         Yii::$app->params['Website']['title'] = $is_addons ? Yii::$app->params['module']['title'] : Yii::$app->settings->get('Website', 'name');
 
+        Yii::$app->params['message']['total'] = 0;
+        
         // 获取当前用户的公司
         Yii::$app->service->commonGlobalsService->getBlocByuserId(Yii::$app->user->id);
-         return parent::beforeAction($action);
+
+        $this->smart = new Smarty();
+        $this->cache = new CacheHelper();
+        
+        return parent::beforeAction($action);
     }
+    
+ 
+
 
     public function behaviors()
     {
@@ -109,7 +139,25 @@ class BaseController extends Controller
             'class' => \common\behaviors\HttpRequstMethod::className(),
         ];
 
+
         return $behaviors;
+    }
+
+    
+    
+    public function assign($key,$val){
+        $this->_params[$key]  = $val;
+    }
+    
+    
+
+    public function renderVue($view,$param,$return=false)
+    {   
+        if(!empty($this->_params)){
+            $param =  $param ===null?  $this->_params :array_merge($this->_params,$param);
+        }
+        
+        return $this->render($view.'.vue', $param,$return);
     }
 
     /**

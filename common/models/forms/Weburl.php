@@ -1,4 +1,11 @@
 <?php
+/**
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2020-09-08 14:13:05
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-09-08 14:13:35
+ */
+ 
 /*** 
  * @开源软件: 店滴AI-基于AI的软硬件开源解决方案
  * @官方地址: http://www.wayfirer.com/
@@ -26,6 +33,8 @@ class Weburl extends Model
     public $frendurl;
 
     public $apiurl;
+    
+    public $urls;
 
     /**
      * @inheritdoc
@@ -33,7 +42,7 @@ class Weburl extends Model
     public function rules(): array
     {
         return [
-            [['backendurl', 'frendurl','apiurl'], 'string'],
+            [['backendurl', 'frendurl','apiurl','urls'], 'string'],
         ];
     }
 
@@ -46,6 +55,7 @@ class Weburl extends Model
             'backendurl' => '后台地址',
             'frendurl' => '前台地址',
             'apiurl' => '接口地址',
+            'urls'=>'跨域域名'
         ];
     }
 }

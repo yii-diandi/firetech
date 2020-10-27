@@ -1,4 +1,11 @@
 <?php
+/**
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2020-07-10 21:14:20
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-07-10 21:14:20
+ */
+ 
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
@@ -11,17 +18,8 @@ $this->params['breadcrumbs'][] = ['label' => '联系我们s', 'url' => ['index']
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<ul class="nav nav-tabs">
-    <li>
-        <?= Html::a('添加 联系我们', ['create'], ['class' => '']) ?>
-    </li>
-    <li>
-        <?= Html::a('联系我们管理', ['index'], ['class' => '']) ?>
-    </li>
-    <li  class="active">
-        <?= Html::a('联系我们管理', ['view'], ['class' => '']) ?>
-    </li>
-</ul>
+<?= $this->render('_tab') ?>
+
 <div class=" firetech-main">
 <div class="dd-website-contact-view">
 

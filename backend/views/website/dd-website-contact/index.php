@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-14 08:13:17
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-05-14 08:16:37
+ * @Last Modified time: 2020-07-10 21:14:12
  */
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -15,15 +15,9 @@ use yii\grid\GridView;
 $this->title = '联系我们s';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<ul class="nav nav-tabs">
-    <li>
-        <?= Html::a('添加 联系我们', ['create'], ['class' => '']); ?>
-    </li>
-    <li  class="active">
-        <?= Html::a('联系我们管理', ['index'], ['class' => 'btn btn-primary']); ?>
-    </li>
-</ul>
-<div class="firetech-main"  style="margin-top:20px;">
+<?= $this->render('_tab') ?>
+
+<div class="firetech-main">
 
 <div class="dd-website-contact-index ">
     <?php // echo $this->render('_search', ['model' => $searchModel]);?>

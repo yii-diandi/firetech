@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-02 21:40:25
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-06-03 11:53:00
+ * @Last Modified time: 2020-07-10 01:10:42
  */
 
 
@@ -46,7 +46,7 @@ class SiteController extends BaseController
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error', 'signup', 'request-password-reset'],
+                        'actions' => ['login', 'error', 'signup', 'request-password-reset','setpassword'],
                         'allow' => true,
                     ],
                     [
@@ -178,7 +178,42 @@ class SiteController extends BaseController
         ]);
     }
 
-    
+     /**
+     * Resets password.
+     *
+     * @param string $token
+     * @return mixed
+     * @throws BadRequestHttpException
+     */
+    public function actionSetpassword($token)
+    {
+        $this->layout = "@backend/views/layouts/main-login";
+        $isGuest =  Yii::$app->user->isGuest;
+        if($isGuest){
+            try {
+                $model = new ResetPasswordForm($token);
+            } catch (InvalidArgumentException $e) {
+                throw new BadRequestHttpException($e->getMessage());
+            }
+        
+        }else{
+            $password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+            
+            User::updateAll([
+                'password_reset_token'=>$password_reset_token
+            ],['id'=>Yii::$app->user->id]);
+            $model = new ResetPasswordForm($password_reset_token);
+        }
+        
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
+            Yii::$app->session->setFlash('success', '密码修改成功');
+            $this->redirect(['site/login']);
+        }
+
+        return $this->render('setpassword', [
+            'model' => $model,
+        ]);
+    }
 
     /**
      * Resets password.

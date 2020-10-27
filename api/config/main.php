@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-05 08:27:35
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-05 21:24:28
+ * @Last Modified time: 2020-09-23 21:20:39
  */
 $params = array_merge(
     require __DIR__.'/../../common/config/params.php',
@@ -41,8 +41,13 @@ return [
         // 'diandi_shop' => [
         //     'class' => 'api\modules\diandi_shop\module',
         // ],
+        // 小程序
         'wechat' => [
             'class' => 'api\modules\wechat\module',
+        ],
+        // 公众号
+        'officialaccount' => [
+            'class' => 'api\modules\officialaccount\module',
         ],
     ],
     'components' => [
@@ -249,17 +254,7 @@ return [
                         'POST ccc' => 'ccc',
                     ],
                 ],
-
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => ['v1/aiface'],
-                    'pluralize' => false,
-                    'extraPatterns' => [
-                        'POST,HEAD detect' => 'detect',
-                        'POST,HEAD searchs' => 'searchs',
-                    ],
-                ],
-                // 微信接口
+                // 小程序接口
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => ['wechat/basics'],
@@ -276,6 +271,35 @@ return [
                     'pluralize' => false,
                     'extraPatterns' => [
                         'POST,HEAD send' => 'send',
+                    ],
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => ['wechat/qrcode'],
+                    'pluralize' => false,
+                    'extraPatterns' => [
+                        'POST getqrcode' => 'getqrcode',
+                    ],
+                ],
+                // 公众号接口
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => ['officialaccount/basics'],
+                    'pluralize' => false,
+                    'extraPatterns' => [
+                        'POST,HEAD signup' => 'signup',
+                        'GET,POST,HEAD auth' => 'auth',
+                        'GET,POST,HEAD userinfo' => 'userinfo',
+                        'POST,HEAD payparameters' => 'payparameters',
+                        'POST,HEAD,GET,OPTIONS,PUT notify' => 'notify',
+                    ],
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => ['officialaccount/jssdk'],
+                    'pluralize' => false,
+                    'extraPatterns' => [
+                        'POST config' => 'config',
                     ],
                 ],
             ],

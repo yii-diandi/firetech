@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-26 00:09:42
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-06-23 15:01:22
+ * @Last Modified time: 2020-08-11 23:23:58
  */
 echo "<?php\n";
 ?>
@@ -42,11 +42,11 @@ class Upgrade extends Migration implements AddonWidget
         switch ($addon->version) {
             case '1.0.1':
                 // 增加测试 - 冗余的字段
-                // $this->addColumn('{{%addon_example_curd}}', 'redundancy_field', 'varchar(48)');
+                // $this->addColumn('{{%addon_example_curd}}', 'field1', 'varchar(48)');
                 break;
             case '1.0.2':
                 // 删除测试 - 冗余的字段
-                // $this->dropColumn('{{%addon_example_curd}}', 'redundancy_field');
+                // $this->dropColumn('{{%addon_example_curd}}', 'field2');
                 break;
         }
     }

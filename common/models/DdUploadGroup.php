@@ -1,4 +1,11 @@
 <?php
+/**
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2020-07-29 01:55:55
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-07-29 01:55:58
+ */
+ 
 
 namespace common\models;
 
@@ -22,7 +29,7 @@ class DdUploadGroup extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'dd_upload_group';
+        return '{{%upload_group}}';
     }
 
     /**

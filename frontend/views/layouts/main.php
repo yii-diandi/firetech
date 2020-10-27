@@ -3,27 +3,13 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-13 09:20:33
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-05-22 15:56:07
+ * @Last Modified time: 2020-10-23 16:18:52
  */
- 
-/***
- * @开源软件: 店滴AI-基于AI的软硬件开源解决方案
- * @官方地址: http://www.wayfirer.com/
- * @版本: 1.0
- * @邮箱: 2192138785@qq.com
- * @作者: Wang Chunsheng
- * @Date: 2020-02-28 22:38:40
- * @LastEditTime: 2020-04-25 02:48:54
- */
-
-/* @var $this \yii\web\View */
-/* @var $content string */
-
 use common\helpers\ImageHelper;
+use common\widgets\Alert;
+use frontend\assets\AppAsset;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
-use frontend\assets\AppAsset;
-use common\widgets\Alert;
 
 $settings = Yii::$app->settings;
 
@@ -103,8 +89,10 @@ AppAsset::register($this);
 										<li><a href="#video-watch" data-scroll-nav="2">应用场景</a></li>
 										<li><a href="#our-projects" data-scroll-nav="3">智能设备</a></li>
 										<li><a href="#pricing-plans" data-scroll-nav="4">特色优势</a></li>
-										<li><a href="http://bbs.wayfirer.com/" target="_block">开源社区</a></li>
+										<li><a href="http://www.hopesfire.com/" target="_block">开源社区</a></li>
 										<li><a href="#newsletter-subscribe" data-scroll-nav="6">联系我们</a></li>
+										<li><a href="/backend">登录</a></li>
+										<li><a href="/backend/site/signup">注册</a></li>
                                     </ul><!-- #menu-main end -->
 									<div class="menu-mobile-btn">
 										<div class="hamburger hamburger--slider">

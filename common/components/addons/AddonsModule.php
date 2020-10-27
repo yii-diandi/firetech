@@ -4,39 +4,38 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-26 09:30:21
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-08 21:29:28
+ * @Last Modified time: 2020-09-25 20:23:29
  */
 
 namespace common\components\addons;
 
-use Yii;
 use common\helpers\ArrayHelper;
-use common\models\DdModules;
+use common\helpers\FileHelper;
 use diandi\addons\modules\searchs\DdAddons;
 use diandi\admin\components\MenuHelper;
-use \yii\base\Module;
+use Yii;
+use yii\base\Module;
 use yii\web\HttpException;
 
 class AddonsModule extends Module
 {
-   
-
     public function init()
     {
         global $_GPC;
-         
+        $logPath = Yii::getAlias('@runtime/base/addons/'.date('ymd').'.log');
+
         $module = $this->id;
         $config = [];
         Yii::$app->params['bloc_id'] = Yii::$app->service->commonGlobalsService->getBloc_id();
         Yii::$app->params['store_id'] = Yii::$app->service->commonGlobalsService->getStore_id();
-      
-        
+        FileHelper::writeLog($logPath, '模块api父类',[Yii::$app->params['bloc_id'],Yii::$app->params['store_id']]);
+
         $store_id = Yii::$app->params['store_id'];
-         
-        if(empty($store_id) && Yii::$app->id !='app-frontend' && Yii::$app->id !='app-console' && Yii::$app->request->getPathInfo() != 'wechat/basics/notify'){
-            throw new HttpException(400,'请选择商户后操作');
+
+        if (empty($store_id) && Yii::$app->id != 'app-frontend' && Yii::$app->id != 'app-console' && Yii::$app->request->getPathInfo() != 'wechat/basics/notify') {
+            throw new HttpException(400, '请选择商户后操作');
         }
-        
+
         /* 加载语言包 */
         if (!isset(Yii::$app->i18n->translations[$module])) {
             Yii::$app->i18n->translations[$module] = [
@@ -49,21 +48,27 @@ class AddonsModule extends Module
         $appId = Yii::$app->id;
         switch ($appId) {
             case 'app-backend':
-                $configFile = 'backend.php';
+                $configPath = Yii::getAlias('@common/addons/'.$module.'/config/backend.php');
                 Yii::$app->params['menu'] = $this->getMenus();
+
                 break;
             case 'app-api':
-                $configFile = 'api.php';
+                $configPath = Yii::getAlias('@common/addons/'.$module.'/config/api.php');
                 break;
             case 'app-frontend':
-                $configFile = 'frontend.php';
+                $configPath = Yii::getAlias('@common/addons/'.$module.'/config/frontend.php');
                 break;
             default:
         }
+
+        if (file_exists($configPath)) {
+            $config = require $configPath;
+        }
+
         // 获取应用程序的组件
         $components = \Yii::$app->getComponents();
 
-        if ($config['components']) {
+        if (!empty($config['components'])) {
             // 遍历子模块独立配置的组件部分，并继承应用程序的组件配置
             foreach ($config['components'] as $k => $component) {
                 if (isset($component['class']) && isset($components[$k]) == false) {
@@ -71,10 +76,9 @@ class AddonsModule extends Module
                 }
                 $config['components'][$k] = array_merge($components[$k], $component);
             }
+
+            Yii::$app->setComponents($config['components']);
         }
-        // 将新的配置设置到应用程序
-        // 很多都是写 Yii::configure($this, $config)，但是并不适用子模块，必须写 Yii::$app
-        \Yii::configure(\Yii::$app, $config);
     }
 
     public function getMenus()
@@ -89,7 +93,7 @@ class AddonsModule extends Module
                 'icon' => $menu['icon'],
                 'order' => $menu['order'],
                 'type' => $menu['type'],
-                'targetType' => "iframe-tab",
+                'targetType' => 'iframe-tab',
                 'url' => $menu['route'],
             ];
             //处理我们的配置
@@ -103,10 +107,12 @@ class AddonsModule extends Module
             //没配置图标的显示默认图标
             (!isset($return['icon']) || !$return['icon']) && $return['icon'] = 'fa fa-circle-o';
             $items && $return['children'] = $items;
+
             return  $return;
         };
         $where = ['is_sys' => 'addons', 'module_name' => $this->id];
         $menus = MenuHelper::getAssignedMenu(Yii::$app->user->id, null, $callback, $where);
+
         return ArrayHelper::arraySort($menus, 'order', 'asc');
     }
 }

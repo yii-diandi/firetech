@@ -3,8 +3,8 @@
 /**
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-13 04:06:57
- * @Last Modified by:   Wang Chunsheng 2192138785@qq.com
- * @Last Modified time: 2020-04-05 12:28:10
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-09-07 10:07:50
  */
 
 
@@ -26,8 +26,7 @@ class UserController extends AController
      *     summary="swg文档",
      *     @SWG\Response(
      *         response = 200,
-     *         description = "swg文档",
-     *         @SWG\Schema(ref = "#/definitions/User")
+     *         description = "swg文档"
      *     ),
      *     @SWG\Schema(
      *         @SWG\Property(

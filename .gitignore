@@ -26,31 +26,17 @@ phpunit.phar
 /phpunit.xml
 
 /.vagrant
-backend/runtime
 frontend/web/ErrorFiles
-frontend/runtime
-frontend/web/assets
+
 frontend/web/attachment
-frontend/web/backend/assets
-api/runtime
 api/modules/wechat/log
-console/runtime/logs
 frontend/web/u.asp
 frontend/web/u.phpstorm
 
 # ignore generated files
 runtime/.gitignore
-backend/runtime/
 frontend/web/attachment/
-frontend/controllers/DocController.php
-api/modules/wechat/log/wechat.log
-api/modules/wechat/log/200324/login.log
-api/modules/wechat/log/200325/login.log
-api/modules/wechat/log/paynotify/wechat.log
-backend/runtime
-frontend/web/attachment
-frontend/web/backend/assets
-api/modules/wechat/log/200329/login.log
+api/modules/wechat/log/
 frontend/web/ErrorFiles
 frontend/web/u.asp
 frontend/web/.uini
@@ -60,3 +46,6 @@ vendor
 common/widgets/adminlte/yii-vue/node_modules
 node_modules
 common/addons/*
+#common/config/main-local.php
+common/config/main-local.php
+console/config/main-local.php

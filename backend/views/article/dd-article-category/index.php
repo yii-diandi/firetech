@@ -3,7 +3,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-04-12 18:39:42
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-05-22 14:06:20
+ * @Last Modified time: 2020-07-10 21:16:12
  */
 use leandrogehlen\treegrid\TreeGrid;
 use yii\helpers\Html;
@@ -15,16 +15,9 @@ use yii\helpers\Html;
 $this->title = '文章分类';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<ul class="nav nav-tabs">
-    
-    <li  class="active">
-        <?= Html::a('分类管理', ['index'], ['class' => 'btn btn-primary']); ?>
-    </li>
-    <li>
-        <?= Html::a('添加分类', ['create'], ['class' => '']); ?>
-    </li>
-</ul>
-<div class="firetech-main"  style="margin-top:20px;">
+<?= $this->render('_tab') ?>
+
+<div class="firetech-main">
 
 <div class="dd-article-category-index ">
     <?php // echo $this->render('_search', ['model' => $searchModel]);?>

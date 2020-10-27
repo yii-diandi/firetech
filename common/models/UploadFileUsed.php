@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-21 22:02:36
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-05-21 22:02:36
+ * @Last Modified time: 2020-07-29 01:58:02
  */
  
 
@@ -29,7 +29,7 @@ class UploadFileUsed extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'dd_upload_file_used';
+        return '{{%upload_file_used}}';
     }
 
     /**

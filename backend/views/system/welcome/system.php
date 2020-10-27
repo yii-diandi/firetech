@@ -4,7 +4,7 @@
 
 $this->title = '商品管理';
 ?>
-<div class="firetech-main"  style="margin-top:20px;">
+<div class="firetech-main">
     <?php if ($plugins == 'wxapp') { ?>
         小程序
         <div class="row">

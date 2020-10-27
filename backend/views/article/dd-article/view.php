@@ -2,8 +2,8 @@
 /**
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-04-12 18:38:20
- * @Last Modified by:   Wang Chunsheng 2192138785@qq.com
- * @Last Modified time: 2020-04-12 18:38:28
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-07-10 21:15:30
  */
  
 
@@ -18,18 +18,8 @@ $this->params['breadcrumbs'][] = ['label' => '文章', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<ul class="nav nav-tabs">
-    
-    <li>
-        <?= Html::a('文章管理', ['index'], ['class' => '']) ?>
-    </li>
-    <li>
-        <?= Html::a('添加文章', ['create'], ['class' => '']) ?>
-    </li>
-    <li  class="active">
-        <?= Html::a('文章详情', ['view'], ['class' => '']) ?>
-    </li>
-</ul>
+<?= $this->render('_tab') ?>
+
 <div class=" firetech-main">
 <div class="dd-article-view">
 

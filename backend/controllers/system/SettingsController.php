@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-28 23:43:29
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-06-23 20:27:06
+ * @Last Modified time: 2020-09-07 11:09:24
  */
 
 
@@ -55,6 +55,20 @@ class SettingsController extends BaseController
                     // your custom code
                 },
                 'modelClass' => \common\models\forms\Wxapp::class,
+            ],
+            'wechat' => [
+                'class' => \yii2mod\settings\actions\SettingsAction::class,
+                'view' => 'wechat',
+                'successMessage' => '保存成功',
+
+                // also you can use events as follows:
+                'on beforeSave' => function ($event) {
+                    // your custom code
+                },
+                'on afterSave' => function ($event) {
+                    // your custom code
+                },
+                'modelClass' => \common\models\forms\Wechat::class,
             ],
             'wechatpay' => [
                 'class' => \yii2mod\settings\actions\SettingsAction::class,

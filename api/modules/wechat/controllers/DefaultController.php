@@ -2,11 +2,12 @@
 
 namespace api\modules\wechat\controllers;
 
-use backend\controllers\BaseController;
+use api\controllers\AController;
+
 /**
 * Default controller for the `wechat` module
 */
-class DefaultController extends BaseController
+class DefaultController extends AController
 {
 /**
 * Renders the index view for the module

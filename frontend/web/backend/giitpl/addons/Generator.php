@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-30 10:45:20
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-06-24 20:51:57
+ * @Last Modified time: 2020-07-20 10:40:53
  */
 
 namespace addonstpl;
@@ -11,7 +11,6 @@ namespace addonstpl;
 use yii\gii\CodeFile;
 use yii\helpers\Html;
 use Yii;
-use yii\helpers\StringHelper;
 
 class Generator extends \yii\gii\Generator
 {
@@ -181,12 +180,10 @@ EOD;
             $this->render('uninstall.php')
         );
 
-        
         $files[] = new CodeFile(
             $modulePath.'/AutocompleteAsset.php',
             $this->render('AutocompleteAsset.php')
         );
-        
 
         $files[] = new CodeFile(
             $modulePath.'/upgrade.php',
@@ -224,6 +221,8 @@ EOD;
      */
     public function getModulePath()
     {
+        $this->moduleClass = 'common\\addons\\'.$this->moduleID.'\\site';
+
         return Yii::getAlias('@'.str_replace('\\', '/', substr($this->moduleClass, 0, strrpos($this->moduleClass, '\\'))));
     }
 
@@ -256,6 +255,4 @@ EOD;
     {
         return $this->$k;
     }
-
-
 }

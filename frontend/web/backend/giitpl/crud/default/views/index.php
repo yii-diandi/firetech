@@ -3,8 +3,8 @@
 /**
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-15 00:19:52
- * @Last Modified by:   Wang chunsheng  <2192138785@qq.com>
- * @Last Modified time: 2020-04-29 20:13:24
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-08-12 16:53:26
  */
 
 
@@ -74,8 +74,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     }
                     ?>
-
-                    ['class' => 'yii\grid\ActionColumn'],
+                    
+                    ['class' => 'common\components\ActionColumn'],
                     ],
                     ]); ?>
                 <?php else : ?>

@@ -7,7 +7,7 @@
  */
 
 ?>
-<div class="firetech-main" style="margin-top:20px;">
+<div class="firetech-main">
 
     <div class="box">
         <div class="box-body table-responsive">

@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 ?>
 <?php echo $this->renderAjax('_tab'); ?>
 
-<div class="firetech-main"  style="margin-top:20px;">
+<div class="firetech-main">
     <div class="panel panel-default">
         <div class="box-body">
             <div class="dd-member-create">

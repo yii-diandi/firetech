@@ -3,15 +3,19 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-17 08:19:56
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-06-02 07:46:55
+ * @Last Modified time: 2020-08-03 11:29:00
  */
 
 namespace common\widgets\adminlte;
 
+use common\helpers\MapHelper;
 use yii\helpers\Html;
 use yii\widgets\InputWidget;
 use Faker\Provider\Uuid;
+use phpDocumentor\Reflection\DocBlock\Tags\Throws;
 use Yii;
+use yii\web\BadRequestHttpException;
+use yii\web\HttpException;
 
 class Map extends InputWidget
 {
@@ -133,11 +137,16 @@ Css
     {
         $http_type = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
         
-        $getIp = Yii::$app->request->userIP;
+        $getIp = MapHelper::get_client_ip();    
+        
+        if(!$this->secret_key){
+            
+            throw new \yii\web\HttpException(402,'请在公司参数中设置百度地图secret_key');
+        }
         
         $content = file_get_contents($http_type."api.map.baidu.com/location/ip?ak=".$this->secret_key."&ip={$getIp}&coor=bd09ll");
         $json = json_decode($content);
-        
+      
         $this->defaultSearchAddress = $json->{'content'}->{'address'};
         
         return [

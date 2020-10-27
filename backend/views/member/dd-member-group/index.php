@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?= $this->render('_tab') ?>
 
-<div class="firetech-main"  style="margin-top:20px;">
+<div class="firetech-main">
 
 <div class="dd-member-group-index ">
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

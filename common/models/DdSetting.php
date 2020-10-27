@@ -1,4 +1,11 @@
 <?php
+/**
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2020-07-29 01:55:09
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-07-29 01:55:11
+ */
+ 
 
 namespace common\models;
 
@@ -20,7 +27,7 @@ class DdSetting extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'dd_setting';
+        return '{{%setting}}';
     }
 
     /**

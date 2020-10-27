@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-14 23:50:50
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-08 23:35:04
+ * @Last Modified time: 2020-08-01 11:02:02
  */
 
 
@@ -12,6 +12,7 @@ use richardfan\widget\JSRegister;
 use yii\helpers\Html;
 use yii\web\View;
 
+$is_addons = Yii::$app->params['is_addons'];
 /* @var $this \yii\web\View */
 /* @var $content string */
 $this->registerJs("window.sysinfo={
@@ -45,11 +46,7 @@ if (Yii::$app->controller->action->id === 'login' || Yii::$app->controller->acti
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
-        <style>
-            .firetech-main {
-                margin-top: 20px;
-            }
-        </style>
+      
     </head>
 
     <body class="hold-transition <?= Yii::$app->params['Website']['themcolor'] ?>   sidebar-mini fixed">
@@ -74,7 +71,11 @@ if (Yii::$app->controller->action->id === 'login' || Yii::$app->controller->acti
 
             <?= $this->render(
                 'footer.php',
-                ['content' => $content, 'directoryAsset' => $directoryAsset]
+                [
+                    'content' => $content, 
+                    'directoryAsset' => $directoryAsset,
+                    'is_addons'=>$is_addons
+                ]
             ) ?>
 
         </div>

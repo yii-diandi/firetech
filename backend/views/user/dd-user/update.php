@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = 'Update';
         <?= Html::a('会员管理', ['index'], ['class' => '']) ?>
     </li>
 </ul>
-<div class="firetech-main"  style="margin-top:20px;">
+<div class="firetech-main">
     <div class="panel panel-default">
         <div class="box-body">
             <div class="dd-user-update">

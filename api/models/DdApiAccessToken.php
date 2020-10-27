@@ -3,10 +3,9 @@
 /**
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-12 16:40:19
- * @Last Modified by:   Wang Chunsheng 2192138785@qq.com
- * @Last Modified time: 2020-03-12 16:40:19
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-09-16 22:42:40
  */
-
 
 namespace api\models;
 
@@ -15,37 +14,43 @@ use common\models\DdMemberGroup;
 use yii\web\UnauthorizedHttpException;
 use yii\web\IdentityInterface;
 use yii\db\ActiveRecord;
+use yii\filters\RateLimitInterface;
 
 /**
  * This is the model class for table "dd_api_access_token".
  *
- * @property int $id
+ * @property int         $id
  * @property string|null $refresh_token 刷新令牌
- * @property string|null $access_token 授权令牌
- * @property int|null $member_id 用户id
- * @property string|null $openid 授权对象openid
- * @property string|null $group 组别
- * @property int|null $status 状态[-1:删除;0:禁用;1启用]
- * @property int|null $create_time 创建时间
- * @property int|null $updated_time 修改时间
+ * @property string|null $access_token  授权令牌
+ * @property int|null    $member_id     用户id
+ * @property string|null $openid        授权对象openid
+ * @property string|null $group         组别
+ * @property int|null    $status        状态[-1:删除;0:禁用;1启用]
+ * @property int|null    $create_time   创建时间
+ * @property int|null    $updated_time  修改时间
  */
-
-class DdApiAccessToken extends ActiveRecord implements IdentityInterface
+class DdApiAccessToken extends ActiveRecord implements IdentityInterface, RateLimitInterface
 {
     const STATUS_DELETED = 1; //删除
     const STATUS_INACTIVE = 2; //拉黑
     const STATUS_ACTIVE = 0; //正常
+
+    // 次数限制
+    public  $rateLimit;
+
+    // 时间范围
+    public  $timeLimit;
 
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'dd_api_access_token';
+        return '{{%api_access_token}}';
     }
 
     /**
-     * 行为
+     * 行为.
      */
     public function behaviors()
     {
@@ -55,10 +60,35 @@ class DdApiAccessToken extends ActiveRecord implements IdentityInterface
                 'class' => \common\behaviors\SaveBehavior::className(),
                 'updatedAttribute' => 'create_time',
                 'createdAttribute' => 'update_time',
-            ]
+            ],
         ];
     }
 
+    public function getRateLimit($request, $action)
+    {
+        $this->rateLimit = Yii::$app->params['api']['rateLimit'];
+        $this->timeLimit = Yii::$app->params['api']['timeLimit'];
+      
+        return [$this->rateLimit, $this->timeLimit];
+    }
+
+    public function loadAllowance($request, $action)
+    {
+        $allowance = Yii::$app->cache->get($this->getCacheKey('api_rate_allowance'));
+        $timestamp = Yii::$app->cache->get($this->getCacheKey('api_rate_timestamp'));
+
+        if ($allowance === false) {
+            return [$this->timeLimit, time()];
+        }
+
+        return [$allowance, $timestamp];
+    }
+
+    public function saveAllowance($request, $action, $allowance, $timestamp)
+    {
+        Yii::$app->cache->set($this->getCacheKey('api_rate_allowance'), $allowance, $this->timeLimit);
+        Yii::$app->cache->set($this->getCacheKey('api_rate_timestamp'), $timestamp, $this->timeLimit);
+    }
 
     /**
      * {@inheritdoc}
@@ -66,7 +96,7 @@ class DdApiAccessToken extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['group_id', 'status', 'create_time', 'updated_time'], 'integer'],
+            [['group_id', 'status', 'allowance', 'allowance_updated_at', 'create_time', 'updated_time'], 'integer'],
             [['refresh_token', 'access_token'], 'string', 'max' => 60],
             [['openid'], 'string', 'max' => 50],
             [['access_token'], 'unique'],
@@ -76,8 +106,10 @@ class DdApiAccessToken extends ActiveRecord implements IdentityInterface
 
     /**
      * @param mixed $token
-     * @param null $type
+     * @param null  $type
+     *
      * @return array|mixed|ActiveRecord|\yii\web\IdentityInterface|null
+     *
      * @throws UnauthorizedHttpException
      */
     public static function findIdentityByAccessToken($token, $type = null)
@@ -98,12 +130,10 @@ class DdApiAccessToken extends ActiveRecord implements IdentityInterface
         return $service->AccessTokenService->getTokenToCache($token, $type);
     }
 
-
-
-
     /**
      * @param $token
      * @param null $group
+     *
      * @return AccessToken|\common\models\base\User|null
      */
     public static function findIdentityByRefreshToken($token, $group = null)
@@ -112,20 +142,17 @@ class DdApiAccessToken extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * 关联用户
+     * 关联用户.
      *
      * @return \yii\db\ActiveQuery
      */
     public function getMember()
     {
-
         return $this->hasOne(DdMember::class, ['member_id' => 'member_id']);
     }
 
-
-
     /**
-     * 关联授权角色
+     * 关联授权角色.
      *
      * @return \yii\db\ActiveQuery
      */
@@ -161,13 +188,23 @@ class DdApiAccessToken extends ActiveRecord implements IdentityInterface
 
     /**
      * @param string $authKey
-     * @return boolean if auth key is valid for current user
+     *
+     * @return bool if auth key is valid for current user
      */
     public function validateAuthKey($authKey)
     {
         return $this->getAuthKey() === $authKey;
     }
 
+    /**
+     * @param $key
+     *
+     * @return array
+     */
+    public function getCacheKey($key)
+    {
+        return [__CLASS__, $this->getId(), $key];
+    }
 
     /**
      * {@inheritdoc}

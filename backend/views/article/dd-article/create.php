@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-22 15:09:59
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-05-22 15:31:24
+ * @Last Modified time: 2020-07-10 21:15:17
  */
  
 
@@ -19,15 +19,9 @@ $this->params['breadcrumbs'][] = ['label' => '文章', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<ul class="nav nav-tabs">
-    <li  class="active">
-        <?= Html::a('添加 文章', ['create'], ['class' => 'btn btn-primary']) ?>
-    </li>
-    <li>
-        <?= Html::a('文章管理', ['index'], ['class' => '']) ?>
-    </li>
-</ul>
-<div class="firetech-main"  style="margin-top:20px;">
+<?= $this->render('_tab') ?>
+
+<div class="firetech-main">
     <div class="panel panel-default">
         <div class="box-body">
             <div class="dd-article-create">

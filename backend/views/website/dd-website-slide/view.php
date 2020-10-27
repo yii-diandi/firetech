@@ -3,8 +3,8 @@
 /**
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-29 00:27:31
- * @Last Modified by:   Wang Chunsheng 2192138785@qq.com
- * @Last Modified time: 2020-03-29 00:27:32
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-07-10 21:13:05
  */
 
 
@@ -19,17 +19,8 @@ $this->params['breadcrumbs'][] = ['label' => '幻灯片', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<ul class="nav nav-tabs">
-    <li>
-        <?= Html::a('添加幻灯片', ['create'], ['class' => '']) ?>
-    </li>
-    <li>
-        <?= Html::a('幻灯片管理', ['index'], ['class' => '']) ?>
-    </li>
-    <li class="active">
-        <?= Html::a('幻灯片管理', ['view'], ['class' => '']) ?>
-    </li>
-</ul>
+<?= $this->render('_tab') ?>
+
 <div class=" firetech-main">
     <div class="dd-website-slide-view">
 

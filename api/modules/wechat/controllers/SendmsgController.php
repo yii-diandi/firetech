@@ -3,19 +3,20 @@
 /**
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-05 08:26:29
- * @Last Modified by:   Wang Chunsheng 2192138785@qq.com
- * @Last Modified time: 2020-03-30 05:37:06
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-09-07 10:03:22
  */
 
 namespace api\modules\wechat\controllers;
 
+use api\controllers\AController;
 use backend\controllers\BaseController;
 use Yii;
 
 /**
  * login controller for the `wechat` module
  */
-class SendmsgController extends BaseController
+class SendmsgController extends AController
 {
     public $modelClass = '';
 
@@ -26,8 +27,7 @@ class SendmsgController extends BaseController
      *     summary="发送订单通知",
      *     @SWG\Response(
      *         response = 200,
-     *         description = "发送订单通知",
-     *         @SWG\Schema(ref = "#/definitions/Aiface")
+     *         description = "发送订单通知"
      *     ),
      * @SWG\Parameter(
      *      name="access-token",

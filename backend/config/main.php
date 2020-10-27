@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-05 08:21:08
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-06-27 00:31:08
+ * @Last Modified time: 2020-08-09 12:15:52
  */
 $params = array_merge(
     require __DIR__.'/../../common/config/params.php',
@@ -98,21 +98,14 @@ return [
         'view' => [
             'class' => 'yii\web\View',
             'renderers' => [
-                'tpl' => [
+                'vue' => [
                     'class' => 'yii\smarty\ViewRenderer',
                     'cachePath' => '@runtime/Smarty/cache',
-                ],
-                'twig' => [
-                    'class' => 'yii\twig\ViewRenderer',
-                    'cachePath' => '@runtime/Twig/cache',
-                    // Array of twig options:
                     'options' => [
-                        'auto_reload' => true,
+                        'left_delimiter' => '<{',
+                        'right_delimiter' => '}>',
                     ],
-                    'globals' => ['html' => '\yii\helpers\Html'],
-                    'uses' => ['yii\bootstrap'],
                 ],
-                // ...
             ],
         ],
         'authManager' => [

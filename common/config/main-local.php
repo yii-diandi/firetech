@@ -3,14 +3,14 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-09 22:51:22
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-06-29 21:53:30
+ * @Last Modified time: 2020-08-12 22:34:04
  */
 
 return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=locai',
+            'dsn' => 'mysql:host=127.0.0.1;dbname=locai',
             'tablePrefix' => 'dd_',
             'username' => 'root',
             'password' => 'root',
@@ -20,16 +20,16 @@ return [
                 PDO::ATTR_EMULATE_PREPARES => false,
             ],
         ],
-        'mongodb' => [
-            'class' => '\yii\mongodb\Connection',
-            'dsn' => 'mongodb://@localhost:27017/mydatabase',
-            'options' => [
-                'username' => 'ceshi',
-                'password' => 'Password',
-            ],
-        ],
+        // 'mongodb' => [
+        //     'class' => '\yii\mongodb\Connection',
+        //     'dsn' => 'mongodb://@localhost:27017/mydatabase',
+        //     'options' => [
+        //         'username' => 'ceshi',
+        //         'password' => 'Password',
+        //     ],
+        // ],
          /* ------ 缓存 ------ **/
-         'cache' => [
+        'cache' => [
             'class' => 'yii\redis\Cache',
         ],
         /* ------ REDIS ------ **/
@@ -39,6 +39,7 @@ return [
             'port' => 6379,
             'database' => 2,
         ],
+        
     ],
     'language' => 'zh-CN',
 ];

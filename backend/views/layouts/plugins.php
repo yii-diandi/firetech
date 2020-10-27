@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-14 23:52:27
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-05-08 12:14:47
+ * @Last Modified time: 2020-07-10 20:25:13
  */
 
 
@@ -43,11 +43,7 @@ if (Yii::$app->controller->action->id === 'login') {
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
-        <style>
-            .firetech-main {
-                margin-top: 20px;
-            }
-        </style>
+       
     </head>
 
     <body class="hold-transition skin-blue sidebar-mini fixed">

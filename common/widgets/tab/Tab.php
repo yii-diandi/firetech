@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng
  * @Date:   2020-04-29 02:27:17
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-07 11:11:41
+ * @Last Modified time: 2020-08-01 11:05:33
  */
 
 namespace common\widgets\tab;
@@ -40,6 +40,7 @@ class Tab extends Widget
 
     public function init()
     {
+        global $_GPC;
         parent::init();
   
         if (count($this->titles) != count($this->urls)) {
@@ -59,10 +60,26 @@ class Tab extends Widget
             if (Yii::$app->controller->action->id != 'update' && $this->urls[$key] == 'update') {
                 continue;
             }
-            $option = http_build_query($this->options);
+            $active = false;
+            $option = '';
+            if($this->options){
+                if(count($this->options)==1){
+                    $option = http_build_query($this->options);
+                }elseif(!empty($this->options[$key])){
+                    $option = http_build_query($this->options[$key]);
+                }
+                $active = (Yii::$app->controller->action->id == $this->urls[$key] && http_build_query($_GPC) == $option)?true:false;
+
+            }else{
+                $active = (Yii::$app->controller->action->id == $this->urls[$key])?true:false;
+
+            }
+           
+
+            
             $items[] = [
                 'label' => $title,
-                'active' => Yii::$app->controller->action->id == $this->urls[$key],
+                'active' => $active,
                 'url' => Url::to([$this->urls[$key].'?'.$option]),
             ];
         }

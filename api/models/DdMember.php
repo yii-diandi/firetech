@@ -3,13 +3,15 @@
 /**
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-12 00:35:06
- * @Last Modified by:   Wang Chunsheng 2192138785@qq.com
- * @Last Modified time: 2020-03-21 15:23:50
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-09-16 20:40:14
  */
 
 
 namespace api\models;
 
+use common\helpers\ErrorsHelper;
+use common\helpers\FileHelper;
 use common\models\DdMemberAccount;
 use Yii;
 use yii\base\NotSupportedException;
@@ -49,7 +51,7 @@ class DdMember extends ActiveRecord
      */
     public static function tableName()
     {
-        return 'dd_member';
+        return '{{%member}}';
     }
 
 
@@ -97,23 +99,35 @@ class DdMember extends ActiveRecord
      */
     public function signup($username, $mobile, $password)
     {
+        $logPath = Yii::getAlias('@runtime/wechat/login/'.date('ymd').'.log');
+
         if (!$this->validate()) {
-            return null;
+            FileHelper::writeLog($logPath, '登录日志:会员注册校验失败'.json_encode($this->validate()));
+            return $this->validate();
         }
+        
         /* 查看用户名是否重复 */
         // $userinfo = $this->find()->where(['username' => $username])->select('member_id')->one();
         // if (!empty($userinfo)) {
         //     return ResultHelper::json(401, '用户名重复');
         // }
         /* 查看手机号是否重复 */
-        $userinfo = $this->find()->where(['mobile' => $mobile])
+        if($mobile){
+            
+            $userinfo = $this->find()->where(['mobile' => $mobile])
             ->andWhere(['<>', 'mobile', 0])->select('member_id')->one();
-        if (!empty($userinfo)) {
-            return ResultHelper::json(401, '手机号重复');
+            if (!empty($userinfo)) {
+                return ResultHelper::json(401, '手机号重复');
+            }
+         
         }
+        FileHelper::writeLog($logPath, '登录日志:会员注册校验手机号'.json_encode($mobile));
+        
+       
         $this->username = $username;
         $this->mobile = $mobile;
         $this->level  = 1;
+        $this->group_id  = 1;
 
         $this->setPassword($password);
         $this->generateAuthKey();
@@ -132,6 +146,11 @@ class DdMember extends ActiveRecord
             $service->namespace = 'api';
             $userinfo = $service->AccessTokenService->getAccessToken($this, 1);
             return $userinfo;
+        }else{
+            $msg = ErrorsHelper::getModelError($this);
+            FileHelper::writeLog($logPath, '登录日志:会员注册失败错误'.json_encode($msg));
+            return ResultHelper::json(401, $msg);
+            
         }
     }
 
@@ -314,9 +333,9 @@ class DdMember extends ActiveRecord
     public function rules()
     {
         return [
-            [['gender', 'address_id', 'wxapp_id', 'create_time', 'update_time'], 'integer'],
+            [['gender', 'address_id', 'wxapp_id','group_id', 'create_time', 'update_time'], 'integer'],
             [['username', 'openid', 'nickName', 'avatarUrl', 'verification_token', 'address'], 'string', 'max' => 255],
-            [['country', 'province', 'city'], 'string', 'max' => 50],
+            [['country', 'province', 'city'], 'string', 'max' => 100],
         ];
     }
 
@@ -337,6 +356,7 @@ class DdMember extends ActiveRecord
             'member_id' => '用户id',
             'openid' => 'OpenID',
             'nickName' => '昵称',
+            'group_id' => '用户组id',
             'avatarUrl' => '头像',
             'gender' => '性别',
             'country' => '国家',

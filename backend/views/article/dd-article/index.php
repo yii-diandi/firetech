@@ -2,12 +2,9 @@
 /**
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-04-12 18:37:35
- * @Last Modified by:   Wang Chunsheng 2192138785@qq.com
- * @Last Modified time: 2020-04-12 18:37:42
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-07-13 08:46:17
  */
- 
-
-use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -17,19 +14,12 @@ use yii\grid\GridView;
 $this->title = '文章';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<ul class="nav nav-tabs">
-    
-    <li  class="active">
-        <?= Html::a('文章管理', ['index'], ['class' => 'btn btn-primary']) ?>
-    </li>
-    <li>
-        <?= Html::a('添加文章', ['create'], ['class' => '']) ?>
-    </li>
-</ul>
-<div class="firetech-main"  style="margin-top:20px;">
+<?= $this->render('_tab'); ?>
+
+<div class="firetech-main">
 
 <div class="dd-article-index ">
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]);?>
     <div class="panel panel-default">
         <div class="box-body">
     <?= GridView::widget([
@@ -39,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
+            'cate.title',
             // 'ishot',
             // 'pcate',
             // 'ccate',

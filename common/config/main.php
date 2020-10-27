@@ -4,12 +4,12 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-02-29 16:57:27
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-02 12:39:50
+ * @Last Modified time: 2020-08-13 08:46:48
  */
 
 return [
     'name' => '店滴',
-    'version' => '1.0.1',
+    'version' => '1.0.7',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@vue' => '@common/widgets/adminlte/yii-vue',
@@ -26,7 +26,7 @@ return [
     'bootstrap' => [
         // 初始化模块依赖的扩展
         'diandi\addons\loader',
-        'queue'
+        'queue',
     ],
     'components' => [
         /* ------ 微信业务组件 ------ **/
@@ -38,6 +38,10 @@ return [
             'rebinds' => [ // 自定义服务模块
                 // 'cache' => 'common\components\Cache',
             ],
+        ],
+        // 缓存组件
+        'cachehelper' => [
+            'class' => 'common\helpers\CacheHelper',
         ],
         /* ------ 队列设置 ------ **/
         'queue' => [
@@ -72,24 +76,35 @@ return [
                 ],
             ],
         ],
-        'view' => [
-            'class' => 'yii\web\View',
-            'renderers' => [
-                'tpl' => [
-                    'class' => 'yii\smarty\ViewRenderer',
-                    'cachePath' => '@runtime/Smarty/cache',
-                ],
-                'twig' => [
-                    'class' => 'yii\twig\ViewRenderer',
-                    'cachePath' => '@runtime/Twig/cache',
-                    // Array of twig options:
-                    'options' => [
-                        'auto_reload' => true,
-                    ],
-                    'globals' => ['html' => '\yii\helpers\Html'],
-                    'uses' => ['yii\bootstrap'],
-                ],
-                // ...
+        'log' => [
+            'traceLevel' => YII_DEBUG ? 3 : 0,
+            //'flushInterval' => 1,
+            'targets' => [
+               [
+                  'class' => 'yii\log\EmailTarget', //默认邮件处理类
+                //   'class' => 'api\components\EmailTargetKen',//自定义日志处理类
+                  //'levels' => ['error', 'warning', 'trace', 'info'],//各种等级区分，根据需要使用
+                  'levels' => ['error', 'warning', 'trace', 'info'],
+                //   'categories' => ['email_log'],
+                  'mailer' => 'mailer',
+                  'message' => [
+                     'from' => ['ai@tuhuokeji.com' => 'admin'],
+                     'to' => ['ai@tuhuokeji.com'],
+                     'subject' => 'Log message',
+                  ],
+                  'except' => ['yii\web\HttpException:404'],  // 排除404，不然的话你会发现你的邮箱里全塞满了这些邮件
+                  'exportInterval' => 1, //阀值一个错误的时候就执行输出
+                  'logVars' => [],
+               ],
+               [
+                  'class' => 'yii\log\FileTarget', //默认文件处理类
+                  'levels' => ['error', 'warning'],
+                  'exportInterval' => 1,
+                  'categories' => ['myinfo'],
+                  //'categories' => ['yii\*'],//$categories the message categories to filter by. If empty, it means all categories are allowed.
+                  'logVars' => ['*'], //记录最基本的 []赋值也可以
+                  //'logFile' => '@runtime/logs/order.log'.date('Ymd'),//用日期方式记录日志
+               ],
             ],
         ],
     ],

@@ -3,25 +3,23 @@
 /**
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-12 19:45:45
- * @Last Modified by:   Wang Chunsheng 2192138785@qq.com
- * @Last Modified time: 2020-03-12 20:19:52
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-07-29 01:55:02
  */
-
 
 namespace common\models;
 
-use Yii;
 use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "dd_region".
  *
- * @property int $id
- * @property int|null $pid
+ * @property int         $id
+ * @property int|null    $pid
  * @property string|null $shortname
  * @property string|null $name
  * @property string|null $merger_name
- * @property int|null $level
+ * @property int|null    $level
  * @property string|null $pinyin
  * @property string|null $code
  * @property string|null $zip_code
@@ -36,10 +34,8 @@ class DdRegion extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'dd_region';
+        return '{{%region}}';
     }
-
-
 
     /**
      * {@inheritdoc}
@@ -54,13 +50,12 @@ class DdRegion extends \yii\db\ActiveRecord
         ];
     }
 
-
     public static function getRegion($parentId = 0)
     {
         $result = static::find()->where(['pid' => $parentId])->asArray()->all();
+
         return ArrayHelper::map($result, 'id', 'name');
     }
-
 
     /**
      * {@inheritdoc}

@@ -3,8 +3,8 @@
 /**
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-12 02:29:28
- * @Last Modified by:   Wang Chunsheng 2192138785@qq.com
- * @Last Modified time: 2020-03-23 14:47:34
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-09-08 09:13:24
  */
 
 
@@ -37,7 +37,7 @@ class DdWxappFans extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'dd_wxapp_fans';
+        return '{{%wxapp_fans}}';
     }
 
     /**
@@ -47,13 +47,12 @@ class DdWxappFans extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'openid', 'nickname', 'fans_info'], 'required'],
-            [['user_id', 'update_time', 'create_time', 'gender'], 'integer'],
+            [['user_id', 'update_time', 'create_time', 'gender','groupid'], 'integer'],
             [['fans_info'], 'string'],
             [['avatarUrl', 'secretKey'], 'string', 'max' => 255],
             [['openid', 'nickname'], 'string', 'max' => 50],
-            [['groupid'], 'string', 'max' => 60],
             [['unionid'], 'string', 'max' => 64],
-            [['country', 'city', 'province'], 'string', 'max' => 30],
+            [['country', 'city', 'province'], 'string', 'max' => 100],
         ];
     }
 

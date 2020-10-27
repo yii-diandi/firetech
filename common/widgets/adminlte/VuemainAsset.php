@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-06-03 12:29:49
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-06-16 20:32:34
+ * @Last Modified time: 2020-08-10 16:20:55
  */
 
 namespace common\widgets\adminlte;
@@ -24,7 +24,7 @@ class VuemainAsset extends AssetBundle
     ];
 
     public $js = [
-        'main.js',
+        // 'main.js',
     ];
 
     public $jsOptions = [

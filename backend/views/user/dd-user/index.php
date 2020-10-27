@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('会员管理', ['index'], ['class' => 'btn btn-primary']) ?>
     </li>
 </ul>
-<div class="firetech-main"  style="margin-top:20px;">
+<div class="firetech-main">
 
 <div class="dd-user-index ">
     <?php // echo $this->render('_search', ['model' => $searchModel]);?>

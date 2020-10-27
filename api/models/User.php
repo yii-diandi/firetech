@@ -1,4 +1,11 @@
 <?php
+/**
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2020-07-29 01:59:56
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-07-29 01:59:57
+ */
+ 
 namespace api\models;
 
 use Yii;
@@ -34,7 +41,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function tableName()
     {
-        return '{{%dd_user}}';
+        return '{{%user}}';
     }
 
     /**

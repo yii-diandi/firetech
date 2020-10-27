@@ -3,8 +3,8 @@
 /**
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-04-13 16:25:31
- * @Last Modified by:   Wang Chunsheng 2192138785@qq.com
- * @Last Modified time: 2020-04-13 16:28:19
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-07-10 19:32:33
  */
 
 
@@ -46,7 +46,7 @@ class DdUser extends \yii\db\ActiveRecord
         return [
             [['gender', 'address_id', 'wxapp_id', 'create_time', 'update_time'], 'integer'],
             [['open_id', 'nickName', 'avatarUrl'], 'string', 'max' => 255],
-            [['country', 'province', 'city'], 'string', 'max' => 50],
+            [['country', 'province', 'city'], 'string', 'max' => 100],
         ];
     }
 

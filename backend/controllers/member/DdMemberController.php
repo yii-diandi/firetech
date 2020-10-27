@@ -1,4 +1,11 @@
 <?php
+/**
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2020-09-18 11:07:02
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-09-18 11:07:26
+ */
+ 
 
 namespace backend\controllers\member;
 
@@ -29,6 +36,12 @@ class DdMemberController extends BaseController
                 ],
             ],
         ];
+    }
+
+    public function actionCacVs()
+    {
+        echo '34534';
+        die;
     }
 
     /**

@@ -2,8 +2,8 @@
 /**
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-31 18:11:45
- * @Last Modified by:   Wang Chunsheng 2192138785@qq.com
- * @Last Modified time: 2020-03-31 18:12:04
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-09-06 14:12:07
  */
  
 /**
@@ -52,19 +52,22 @@ use backend\controllers\BaseController;
  */
 class <?= $controllerClass ?> extends BaseController
 {
+    public $modelSearchName = "<?= isset($searchModelAlias) ? $searchModelAlias. "\n" : $searchModelClass. "\n" ?>";
+    
     /**
      * {@inheritdoc}
      */
     public function behaviors()
     {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
+        $behaviors = parent::behaviors();
+        $behaviors['verbs'] = [
+            'class' => VerbFilter::className(),
+            'actions' => [
+                'delete' => ['POST'],
             ],
         ];
+
+        return $behaviors;
     }
 
     /**

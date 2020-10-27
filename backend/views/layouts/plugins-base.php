@@ -3,8 +3,8 @@
 /**
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-14 23:52:39
- * @Last Modified by:   Wang Chunsheng 2192138785@qq.com
- * @Last Modified time: 2020-03-28 16:04:15
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-07-10 20:25:06
  */
 
 
@@ -48,10 +48,6 @@ if (Yii::$app->controller->action->id === 'login') {
                 padding: 15px;
                 min-height: 100vh;
 
-            }
-
-            .firetech-main {
-                margin-top: 20px;
             }
         </style>
     </head>

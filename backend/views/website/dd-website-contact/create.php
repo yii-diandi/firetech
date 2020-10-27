@@ -1,4 +1,11 @@
 <?php
+/**
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2020-07-10 21:14:08
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-07-10 21:14:08
+ */
+ 
 
 use yii\helpers\Html;
 
@@ -10,15 +17,9 @@ $this->params['breadcrumbs'][] = ['label' => '联系我们s', 'url' => ['index']
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<ul class="nav nav-tabs">
-    <li  class="active">
-        <?= Html::a('添加 联系我们', ['create'], ['class' => 'btn btn-primary']) ?>
-    </li>
-    <li>
-        <?= Html::a('联系我们管理', ['index'], ['class' => '']) ?>
-    </li>
-</ul>
-<div class="firetech-main"  style="margin-top:20px;">
+<?= $this->render('_tab') ?>
+
+<div class="firetech-main">
     <div class="panel panel-default">
         <div class="box-body">
             <div class="dd-website-contact-create">

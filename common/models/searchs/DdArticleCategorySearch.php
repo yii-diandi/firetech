@@ -1,4 +1,10 @@
 <?php
+/**
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2020-07-13 08:45:39
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-07-13 08:45:44
+ */
 
 namespace common\models\searchs;
 
@@ -32,7 +38,7 @@ class DdArticleCategorySearch extends DdArticleCategory
     }
 
     /**
-     * Creates data provider instance with search query applied
+     * Creates data provider instance with search query applied.
      *
      * @param array $params
      *

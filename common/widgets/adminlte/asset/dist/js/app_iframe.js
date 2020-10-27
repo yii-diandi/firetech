@@ -2,7 +2,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-02-29 20:08:50
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-09 09:06:03
+ * @Last Modified time: 2020-08-06 15:59:30
  */
 /**
  Core script to handle the entire theme and core functions
@@ -1169,7 +1169,63 @@ var App = function() {
 
 jQuery(document).ready(function() {
     App.init(); // init metronic core componets
+    
+   
+    
+
+
+
+    // globalDialog._data.dialogVisible=true 
 });
+
+
+let  globalDialog = new Vue({
+    el: '#global_dialog',
+    data() {
+        return {
+            dialogVisible: false,
+            url:'http://www.wayfirer.com/',
+            title:'店滴AI',
+            loading: true
+        };
+    },
+    created: function () {
+        let that = this;
+    },
+    methods: {
+        getTi(){
+            this.loading = false
+
+            console.log('加载事件',this.loading)
+        },
+        openbefore(){  
+             this.loading = true
+            console.log('加载',this.loading)
+        },
+        handleClose(done) {
+            this.url =''
+            
+            done();
+            
+            // this.$confirm('确认关闭？')
+            //     .then(_ => {
+            //         alert("确定")
+            //         done();
+            //     })
+            //     .catch(_ => {
+            //         alert("取消")
+            //     });
+        }
+    }
+})  
+
+function dialog(title,url){
+    console.log('567567')
+ 
+    globalDialog._data.url=url 
+    globalDialog._data.dialogVisible=true 
+    globalDialog._data.title=title 
+}
 /*
  * Context.js
  * Copyright Jacob Kelley
@@ -1920,6 +1976,7 @@ var addTabs = function(options) {
     }
 
     var pageId = options.id;
+    console.log(pageId)
 
     //判断这个id的tab是否已经存在,不存在就新建一个
     if (findTabPanel(pageId) === null) {

@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-03 07:34:54
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-05-03 08:56:39
+ * @Last Modified time: 2020-08-12 23:42:28
  */
 
 return [
@@ -27,9 +27,7 @@ return [
     ],
     'diandiai' => [],
     'wechatConfig' => [],
-    // 'diandi.admin.configs' => [
-    //     'defaultRoles' => [
-    //         '/module',
-    //     ],
-    // ],
+    'diandi.admin.configs' => [
+        'cacheDuration'=>0
+    ],
 ];

@@ -1,10 +1,6 @@
 <?php
-<<<<<<< HEAD
-namespace frontend\models;
-=======
 
-namespace backend\models;
->>>>>>> 0f9902b2266d0f23e4e19b628e4d62fad03644dc
+namespace frontend\models;
 
 use Yii;
 use yii\base\Model;
@@ -27,18 +23,11 @@ class PasswordResetRequestForm extends Model
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
-<<<<<<< HEAD
-            ['email', 'exist',
-                'targetClass' => '\common\models\User',
-                'filter' => ['status' => User::STATUS_ACTIVE],
-                'message' => 'There is no user with this email address.'
-=======
             [
                 'email', 'exist',
                 'targetClass' => '\common\models\User',
                 'filter' => ['status' => User::STATUS_ACTIVE],
                 'message' => '没有使用此电子邮件地址的用户。'
->>>>>>> 0f9902b2266d0f23e4e19b628e4d62fad03644dc
             ],
         ];
     }
@@ -59,11 +48,7 @@ class PasswordResetRequestForm extends Model
         if (!$user) {
             return false;
         }
-<<<<<<< HEAD
         
-=======
-
->>>>>>> 0f9902b2266d0f23e4e19b628e4d62fad03644dc
         if (!User::isPasswordResetTokenValid($user->password_reset_token)) {
             $user->generatePasswordResetToken();
             if (!$user->save()) {
@@ -71,18 +56,6 @@ class PasswordResetRequestForm extends Model
             }
         }
 
-<<<<<<< HEAD
-        return Yii::$app
-            ->mailer
-            ->compose(
-                ['html' => 'passwordResetToken-html', 'text' => 'passwordResetToken-text'],
-                ['user' => $user]
-            )
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
-            ->setTo($this->email)
-            ->setSubject('Password reset for ' . Yii::$app->name)
-            ->send();
-=======
         $template = ['html' => 'passwordResetToken-html', 'text' => 'passwordResetToken-text'];
         $subject  = 'Password reset for ' . Yii::$app->name;
 
@@ -98,6 +71,5 @@ class PasswordResetRequestForm extends Model
         return [
             'email' => '邮箱',
         ];
->>>>>>> 0f9902b2266d0f23e4e19b628e4d62fad03644dc
     }
 }

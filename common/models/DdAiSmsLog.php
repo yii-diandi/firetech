@@ -1,4 +1,11 @@
 <?php
+/**
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2020-07-29 01:51:44
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-07-29 01:51:46
+ */
+ 
 
 namespace common\models;
 
@@ -30,7 +37,7 @@ class DdAiSmsLog extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'dd_ai_sms_log';
+        return '{{%ai_sms_log}}';
     }
 
     /**

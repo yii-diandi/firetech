@@ -4,19 +4,22 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-18 06:48:40
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-08 22:11:48
+ * @Last Modified time: 2020-09-18 11:27:10
  */
 
 namespace api\controllers;
 
 use common\helpers\ResultHelper;
 use Yii;
+use yii\base\InlineAction;
+use yii\base\InvalidConfigException;
 use yii\rest\ActiveController;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBasicAuth;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\auth\QueryParamAuth;
 use yii\data\ActiveDataProvider;
+use yii\filters\RateLimiter;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -48,6 +51,14 @@ class AController extends ActiveController
     {
         /* 添加行为 */
         $behaviors = parent::behaviors();
+
+        // 速率限制
+        $behaviors['rateLimiter'] = [
+            'class' => RateLimiter::className(),
+            'enableRateLimitHeaders' => true,
+            'errorMessage'=>'访问接口太频繁'
+        ];
+
         $behaviors['authenticator'] = [
             'class' => CompositeAuth::className(),
             'authMethods' => [
@@ -58,16 +69,20 @@ class AController extends ActiveController
             // 不进行认证判断方法
             'optional' => $this->authOptional,
         ];
+
+        $urls = Yii::$app->settings->get('Weburl', 'urls');
+      
         // 跨域支持
         $behaviors['corsFilter'] = [
             'class' => \yii\filters\Cors::className(),
             'cors' => [
                 // restrict access to
-                'Origin' => ['http://www.ai.com', 'https://locahost:8080'],
-                // Allow only POST and PUT methods
-                'Access-Control-Request-Method' => ['POST', 'PUT'],
+                'Origin' => explode(',',$urls),
+                // Allow only POST and PUT methods POST, GET, OPTIONS, DELETE
+                'Access-Control-Request-Method' => ['POST','PUT','GET','OPTIONS','DELETE'],
+                'Access-Control-Allow-Headers'  => ['Content-Type','Referer','Content-Length','Authorization','Accept','X-Requested-With','access-token','bloc_id','store_id'],
                 // Allow only headers 'X-Wsse'
-                'Access-Control-Request-Headers' => ['X-Wsse'],
+                'Access-Control-Request-Headers' => ['X-Wsse','X-PINGOTHER'],
                 // Allow credentials (cookies, authorization headers, etc.) to be exposed to the browser
                 'Access-Control-Allow-Credentials' => true,
                 // Allow OPTIONS caching
@@ -82,32 +97,63 @@ class AController extends ActiveController
 
     public function beforeAction($action)
     {
-        
         Yii::$app->params['bloc_id'] = Yii::$app->service->commonGlobalsService->getBloc_id();
         Yii::$app->params['store_id'] = Yii::$app->service->commonGlobalsService->getStore_id();
-        if(empty(Yii::$app->params['bloc_id'])){
-            return ResultHelper::json('400','缺少公司参数bloc_id');
+        
+        if (empty(Yii::$app->params['bloc_id'])) {
+            return ResultHelper::json('400', '缺少公司参数bloc_id');
         }
-        if(empty(Yii::$app->params['store_id'])){
-            return ResultHelper::json('400','缺少门户参数参数store_id');
+        if (empty(Yii::$app->params['store_id'])) {
+            return ResultHelper::json('400', '缺少门户参数参数store_id');
         }
         return parent::beforeAction($action);
     }
 
+    public function createAction($id)
+    {
+        if ($id === '') {
+            $id = $this->defaultAction;
+        }
+        $actionMap = $this->actions();
+        if (isset($actionMap[$id])) {
+            try {
+                return \Yii::createObject($actionMap[$id], [$id, $this]);
+            } catch (InvalidConfigException $e) {
+            }
+        } elseif (preg_match('/^[a-z0-9\\-_]+$/', $id) && strpos($id, '--') === false && trim($id, '-') === $id) {
+            $methodName = 'action' . str_replace(' ', '', ucwords(implode(' ', explode('-', $id))));
+            
+            if (method_exists($this,$methodName)){
+                $method = new \ReflectionMethod($this,$methodName);
+                if ($method->isPublic() && strtolower($method->getName()) === strtolower($methodName)){
+                    return new InlineAction($id, $this, $methodName);
+                }
+            }
+        } else {
+            $methodName = 'action' . ucwords($id);
+            if (method_exists($this, $methodName)) {
+                $method = new \ReflectionMethod($this, $methodName);
+                if ($method->isPublic() && $method->getName() === $methodName) {
+                    return new InlineAction($id, $this, $methodName);
+                }
+            }
+        }
+        return null;
+    }
+
     public function actions()
     {
-
         $actions = parent::actions();
-        // header('content-type:application/json;charset=utf8');
-        // header('Access-Control-Allow-Origin:*');
-        // header('Access-Control-Allow-Methods:POST');
-        // header('Access-Control-Allow-Headers:x-requested-with,content-type');
+        
         // 注销系统自带的实现方法
         unset($actions['index'], $actions['update'], $actions['create'], $actions['delete'], $actions['view']);
         // 自定义数据indexDataProvider覆盖IndexAction中的prepareDataProvider()方法
         // $actions['index']['prepareDataProvider'] = [$this, 'indexDataProvider'];
         //需要在使用的方法加上跨域请求   
-
+        // header('content-type:application/json;charset=utf8');
+        // header('Access-Control-Allow-Origin:*');
+        // header('Access-Control-Allow-Methods:POST');
+        // header('Access-Control-Allow-Headers:x-requested-with,content-type');
         return $actions;
     }
 

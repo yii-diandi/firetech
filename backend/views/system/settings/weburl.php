@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-17 08:56:50
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-05-17 08:56:50
+ * @Last Modified time: 2020-09-08 14:12:42
  */
  
 
@@ -19,7 +19,7 @@ $this->title = Yii::t('app', '小程序设置');
 
 <?php echo $this->renderAjax('_tab'); ?>
 
-<div class="firetech-main"  style="margin-top:20px;">
+<div class="firetech-main">
     <div class="panel panel-default">
         <div class="box-body">
             <div class="dd-member-create">
@@ -30,6 +30,8 @@ $this->title = Yii::t('app', '小程序设置');
 
                 <?php echo $form->field($model, 'frendurl'); ?>
                 <?php echo $form->field($model, 'apiurl'); ?>
+                
+                <?php echo $form->field($model, 'urls'); ?>
 
                 <?php echo Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
 

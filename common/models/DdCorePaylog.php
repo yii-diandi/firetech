@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-14 04:47:22
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-04 23:41:36
+ * @Last Modified time: 2020-07-29 01:52:27
  */
 
 
@@ -38,7 +38,7 @@ class DdCorePaylog extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'dd_core_paylog';
+        return '{{%core_paylog}}';
     }
 
     

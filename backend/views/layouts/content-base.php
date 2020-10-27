@@ -3,7 +3,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-04-12 17:53:38
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-05-25 17:09:46
+ * @Last Modified time: 2020-08-06 16:20:05
  */
  
 
@@ -46,5 +46,6 @@ use yii\widgets\Breadcrumbs;
             <?= $content ?>
         </div>
     </div>
+
 </div>
 <!-- /.content-wrapper -->

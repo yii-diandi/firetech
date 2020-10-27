@@ -4,10 +4,12 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-31 07:58:05
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-05-26 08:35:38
+ * @Last Modified time: 2020-07-29 01:54:32
  */
 
 namespace common\models;
+
+use api\modules\wechat\models\DdWxappFans;
 
 /**
  * This is the model class for table "dd_member".
@@ -32,7 +34,7 @@ class DdMember extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'dd_member';
+        return '{{%member}}';
     }
 
     /**
@@ -56,10 +58,25 @@ class DdMember extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['gender', 'level', 'address_id', 'wxapp_id', 'create_time', 'update_time'], 'integer'],
-            [['open_id', 'nickName', 'avatarUrl'], 'string', 'max' => 255],
-            [['country', 'province', 'city'], 'string', 'max' => 50],
+            [['gender', 'level', 'address_id', 'wxapp_id','group_id', 'create_time', 'update_time'], 'integer'],
+            [['openid', 'nickName', 'avatarUrl'], 'string', 'max' => 255],
+            [['country', 'province', 'city'], 'string', 'max' => 100],
         ];
+    }
+
+    public function getAccount()
+    {
+        return $this->hasOne(DdMemberAccount::className(), ['member_id' => 'member_id']);
+    }
+
+    public function getGroup()
+    {
+        return $this->hasOne(DdMemberGroup::className(), ['group_id' => 'group_id']);
+    }
+
+    public function getFans()
+    {
+        return $this->hasOne(DdWxappFans::className(), ['user_id' => 'member_id']);
     }
 
     /**
@@ -69,7 +86,8 @@ class DdMember extends \yii\db\ActiveRecord
     {
         return [
             'member_id' => '用户ID',
-            'open_id' => 'OpenID',
+            'group_id' => '用户组ID',
+            'openid' => 'OpenID',
             'nickName' => '昵称',
             'avatarUrl' => '头像',
             'gender' => '性别',

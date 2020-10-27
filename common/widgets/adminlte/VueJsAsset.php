@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-06-03 12:29:49
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-06-30 23:34:35
+ * @Last Modified time: 2020-08-10 16:18:03
  */
 
 namespace common\widgets\adminlte;
@@ -11,6 +11,7 @@ namespace common\widgets\adminlte;
 use backend\assets\AppAsset;
 use Exception;
 use yii\web\AssetBundle;
+use yii\web\View;
 
 /**
  * Class VueJsAsset.
@@ -24,16 +25,19 @@ class VueJsAsset extends AssetBundle
     ];
 
     public $js = [
-        YII_ENV_DEV ? 'node_modules/vue/dist/vue.js' : 'node_modules/vue/dist/vue.min.js',
-        YII_ENV_DEV ? 'node_modules/vue-resource/dist/vue-resource.js' : 'node_modules/vue-resource/dist/vue-resource.min.js',
-        // 'main.js',
-        'node_modules/element-ui/lib/index.js',
+        'src/build.js',
+        // YII_ENV_DEV ? 'node_modules/vue/dist/vue.js' : 'node_modules/vue/dist/vue.min.js',
+        // YII_ENV_DEV ? 'node_modules/vue-resource/dist/vue-resource.js' : 'node_modules/vue-resource/dist/vue-resource.min.js',
+        // // 'main.js',
+        // 'node_modules/element-ui/lib/index.js',
+        
         'node_modules/jquery-slimscroll/jquery.slimscroll.min.js',
         'node_modules/fastclick/lib/fastclick.js',
     ];
 
     public $jsOptions = [
-        'charset'=>"utf-8"
+        'charset'=>"utf-8",
+        'position'=>View::POS_HEAD
     ];
 
     public $depends = [

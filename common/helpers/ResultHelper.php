@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-07-05 00:49:21
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-05 00:49:21
+ * @Last Modified time: 2020-09-24 15:08:50
  */
  
 
@@ -52,7 +52,10 @@ class ResultHelper
      */
     protected static function baseJson($code, $message, $data)
     {
-        Yii::$app->response->format = Response::FORMAT_JSON;
+        if(Yii::$app->id !="app-console"){
+            Yii::$app->response->format = Response::FORMAT_JSON;
+        }
+        
         $result = [
             'code' => strval($code),
             'message' => trim($message),

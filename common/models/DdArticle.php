@@ -1,29 +1,33 @@
 <?php
+/**
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2020-07-13 08:42:35
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-07-29 01:52:06
+ */
 
 namespace common\models;
-
-use Yii;
 
 /**
  * This is the model class for table "dd_article".
  *
- * @property int $id
- * @property int $ishot
- * @property int $pcate
- * @property int $ccate
+ * @property int    $id
+ * @property int    $ishot
+ * @property int    $pcate
+ * @property int    $ccate
  * @property string $template
  * @property string $title
  * @property string $description
  * @property string $content
  * @property string $thumb
- * @property int $incontent
+ * @property int    $incontent
  * @property string $source
  * @property string $author
- * @property int $displayorder
+ * @property int    $displayorder
  * @property string $linkurl
- * @property int $createtime
- * @property int $edittime
- * @property int $click
+ * @property int    $createtime
+ * @property int    $edittime
+ * @property int    $click
  * @property string $type
  * @property string $credit
  */
@@ -34,22 +38,27 @@ class DdArticle extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'dd_article';
+        return '{{%article}}';
     }
 
     /**
-     * 行为
+     * 行为.
      */
     public function behaviors()
     {
         /*自动添加创建和修改时间*/
         return [
            [
-               'class'=>\common\behaviors\SaveBehavior::className(),
-               'updatedAttribute'=>'createtime',
-               'createdAttribute'=>'createtime',
-           ]
+               'class' => \common\behaviors\SaveBehavior::className(),
+               'updatedAttribute' => 'createtime',
+               'createdAttribute' => 'createtime',
+           ],
         ];
+    }
+
+    public function getCate()
+    {
+        return $this->hasOne(DdArticleCategory::className(), ['id' => 'ccate']);
     }
 
     /**
@@ -60,7 +69,7 @@ class DdArticle extends \yii\db\ActiveRecord
         return [
             [['ishot', 'pcate', 'ccate', 'template', 'title', 'description', 'content', 'thumb', 'source', 'author', 'displayorder', 'linkurl'], 'required'],
             [['ishot', 'pcate', 'ccate', 'displayorder', 'createtime', 'edittime', 'click'], 'integer'],
-            [['content','icon'], 'string'],
+            [['content', 'icon'], 'string'],
             [['template'], 'string', 'max' => 300],
             [['title', 'description'], 'string', 'max' => 200],
             [['thumb', 'source', 'credit'], 'string', 'max' => 255],
@@ -94,7 +103,7 @@ class DdArticle extends \yii\db\ActiveRecord
             'click' => 'Click',
             'type' => '类型',
             'credit' => '点赞',
-            'icon'=>'图标'
+            'icon' => '图标',
         ];
     }
 }

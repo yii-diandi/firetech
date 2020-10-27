@@ -4,11 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-01 15:32:39
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
-<<<<<<< HEAD
- * @Last Modified time: 2020-05-24 07:41:47
-=======
- * @Last Modified time: 2020-05-24 07:43:34
->>>>>>> dev
+ * @Last Modified time: 2020-07-24 20:55:23
  */
 
 namespace common\helpers;
@@ -138,9 +134,22 @@ class ImageHelper
 
         if (is_array($image)) {
             foreach ($image as $key => &$value) {
-                $value = $value ? $hostUrl.'/attachment/'.$value : $hostUrl.$default;
+                if ('//' == substr($value, 0, 2)) {
+                    $value = 'http:' . $value;
+                }elseif(('http://' == substr($value, 0, 7)) || ('https://' == substr($value, 0, 8))) {
+                    $value = $value;
+                }else{
+                   $value = $value ? $hostUrl.'/attachment/'.$value : $hostUrl.$default;
+                }
             }
         } else {
+            if ('//' == substr($image, 0, 2)) {
+                return 'http:' . $image;
+            }
+            if (('http://' == substr($image, 0, 7)) || ('https://' == substr($image, 0, 8))) {
+                return $image;
+            }
+            
             $image = $image ? $hostUrl.'/attachment/'.$image : $hostUrl.$default;
         }
 
