@@ -55,7 +55,15 @@ $moduleAll =  Yii::$app->params['moduleAll'];
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
                 <!-- Messages: style can be found in dropdown.less-->
+                <li>
+                    <a  data-toggle="modal" href='#selectStore-id'>
+                        <i class="fa fa-edit"></i> 
+                        <span id="bloc-left-name">点我选择商户</span>
+                    </a>
+                </li>
+                
                 <li class="dropdown messages-menu">
+                   
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
                         <span class="label label-success"><?= Yii::$app->params['message']['total']; ?></span>

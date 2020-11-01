@@ -8,7 +8,7 @@
  
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use common\widgets\MyGridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\searchs\DdAiMemberSearch */
@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]);?>
     <div class="panel panel-default">
         <div class="box-body">
-    <?= GridView::widget([
+    <?= MyGridView::widget([
         'dataProvider' => $dataProvider,
         'layout'=>"{items}\n{pager}",
         'filterModel' => $searchModel,

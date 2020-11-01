@@ -9,7 +9,7 @@
 
 use common\helpers\ImageHelper;
 use yii\helpers\Html;
-use yii\grid\GridView;
+use common\widgets\MyGridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\searchs\DdWebsiteSlideSearch */
@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
         <div class="panel panel-default">
             <div class="box-body">
-                <?= GridView::widget([
+                <?= MyGridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'columns' => [

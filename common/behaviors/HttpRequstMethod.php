@@ -76,17 +76,17 @@ class HttpRequstMethod extends Behavior
             $whereInit[$this->owner->storeField] = $this->store_id;
         }
 
-        $store = Yii::$app->service->commonGlobalsService->getStoreDetail($this->store_id);
-        // 以集团化管理且是顶级公司的需要查看所有数据的权利
-        if(!empty($store)){
-            if ($store['bloc']['pid'] == 0 && $store['bloc']['status'] == 1) {
-                $blocs = Yii::$app->service->commonGlobalsService->getBlocChild($this->bloc_id);
-                if(!empty($blocs)){
-                    // 存在子公司
-                    $whereInit[$this->owner->blocField] = array_column($blocs,'bloc_id');                    
-                }
-            }
-        }
+        // $store = Yii::$app->service->commonGlobalsService->getStoreDetail($this->store_id);
+        // // 以集团化管理且是顶级公司的需要查看所有数据的权利
+        // if(!empty($store)){
+        //     if ($store['bloc']['pid'] == 0 && $store['bloc']['status'] == 1) {
+        //         $blocs = Yii::$app->service->commonGlobalsService->getBlocChild($this->bloc_id);
+        //         if(!empty($blocs)){
+        //             // 存在子公司
+        //             $whereInit[$this->owner->blocField] = array_column($blocs,'bloc_id');                    
+        //         }
+        //     }
+        // }
         
         if ($this->owner->modelSearchName && !empty($whereInit)) {
             if (key_exists($this->owner->modelSearchName, Yii::$app->request->queryParams)) {

@@ -28,7 +28,7 @@ class AdminLteAsset extends BaseAdminLteAsset
     ];
     public $js = [
         // 'plugins/jQuery/jquery-2.2.3.min.js',
-        // 'plugins/jQuery/jquery-migrate.js',
+        'plugins/jQuery/jquery-migrate.js',
         // 'dist/main.js',
         'dist/js/app.js',
         'dist/js/demo.js',

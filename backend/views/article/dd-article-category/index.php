@@ -5,7 +5,7 @@
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
  * @Last Modified time: 2020-07-10 21:16:12
  */
-use leandrogehlen\treegrid\TreeGrid;
+use common\widgets\MyTreeGrid;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]);?>
     <div class="panel panel-default">
         <div class="box-body">
-        <?= TreeGrid::widget([
+        <?= MyTreeGrid::widget([
                     'dataProvider' => $dataProvider,
                     'keyColumnName' => 'id',
                     'parentColumnName' => 'pcate',

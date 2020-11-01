@@ -1,3 +1,9 @@
+/*
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2020-10-31 23:39:12
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-11-01 00:36:36
+ */
 /*!
  *   AdminLTE v2.3.8
  *   Author: Almsaeed Studio
@@ -58,7 +64,7 @@ body {
     -moz-transition: -moz-transform .3s ease-in-out, margin .3s ease-in-out;
     -o-transition: -o-transform .3s ease-in-out, margin .3s ease-in-out;
     transition: transform .3s ease-in-out, margin .3s ease-in-out;
-    margin-left: 180px;
+    margin-left: 210px;
     z-index: 820
 }
 
@@ -209,7 +215,7 @@ a:focus {
     -o-transition: margin-left .3s ease-in-out;
     transition: margin-left .3s ease-in-out;
     margin-bottom: 0;
-    margin-left: 180px;
+    margin-left: 210px;
     border: none;
     min-height: 50px;
     border-radius: 0
@@ -323,7 +329,7 @@ a:focus {
     font-size: 20px;
     line-height: 50px;
     text-align: center;
-    width: 180px;
+    width: 210px;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     padding: 0 15px;
     font-weight: 300;
@@ -468,7 +474,7 @@ a:focus {
     left: 0;
     padding-top: 50px;
     min-height: 100%;
-    width: 180px;
+    width: 210px;
     z-index: 810;
     -webkit-transition: -webkit-transform .3s ease-in-out, width .3s ease-in-out;
     -moz-transition: -moz-transform .3s ease-in-out, width .3s ease-in-out;
@@ -518,7 +524,8 @@ a:focus {
 }
 
 .sidebar {
-    padding-bottom: 10px
+    padding-bottom: 10px;
+    padding-top: 5px;
 }
 
 .sidebar-form input:focus {
@@ -590,7 +597,7 @@ a:focus {
 }
 
 .sidebar-menu>li>a {
-    padding: 12px 5px 12px 15px;
+    padding: 0 12px;
     display: block
 }
 
@@ -795,7 +802,9 @@ a:focus {
 }
 
 .sidebar-menu li>a {
-    position: relative
+    position: relative;
+    height: 56px;
+    line-height: 56px;
 }
 
 .sidebar-menu li>a>.pull-right-container {
@@ -3122,12 +3131,34 @@ a:focus {
 .table-bordered>thead>tr>td,
 .table-bordered>tbody>tr>td,
 .table-bordered>tfoot>tr>td {
-    border: 1px solid #f4f4f4
+    border: 1px solid #f4f4f4;
+    padding:14px;
 }
 
 .table-bordered>thead>tr>th,
 .table-bordered>thead>tr>td {
-    border-bottom-width: 2px
+    border-bottom-width: 2px;
+}
+
+.table-bordered>thead>tr>th{
+    line-height: 1;
+    vertical-align: middle;
+    background: #f7f8fa;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.table-bordered>thead>tr>th>a{
+    line-height: 1;
+    vertical-align: middle;
+    background: #f7f8fa;
+    font-weight: 400;
+    font-size: 14px;
+    color: #999;
+}
+
+.firetech-main,.table-bordered>thead>tr{
+    border-bottom: 1px solid #e8e9eb;
 }
 
 .table.no-border,
@@ -5972,4 +6003,8 @@ table.text-center th {
 .page-loading>span {
     line-height: 20px;
     vertical-align: middle
+}
+
+.detail-view > tbody > tr > th{
+    padding:14px;
 }

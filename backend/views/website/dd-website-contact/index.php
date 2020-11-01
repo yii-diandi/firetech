@@ -6,7 +6,7 @@
  * @Last Modified time: 2020-07-10 21:14:12
  */
 use yii\helpers\Html;
-use yii\grid\GridView;
+use common\widgets\MyGridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\联系我们Search */
@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]);?>
     <div class="panel panel-default">
         <div class="box-body">
-    <?= GridView::widget([
+    <?= MyGridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [

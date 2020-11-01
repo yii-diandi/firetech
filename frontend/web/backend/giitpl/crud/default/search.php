@@ -73,33 +73,21 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
 
         // add conditions that should always apply here
 
-   
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
         $this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
-            return false;
+            return $dataProvider;
         }
 
         // grid filtering conditions
         <?= implode("\n        ", $searchConditions) ?>
-
-         
-        $data = $query->asArray()->all();
-            
-        $dataProvider = new ArrayDataProvider([
-            'key'=>'id',
-            'modelClass'=><?= isset($modelAlias) ? $modelAlias : $modelClass ?>::className(),
-            'allModels' => $data,
-            'pagination' => [
-                'pageSize' => 20,
-            ],
-            'sort' => [
-               // 'attributes' => ['id'],
-            ],
-        ]);
-           
+    
         return $dataProvider;
     }
 }

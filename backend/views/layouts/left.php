@@ -12,19 +12,6 @@ use common\helpers\ImageHelper;
    <aside class="main-sidebar ">
        <!-- sidebar: style can be found in sidebar.less -->
        <section class="sidebar">
-           <!-- Sidebar user panel -->
-           <div class="user-panel">
-               <div class="pull-left image">
-                   <img src="<?= ImageHelper::tomedia(Yii::$app->user->identity->avatar,'avatar.jpg'); ?>" class="img-circle" alt="User Image">
-               </div>
-               <div class="pull-left info">
-                   <p><?= Yii::$app->user->identity->username; ?></p>
-                   <a  data-toggle="modal" href='#selectStore-id'>
-                       <i class="fa fa-edit"></i> 
-                       <span id="bloc-left-name">点我选择商户</span>
-                    </a>
-               </div>
-           </div>
            <!-- sidebar menu: : style can be found in sidebar.less -->
            <ul class="sidebar-menu">
 

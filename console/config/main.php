@@ -32,7 +32,6 @@ return [
             'class' => 'diandi\migration\ConsoleController',
         ],
     ],
-   
     'components' => [
         'log' => [
             'targets' => [
@@ -42,6 +41,12 @@ return [
                 ],
             ],
         ],
+        'queue' => [
+            'class' => 'yii\queue\redis\Queue',
+            'redis' => 'redis', // 连接组件或它的配置
+            'channel' => 'queue', // Queue channel key
+            'as log' => 'yii\queue\LogBehavior', // 日志
+        ]
         
     ],
     'params' => $params,
