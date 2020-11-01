@@ -1,4 +1,11 @@
 <?php
+/**
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2020-11-01 12:14:07
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-11-01 12:14:07
+ */
+ 
 
 use yii\db\Migration;
 
@@ -23,11 +30,7 @@ class m201101_033520_diandi_user_bloc extends Migration
         
         /* 索引设置 */
         
-        
-        /* 表数据 */
-        $this->insert('{{%diandi_user_bloc}}',['id'=>'1','user_id'=>'10','bloc_id'=>'1','store_id'=>'38','status'=>'1','create_time'=>'1594112911','update_time'=>NULL]);
-        $this->insert('{{%diandi_user_bloc}}',['id'=>'2','user_id'=>'20','bloc_id'=>'4','store_id'=>'43','status'=>'1','create_time'=>'1594556651','update_time'=>NULL]);
-        
+              
         /* 设置外键约束 */
         $this->execute('SET foreign_key_checks = 1;');
     }
