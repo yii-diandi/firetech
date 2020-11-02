@@ -4,28 +4,20 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-26 09:16:19
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-02 03:04:59
+ * @Last Modified time: 2020-11-02 04:25:42
  */
 
-namespace common\components\addons;
+namespace common\components\backend;
 
+use backend\assets\AppAsset;
 use common\helpers\FileHelper;
 use Yii;
 use yii\web\AssetBundle;
 
-class AddonsAsset extends AssetBundle
+class VueBackendAsset extends AssetBundle
 {
-    // public $basePath = '@webroot/assetsaddons/diandi_distribution';
-
-    // public $baseUrl = '@web/assetsaddons/diandi_distribution';
-
-    /**
-     * {@inheritdoc}
-     */
-    public $sourcePath = '@common/addons/diandi_pro/assets';
-
+    public $sourcePath = "@backend/assets";
     public $version;
-
     /**
      * {@inheritdoc}
      */
@@ -36,7 +28,6 @@ class AddonsAsset extends AssetBundle
     public $js = [];
 
     public $jsOptions = [
-        'type' => 'module'
     ];
     
     /**
@@ -58,10 +49,11 @@ class AddonsAsset extends AssetBundle
         $module = Yii::$app->controller->module->id;
         $controllerPath = Yii::$app->controller->id;
         $actionName  = Yii::$app->controller->action->id;
-        FileHelper::mkdirs(Yii::getAlias($this->sourcePath));
-        $this->sourcePath = sprintf('@common/addons/%s/assets/', trim($module));
-        $path = Yii::getAlias($this->sourcePath.$controllerPath.'/'.$actionName.'.js');
-
+       
+        $BaseDir = Yii::getAlias('@backend/assets/'.$controllerPath);
+        
+        FileHelper::mkdirs(Yii::getAlias($BaseDir));
+        $path = Yii::getAlias($BaseDir.'/'.$actionName.'.js');
         if(is_file($path)){
             $this->js[] = $controllerPath.'/'.$actionName.'.js';             
         }else{
@@ -69,12 +61,10 @@ class AddonsAsset extends AssetBundle
             file_put_contents($path,$content, FILE_APPEND);
             $this->js[] = $controllerPath.'/'.$actionName.'.js';             
         }
-        
-        if (YII_ENV_DEV) {
-            // p($_GPC);
-        }
         parent::init();
     }
+
+   
 
 
     public function demoJs()
