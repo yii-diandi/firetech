@@ -5,12 +5,17 @@ import dikaerji from './utli/dikaerji.js'
 import global from './utli/global.js'
 import Print from './utli/print.js'
 import ElmentUi from 'element-ui'
+import Popup from './components/popup/popup.js'  
+
+
 Vue.prototype.ElmentUi = ElmentUi 
 Vue.prototype.global = global 
 Vue.prototype.VueResource=VueResource
+Vue.prototype.Popup = Popup.install
 Vue.config.productionTip = false
 
 Vue.use(global)
+Vue.use(Popup)
 Vue.use(dikaerji)
 Vue.use(Print) // 注册
 Vue.use(VueResource);
@@ -33,6 +38,9 @@ window.app = new Vue({
     data: {
         ceshi:'nini'
     },
+    created () {
+      console.log('vue初始化页面')  
+    },   
     methods: {
     }
 });

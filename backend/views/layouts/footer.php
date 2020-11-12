@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-02-29 22:47:16
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-08-06 16:21:17
+ * @Last Modified time: 2020-11-04 02:07:15
  */
 use richardfan\widget\JSRegister;
 
@@ -14,25 +14,7 @@ $initmenu = Yii::$app->params['leftNav'];
 
 ?>
 
-<div id="global_dialog"  >
-        <el-dialog
-                :title="title"
-                :visible.sync="dialogVisible"
-                width="70%"
-                height="80%"
-                top="50px"
-                @open="openbefore"
-                custom-class="globaldialog"
-                :before-close="handleClose">
-            <el-row  class="dialogLoad" v-if="loading" v-loading="loading"  element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading">
-            </el-row>    
-            <iframe  :src="url"    @load="getTi()" frameborder="0" width="100%" height="600px"></iframe>
 
-            <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="dialogVisible = false">关闭</el-button>
-            </span>
-        </el-dialog>
-    </div>
 <footer class="main-footer">
     <div class="pull-right hidden-xs">
         <b>Version</b> 1.0.0

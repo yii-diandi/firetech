@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng
  * @Date:   2020-04-29 02:27:17
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-08-01 11:05:33
+ * @Last Modified time: 2020-11-06 16:43:05
  */
 
 namespace common\widgets\tab;
@@ -68,14 +68,13 @@ class Tab extends Widget
                 }elseif(!empty($this->options[$key])){
                     $option = http_build_query($this->options[$key]);
                 }
-                $active = (Yii::$app->controller->action->id == $this->urls[$key] && http_build_query($_GPC) == $option)?true:false;
+                
+                $active = (Yii::$app->controller->action->id == $this->urls[$key] && strpos(http_build_query($_GPC),$option) !== false)?true:false;
 
             }else{
                 $active = (Yii::$app->controller->action->id == $this->urls[$key])?true:false;
 
             }
-           
-
             
             $items[] = [
                 'label' => $title,

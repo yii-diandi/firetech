@@ -3,12 +3,13 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-03 07:34:16
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-09-18 11:27:08
+ * @Last Modified time: 2020-11-02 15:04:47
  */
 
 namespace backend\controllers;
 
 use common\helpers\CacheHelper;
+use common\helpers\ResultHelper;
 use Yii;
 use yii\web\Controller;
 use diandi\admin\models\Menu;
@@ -159,6 +160,24 @@ class BaseController extends Controller
         
         return $this->render($view.'.vue', $param,$return);
     }
+
+    public function renderView($view,$param,$return=false)
+    {   
+        if(!empty($this->_params)){
+            $param =  $param ===null?  $this->_params :array_merge($this->_params,$param);
+        }
+
+        if(yii::$app->request->isPost){
+            return ResultHelper::json(200,'请求成功',$param);
+        }else{            
+            return $this->render($view, $param,$return);
+        }
+        
+    }
+
+    
+
+    
 
     /**
      * {@inheritdoc}

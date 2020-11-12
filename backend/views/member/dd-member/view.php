@@ -1,4 +1,11 @@
 <?php
+/**
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2020-11-02 14:26:33
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-11-02 14:26:33
+ */
+ 
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
@@ -51,13 +58,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'status',
             'city',
             'address_id',
-            'wxapp_id',
-            'verification_token',
-            'create_time',
-            'update_time',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
+            // 'wxapp_id',
+            // 'verification_token',
+            // 'create_time',
+            // 'update_time',
+            // 'auth_key',
+            // 'password_hash',
+            // 'password_reset_token',
             'realname',
             'avatar',
             'qq',

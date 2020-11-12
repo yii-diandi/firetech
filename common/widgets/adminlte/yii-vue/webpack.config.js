@@ -10,7 +10,8 @@ module.exports = {
     entry:{
         build:PATHS.source+'/app.js',//vue基础文件包
         echarts:PATHS.source+'/echarts.js',//数据统计
-        echartsThem:PATHS.source+'/echarts/echartsThem.js'
+        echartsThem:PATHS.source+'/echarts/echartsThem.js',
+        Export2Excel:PATHS.source+'/Export2Excel.js'
     },
     output: {
         path: PATHS.build,
@@ -41,9 +42,9 @@ module.exports = {
         ],
         modules: ["node_modules"],
         alias: {
-          vue: 'vue/dist/vue.min.js',
-          components: path.resolve(__dirname + '/src/components/'),
-          '@': path.resolve('src')
+            'vue$': 'vue/dist/vue.min.js',
+            components: path.resolve(__dirname + '/src/components/'),
+            '@': path.resolve('src')
         }
     },
     plugins:[

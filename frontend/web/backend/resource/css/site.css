@@ -2,7 +2,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-04-06 15:36:19
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-08-23 12:22:46
+ * @Last Modified time: 2020-11-08 03:02:46
  */
 
 
@@ -1108,4 +1108,28 @@ input[type="file"] {
 .btn-primary {
     background-color: #409EFF;
     border-color: #409EFF;
+}
+
+/* vue列表表头样式 */
+.list-header>th {
+    line-height: 1;
+    vertical-align: middle;
+    background: #f7f8fa;
+    font-weight: 400;
+    font-size: 14px;
+    color: #999;
+    border: 0;
+    padding: 13px 0;
+}
+
+/* 批量操作按钮样式 */
+.list-operation {
+    padding-left: 7px;
+}
+
+.form-search{
+	width: 200px;
+}
+.el-form-item__label{
+	width: 5em;
 }

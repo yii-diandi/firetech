@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-11-02 02:15:08
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-02 04:21:45
+ * @Last Modified time: 2020-11-04 04:07:27
  */
 
 use common\components\backend\VueBackendAsset;
@@ -18,86 +18,136 @@ VueBackendAsset::register($this);
 $this->title = '会员管理';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
 <?= $this->render('_tab') ?>
                 
-<div class="firetech-main">
-
+<div class="firetech-main" >
     <div class="dd-member-index " id="dd-member-index">
-        <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
-                <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">列表</h3>
-            </div>
-            <div class="box-body table-responsive">
-                                    <?= MyGridView::widget([
-                    'dataProvider' => $dataProvider,
-                    'layout' => "{items}\n{pager}",
-                    'filterModel' => $searchModel,
-        'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
+            
+    <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
+    
+    <div class="row">
+      <div class="list-operation">
+        <el-button-group>
+              <el-button
+                  :loading="downloadLoading"  size="small"
+                  icon="el-icon-refresh" class="margin-xs"  type="primary" @click="getList">
+                  刷新
+              </el-button>
+              <el-button
+                  :loading="downloadLoading"  size="small"
+                  icon="el-icon-document" class="margin-xs"  type="primary" @click="handleDownload">
+                  导出
+              </el-button>
+              <el-button icon="el-icon-delete" size="small" class="margin-xs" type="danger" @click="handleDelete">
+                  删除
+              </el-button>
+        </el-button-group>
+      </div>
+      
+      
+    </div>
+    
+    <div class="table-container">
+     
 
-                                'member_id',
-            'group_id',
-            'level',
-            'openid',
-            'store_id',
-            //'bloc_id',
-            //'username',
-            //'mobile',
-            //'address',
-            //'nickName',
-            //'avatarUrl',
-            //'gender',
-            //'country',
-            //'province',
-            //'status',
-            //'city',
-            //'address_id',
-            //'wxapp_id',
-            //'verification_token',
-            //'create_time',
-            //'update_time',
-            //'auth_key',
-            //'password_hash',
-            //'password_reset_token',
-            //'realname',
-            //'avatar',
-            //'qq',
-            //'vip',
-            //'birthyear',
-            //'constellation',
-            //'zodiac',
-            //'telephone',
-            //'idcard',
-            //'studentid',
-            //'grade',
-            //'zipcode',
-            //'nationality',
-            //'resideprovince',
-            //'graduateschool',
-            //'company',
-            //'education',
-            //'occupation',
-            //'position',
-            //'revenue',
-            //'affectivestatus',
-            //'lookingfor',
-            //'bloodtype',
-            //'height',
-            //'weight',
-            //'alipay',
-            //'msn',
-            //'email:email',
-            //'taobao',
-            //'site',
-            //'bio',
-            //'interest',
-                    
-                    ['class' => 'common\components\ActionColumn'],
-                    ],
-                    ]); ?>
-                
+    <el-table
+      ref="tableSort"
+      v-loading="listLoading"
+      :data="list"
+      :element-loading-text="elementLoadingText"
+      :height="height"
+      @selection-change="setSelectRows"
+      @sort-change="tableSortChange"
+      style="width: 100%"
+      header-row-class-name="list-header" 
+    >
+      <el-table-column
+        show-overflow-tooltip
+        type="selection"
+        width="55"
+      ></el-table-column>
+      <!-- 序号start -->
+      <!-- <el-table-column show-overflow-tooltip label="序号" width="95" fixed>
+        <template #default="scope">
+          {{ scope.$index + 1 }}
+        </template>
+      </el-table-column> -->
+      <!-- 序号end -->
+
+      <el-table-column
+        show-overflow-tooltip
+        prop="member_id"
+        label="会员ID"
+      ></el-table-column>
+      <el-table-column show-overflow-tooltip label="头像">
+        <template #default="{ row }">
+          <el-image
+            v-if="imgShow"
+            :preview-src-list="imageList"
+            :src="row.avatar"
+          ></el-image>
+        </template>
+      </el-table-column>
+      
+      <el-table-column
+        show-overflow-tooltip
+        label="用户名"
+        prop="username"
+      ></el-table-column>
+     
+      <el-table-column
+        show-overflow-tooltip
+        label="手机号"
+        prop="mobile"
+        sortable
+      ></el-table-column>
+      <el-table-column show-overflow-tooltip label="状态">
+        <template #default="{ row }">
+          <el-tooltip
+            :content="row.status"
+            class="item"
+            effect="dark"
+            placement="top-start"
+          >
+            <el-tag :type="row.status | statusFilter">
+              {{ row.status }}
+            </el-tag>
+          </el-tooltip>
+        </template>
+      </el-table-column>
+      <el-table-column
+        show-overflow-tooltip
+        label="时间"
+        prop="create_time"
+        width="200"
+      ></el-table-column>
+      <el-table-column show-overflow-tooltip label="操作" width="180px" >
+        <template #default="{ row }">
+          <el-button type="text" @click="handleView(row)">查看</el-button>
+          <el-button type="text" @click="handleEdit(row)">编辑</el-button>
+          <el-button type="text" @click="handleDelete(row)">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    
+    <div class="row">
+            <div class="text-center padding">
+                <el-pagination
+                :background="background"
+                :current-page="queryForm.pageNo"
+                :pager-count="3"
+                :layout="layout"
+                :page-size="queryForm.pageSize"
+                :total="total"
+                @current-change="handleCurrentChange"
+                @size-change="handleSizeChange"
+                ></el-pagination>
+            </div>
+    </div>
+  </div>
+
+  
+               
                 
             </div>
         </div>

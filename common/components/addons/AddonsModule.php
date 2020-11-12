@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-26 09:30:21
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-09-25 20:23:29
+ * @Last Modified time: 2020-11-05 12:46:45
  */
 
 namespace common\components\addons;
@@ -22,9 +22,13 @@ class AddonsModule extends Module
     public function init()
     {
         global $_GPC;
+
+
         $logPath = Yii::getAlias('@runtime/base/addons/'.date('ymd').'.log');
 
         $module = $this->id;
+        Yii::setAlias($module,'@common/addons/'.$module);
+
         $config = [];
         Yii::$app->params['bloc_id'] = Yii::$app->service->commonGlobalsService->getBloc_id();
         Yii::$app->params['store_id'] = Yii::$app->service->commonGlobalsService->getStore_id();

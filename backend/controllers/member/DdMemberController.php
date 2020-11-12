@@ -1,4 +1,11 @@
 <?php
+/**
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2020-11-02 15:01:16
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-11-02 22:51:18
+ */
+ 
 
 namespace backend\controllers\member;
 
@@ -9,6 +16,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use backend\controllers\BaseController;
+use common\helpers\ResultHelper;
 
 /**
  * DdMemberController implements the CRUD actions for DdMember model.
@@ -42,8 +50,8 @@ class DdMemberController extends BaseController
     {
         $searchModel = new DdMemberSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
+        
+        return $this->renderView('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -57,7 +65,7 @@ class DdMemberController extends BaseController
      */
     public function actionView($id)
     {
-        return $this->render('view', [
+        return $this->renderView('view', [
             'model' => $this->findModel($id),
         ]);
     }
@@ -75,7 +83,7 @@ class DdMemberController extends BaseController
             return $this->redirect(['view', 'id' => $model->member_id]);
         }
 
-        return $this->render('create', [
+        return $this->renderView('create', [
             'model' => $model,
         ]);
     }
@@ -95,7 +103,7 @@ class DdMemberController extends BaseController
             return $this->redirect(['view', 'id' => $model->member_id]);
         }
 
-        return $this->render('update', [
+        return $this->renderView('update', [
             'model' => $model,
         ]);
     }
@@ -107,11 +115,25 @@ class DdMemberController extends BaseController
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete()
     {
-        $this->findModel($id)->delete();
+        global $_GPC;
 
-        return $this->redirect(['index']);
+        if(Yii::$app->request->isPost){
+            
+            $ids = explode(',',$_GPC['ids']);
+            $model = new DdMember();
+            $where = ['in', 'member_id', $ids];
+            $model->deleteAll($where);
+            
+            return ResultHelper::json(200,'删除成功',[]);    
+        
+        }else{
+            
+            return ResultHelper::json(400,'非ajax操作不能删除',[]);    
+            
+        }
+        
     }
 
     /**

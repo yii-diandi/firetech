@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-03 07:10:17
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-08 22:40:49
+ * @Last Modified time: 2020-11-04 04:41:16
  */
 
 namespace common\widgets\adminlte;
@@ -28,11 +28,11 @@ class AdminLteAsset extends BaseAdminLteAsset
     ];
     public $js = [
         // 'plugins/jQuery/jquery-2.2.3.min.js',
-        'plugins/jQuery/jquery-migrate.js',
+        // 'plugins/jQuery/jquery-migrate.js',
         // 'dist/main.js',
-        'dist/js/app.js',
-        'dist/js/demo.js',
-        'dist/js/app_iframe.js',
+        'dist/js/app.min.js',
+        'dist/js/demo.min.js',
+        'dist/js/app_iframe.min.js',
     ];
 
     public $jsOptions = [

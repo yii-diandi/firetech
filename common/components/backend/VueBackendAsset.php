@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-26 09:16:19
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-02 04:25:42
+ * @Last Modified time: 2020-11-04 00:33:52
  */
 
 namespace common\components\backend;
@@ -28,6 +28,8 @@ class VueBackendAsset extends AssetBundle
     public $js = [];
 
     public $jsOptions = [
+        'type' => 'module'
+
     ];
     
     /**
@@ -36,6 +38,7 @@ class VueBackendAsset extends AssetBundle
     public $depends = [
         'yii\web\JqueryAsset',
         'common\widgets\adminlte\VuemainAsset',
+        'common\widgets\adminlte\ExportExcelAsset',
     ];
 
     public $action = '';

@@ -46,10 +46,21 @@ let  numFilter = function(value) {
     let realVal = parseFloat(value).toFixed(2)
     return realVal
 }
+
+let formatJson = function(filterVal, jsonData) {
+    return jsonData.map(v => filterVal.map(j => {
+      if (j === 'timestamp') {
+        return parseTime(v[j])
+      } else {
+        return v[j]
+      }
+    }))
+}
  
 export default {
     objToar,
     numFilter,
     getUrlParam,
-    descartes
+    descartes,
+    formatJson
 }

@@ -2,7 +2,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-04-12 16:36:35
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-06-06 16:41:32
+ * @Last Modified time: 2020-11-04 04:31:31
  */
 /*! AdminLTE app.js
  * ================
@@ -10,12 +10,6 @@
  * should be included in all pages. It controls some layout
  * options and implements exclusive AdminLTE plugins.
  *
- * @Author  Almsaeed Studio
- * @Support <http://www.almsaeedstudio.com>
- * @Email   <abdullah@almsaeedstudio.com>
- * @version 2.3.8
- * @license MIT <http://opensource.org/licenses/MIT>
- */
 
 //Make sure jQuery has been loaded before app.js
 if (typeof jQuery === "undefined") {
@@ -287,7 +281,9 @@ function _init() {
             //Make sure the body tag has the .fixed class
             if (!$("body").hasClass("fixed")) {
                 if (typeof $.fn.slimScroll != 'undefined') {
-                    $(".sidebar").slimScroll({destroy: true}).height("auto");
+                    $(".sidebar").slimScroll({
+                        destroy: true
+                    }).height("auto");
                 }
                 return;
             } else if (typeof $.fn.slimScroll == 'undefined' && window.console) {
@@ -297,7 +293,9 @@ function _init() {
             if ($.AdminLTE.options.sidebarSlimScroll) {
                 if (typeof $.fn.slimScroll != 'undefined') {
                     //Destroy if it exists
-                    $(".sidebar").slimScroll({destroy: true}).height("auto");
+                    $(".sidebar").slimScroll({
+                        destroy: true
+                    }).height("auto");
                     //Add slimscroll
                     $(".sidebar").slimscroll({
                         height: ($(window).height() - $(".main-header").height()) + "px",
@@ -351,9 +349,9 @@ function _init() {
             });
 
             //Enable expand on hover for sidebar mini
-            if ($.AdminLTE.options.sidebarExpandOnHover
-                || ($('body').hasClass('fixed')
-                && $('body').hasClass('sidebar-mini'))) {
+            if ($.AdminLTE.options.sidebarExpandOnHover ||
+                ($('body').hasClass('fixed') &&
+                    $('body').hasClass('sidebar-mini'))) {
                 this.expandOnHover();
             }
         },
@@ -362,15 +360,15 @@ function _init() {
             var screenWidth = $.AdminLTE.options.screenSizes.sm - 1;
             //Expand sidebar on hover
             $('.main-sidebar').hover(function () {
-                if ($('body').hasClass('sidebar-mini')
-                    && $("body").hasClass('sidebar-collapse')
-                    && $(window).width() > screenWidth) {
+                if ($('body').hasClass('sidebar-mini') &&
+                    $("body").hasClass('sidebar-collapse') &&
+                    $(window).width() > screenWidth) {
                     _this.expand();
                 }
             }, function () {
-                if ($('body').hasClass('sidebar-mini')
-                    && $('body').hasClass('sidebar-expanded-on-hover')
-                    && $(window).width() > screenWidth) {
+                if ($('body').hasClass('sidebar-mini') &&
+                    $('body').hasClass('sidebar-expanded-on-hover') &&
+                    $(window).width() > screenWidth) {
                     _this.collapse();
                 }
             });
@@ -388,7 +386,7 @@ function _init() {
     $.AdminLTE.httpUrl = function (url) {
         let storeSeleted = localStorage.getItem("bloc");
         let bloc = JSON.parse(storeSeleted);
-        return url+'&bloc_id='+bloc.bloc_id+'&store_id='+bloc.store_id
+        return url + '&bloc_id=' + bloc.bloc_id + '&store_id=' + bloc.store_id
     }
     /* Tree()
      * ======
@@ -468,8 +466,8 @@ function _init() {
             btn.on('click', function (e) {
                 e.preventDefault();
                 //If the sidebar is not open
-                if (!sidebar.hasClass('control-sidebar-open')
-                    && !$('body').hasClass('control-sidebar-open')) {
+                if (!sidebar.hasClass('control-sidebar-open') &&
+                    !$('body').hasClass('control-sidebar-open')) {
                     //Open the sidebar
                     _this.open(sidebar, o.slide);
                 } else {
@@ -604,7 +602,7 @@ function _init() {
             box.slideUp(this.animationSpeed);
         }
     };
-    
+
 }
 
 /* ------------------
@@ -667,7 +665,7 @@ function _init() {
                 start(box);
 
                 //Perform ajax call
-                box.find(".box-body").on('load',settings.source, function () {
+                box.find(".box-body").on('load', settings.source, function () {
                     done(box);
                 });
             });

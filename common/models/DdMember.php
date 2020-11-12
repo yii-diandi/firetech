@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-11-02 00:50:23
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-02 01:27:26
+ * @Last Modified time: 2020-11-03 22:56:49
  */
  
 
@@ -114,6 +114,7 @@ class DdMember extends \yii\db\ActiveRecord
         ];
     }
 
+
     public function getAccount()
     {
         return $this->hasOne(DdMemberAccount::className(), ['member_id' => 'member_id']);
@@ -133,6 +134,19 @@ class DdMember extends \yii\db\ActiveRecord
     {
         return $this->hasOne(DdWechatFans::className(), ['user_id' => 'member_id']);
     }
+
+    public function fields()
+    {
+        $fields = parent::fields();
+        // p($fields);
+        // die;
+        // // $fields  ['create_time'] = function () {
+        // //     return Yii::$app->formatter->asDate($this->create_time, 'yyyy-MM-dd');
+        // // } 
+        
+        return $fields;
+    }
+
 
     /**
      * {@inheritdoc}
