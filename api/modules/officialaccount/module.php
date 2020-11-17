@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-08 03:04:55
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-09-09 22:27:13
+ * @Last Modified time: 2020-11-17 19:59:53
  */
 
 namespace api\modules\officialaccount;
@@ -124,6 +124,24 @@ class module extends \yii\base\Module
                 'scopes'   => ['snsapi_userinfo'],
                 'callback' =>  $redirect_uri,
             ],
+            // 日志配置
+            'log' => [
+                'default' => 'dev', // 默认使用的 channel，生产环境可以改为下面的 prod
+                'channels' => [
+                    // 测试环境
+                    'dev' => [
+                        'driver' => 'single',
+                        'path' => Yii::getAlias('@api/runtime/officialaccount/'.date('Ym/d').'.log'),
+                        'level' => 'debug',
+                    ],
+                    // 生产环境
+                    'prod' => [
+                        'driver' => 'daily',
+                        'path' => Yii::getAlias('@api/runtime/officialaccount/'.date('Ym/d').'.log'),
+                        'level' => 'info',
+                    ],
+                ],
+            ]
         ];
         FileHelper::writeLog($logPath, '公众号配置'.json_encode($wechatConfig));
         

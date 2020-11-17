@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-11-14 22:17:14
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-14 23:49:05
+ * @Last Modified time: 2020-11-17 17:23:36
  */
  
 
@@ -50,10 +50,7 @@ class MsgController extends AController
             ]));
 
             if (Fans::verifyToken($request->get('signature'), $request->get('timestamp'), $request->get('nonce'))) {
-                
-                
                 FileHelper::writeLog($logPath, '验证通过');
-                
                 $response = $app->server->serve();
                 $response->send();
             }
