@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-14 08:15:56
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-29 01:56:31
+ * @Last Modified time: 2020-11-12 22:00:58
  */
 
 namespace common\models;
@@ -33,7 +33,7 @@ class DdWebsiteContact extends \yii\db\ActiveRecord
     {
         return [
             [['createtime', 'updatetime'], 'safe'],
-            [['contact', 'name'], 'string', 'max' => 255],
+            [['contact', 'name','feedback'], 'string', 'max' => 255],
         ];
     }
 
@@ -61,7 +61,9 @@ class DdWebsiteContact extends \yii\db\ActiveRecord
             'id' => 'ID',
             'contact' => '联系方式',
             'name' => '姓名',
+            'feedback'=>'留言内容',
             'createtime' => '联系时间',
+            'updatetime' => '更新时间',
         ];
     }
 }

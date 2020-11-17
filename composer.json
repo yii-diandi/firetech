@@ -40,7 +40,8 @@
         "yii-diandi/yii2-swoole": "^1.0",
         "yii-diandi/yii2-addons": "^1.0",
         "phpoffice/phpspreadsheet": "^1.14",
-        "yiisoft/yii2-smarty": "^2.0"
+        "yiisoft/yii2-smarty": "^2.0",
+        "2amigos/qrcode-library": "^1.1"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

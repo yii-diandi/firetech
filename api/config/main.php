@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-05 08:27:35
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-09-23 21:20:39
+ * @Last Modified time: 2020-11-14 23:01:13
  */
 $params = array_merge(
     require __DIR__.'/../../common/config/params.php',
@@ -176,6 +176,7 @@ return [
                         'POST edituserinfo' => 'edituserinfo',
                         'POST sendcode' => 'sendcode',
                         'POST forgetpass' => 'forgetpass',
+                        'POST feedback' => 'feedback',
                     ],
                 ],
                 [
@@ -294,12 +295,29 @@ return [
                         'POST,HEAD,GET,OPTIONS,PUT notify' => 'notify',
                     ],
                 ],
+                // 激活公众号开发模式
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => ['officialaccount/msg'],
+                    'pluralize' => false,
+                    'extraPatterns' => [
+                        'GET index' => 'index',
+                    ],
+                ],
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => ['officialaccount/jssdk'],
                     'pluralize' => false,
                     'extraPatterns' => [
                         'POST config' => 'config',
+                    ],
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => ['officialaccount/qrcode'],
+                    'pluralize' => false,
+                    'extraPatterns' => [
+                        'POST,GET getqrcode' => 'getqrcode',
                     ],
                 ],
             ],

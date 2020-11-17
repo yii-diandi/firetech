@@ -3,14 +3,16 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-07-13 01:02:19
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-09-08 08:58:38
+ * @Last Modified time: 2020-11-13 01:12:55
  */
 
 namespace api\modules\officialaccount\controllers;
 
 use api\controllers\AController;
+use common\helpers\FileHelper;
 use common\helpers\ImageHelper;
 use common\helpers\ResultHelper;
+use common\services\common\QrcodeService;
 use Yii;
 
 /**
@@ -28,32 +30,34 @@ class QrcodeController extends AController
     public function actionGetqrcode()
     {
         global $_GPC;
-        $path  = $_GPC['path'];
-        $width = $_GPC['width'];
+        $logPath = Yii::getAlias('@runtime/officialaccount/Qrcode'.date('ymd').'.log');
+        
+        FileHelper::writeLog($logPath, '0002');
+        
+        $member_id = Yii::$app->user->identity->member_id;
+        $option  = $_GPC['option'];
+        $aging  = $_GPC['aging'];//1临时，2永久
+        
+        $app = Yii::$app->wechat->app;
+        $expire_seconds = 0;
+        FileHelper::writeLog($logPath, json_encode($app));
+        FileHelper::writeLog($logPath, json_encode($aging));
 
-        $module_name = $_GPC['module_name'];
-        if (!$module_name) {
-            return ResultHelper::json(400, '缺少参数module_name', []);
-        }
-        $baseInfo = Yii::$app->service->commonMemberService->baseInfo();
-        $app = Yii::$app->wechat->miniProgram;
-        // 或者指定颜色
-        $response = $app->app_code->getUnlimit($baseInfo['member_id'], [
-            'page' => $path,
-            'width' => 600,
-        ]);
-
-        $bloc_id = Yii::$app->params['bloc_id'];
-        $store_id = Yii::$app->params['store_id'];
-
-        $directory = Yii::getAlias('@frontend/web/attachment/wxappcode/'.$module_name.'/'.$bloc_id.'/'.'/'.$store_id);
-        // 或
-        if ($response instanceof \EasyWeChat\Kernel\Http\StreamResponse) {
-            $filename = $response->saveAs($directory, $baseInfo['fans']['openid'].'.png');
+        if($aging == 1){//临时
+            $expire_seconds = 6 * 24 * 3600;
+            $result = $app->qrcode->temporary($option,$expire_seconds);
+        }elseif($aging == 2){//永久
+            $result = $app->qrcode->forever($option);
         }
 
-        $codePath = ImageHelper::tomedia('wxappcode/'.$module_name.'/'.$bloc_id.'/'.'/'.$store_id.'/'.$baseInfo['fans']['openid'].'.png');
+        
+        FileHelper::writeLog($logPath, json_encode($result));
+        
 
-        return ResultHelper::json(200, '获取成功', $codePath);
+        $Qrcode = QrcodeService::createCode($aging,$result['ticket'],$option,$result['url'],$member_id,$expire_seconds);
+        if($Qrcode){
+            $codeUrl = $app->qrcode->url($result['ticket']);
+            return ResultHelper::json(200, '获取成功', $codeUrl);
+        }
     }
 }

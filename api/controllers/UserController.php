@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-05 11:45:49
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-06-03 15:31:07
+ * @Last Modified time: 2020-11-12 21:55:31
  */
 
 
@@ -22,6 +22,7 @@ use common\helpers\ResultHelper;
 use common\models\enums\PostStatus;
 use common\models\forms\PasswdForm;
 use api\controllers\AController;
+use common\models\DdWebsiteContact;
 use common\models\forms\EdituserinfoForm;
 
 
@@ -426,4 +427,49 @@ class UserController extends AController
     }
 
     // ....可以是设置其他用户登陆
+
+      /**
+     * @SWG\Post(path="/user/refresh",
+     *     tags={"重置令牌"},
+     *     summary="重置令牌",
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "重置令牌",
+     *     ),
+     *     @SWG\Parameter(
+      *      in="formData",
+     *      name="refresh_token",
+     *      type="string",
+      *      description="刷新token令牌",
+      *      required=true,
+      *    ),
+     * )
+     */
+    public function actionFeedback()
+    {
+        global $_GPC;
+        
+        $name = $_GPC['name'];
+        $contact = $_GPC['contact'];
+        $feedback = $_GPC['feedback'];
+        $contacts = new DdWebsiteContact();
+        
+        $data = [
+            'name' => $name,
+            'contact' => $contact,
+            'feedback' =>$feedback
+        ];
+        
+        if($contacts->load($data,'') && $contacts->save()){
+
+            return ResultHelper::json(200, "反馈成功",[]);
+            
+        }else{
+            $errors = ErrorsHelper::getModelError($contacts);
+            
+            return ResultHelper::json(401, $errors,[]);
+            
+        }
+    }
+    
 }

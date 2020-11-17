@@ -3,7 +3,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-27 12:34:22
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-09-24 17:23:41
+ * @Last Modified time: 2020-11-16 10:47:36
  */
 
 namespace common\services\common;
@@ -248,6 +248,7 @@ class GlobalsService extends BaseService
             $store = $BlocStore->find()->where(['store_id' => $store_id])->with(['bloc'])->asArray()->one();
             $info = [];
             if ($store) {
+                $store['logopath'] = yii::getAlias("@attachment/".$store['logo']);
                 $store['logo'] = ImageHelper::tomedia($store['logo']);
                 $extra = unserialize($store['extra']);
                 $extra = $extra ? $extra : [];

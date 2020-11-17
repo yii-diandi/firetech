@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-10 20:37:35
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-09-16 20:50:37
+ * @Last Modified time: 2020-11-14 23:32:38
  */
 
 namespace app\modules\officialaccount\components;
@@ -12,6 +12,7 @@ namespace app\modules\officialaccount\components;
 use api\models\DdApiAccessToken;
 use api\models\DdMember;
 use api\modules\officialaccount\models\DdWechatFans;
+use common\helpers\ArrayHelper;
 use common\helpers\ErrorsHelper;
 use common\helpers\FileHelper;
 use common\helpers\StringHelper;
@@ -203,4 +204,51 @@ class Fans extends BaseObject
 
         return json_decode(base64_decode($decrypted));
     }
+
+     /**
+     * 验证token是否一致
+     *
+     * @param string $signature 微信加密签名，signature结合了开发者填写的token参数和请求中的timestamp参数、nonce参数
+     * @param integer $timestamp 时间戳
+     * @param integer $nonce 随机数
+     * @return bool
+     */
+    public static function verifyToken($signature, $timestamp, $nonce)
+    {
+        $logPath = Yii::getAlias('@runtime/wechat/msg/'.date('ymd').'.log');
+
+        $params = Yii::$app->params;
+        $wechat_token =  $params['wechatConfig']['token'];
+        FileHelper::writeLog($logPath, '配置获取：'.json_encode($params['wechatConfig']));
+        $token = $wechat_token ?? '';
+        $tmpArr = [$token, $timestamp, $nonce];
+        sort($tmpArr, SORT_STRING);
+        $tmpStr = implode($tmpArr);
+        $tmpStr = sha1($tmpStr);
+        
+        FileHelper::writeLog($logPath, '验证结果：'.json_encode([$tmpStr,$signature]));
+
+        return $tmpStr == $signature ? true : false;
+    }
+
+    /**
+     * 告诉微信已经成功了
+     *
+     * @return bool|string
+     */
+    public static function success()
+    {
+        return ArrayHelper::toXml(['return_code' => 'SUCCESS', 'return_msg' => 'OK']);
+    }
+
+    /**
+     * 告诉微信失败了
+     *
+     * @return bool|string
+     */
+    public static function fail()
+    {
+        return ArrayHelper::toXml(['return_code' => 'FAIL', 'return_msg' => 'OK']);
+    }
+
 }
