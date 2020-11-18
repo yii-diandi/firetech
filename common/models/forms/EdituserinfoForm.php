@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-17 14:10:10
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-05-17 14:10:10
+ * @Last Modified time: 2020-11-18 14:23:31
  */
  
 
@@ -55,7 +55,6 @@ class EdituserinfoForm extends Model
     {
         return [
             [['username', 'mobile','nickName','avatarUrl','gender'], 'filter', 'filter' => 'trim'],
-            [['username', 'mobile','nickName','avatarUrl','gender'], 'required'],
             ['mobile','match','pattern'=>'/^[1][34578][0-9]{9}$/'],
             ['mobile', 'validateMobile'],
             ['username', 'validateUsername'],

@@ -1,4 +1,11 @@
 <?php
+/**
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2020-11-18 13:50:47
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2020-11-18 13:57:27
+ */
+ 
 
 namespace common\services\api;
 
@@ -40,7 +47,9 @@ class SmsService extends BaseService
     public function __construct()
     {
         parent::__construct();
-
+        
+        $sms  = Yii::$app->params['conf']['sms'];
+        
         $this->config = [
             // HTTP 请求的超时时间（秒）
             'timeout' => 5.0,
@@ -59,9 +68,9 @@ class SmsService extends BaseService
                     'file' => Yii::getAlias('runtime') . '/easy-sms.log',
                 ],
                 'aliyun' => [
-                    'access_key_id' => Yii::$app->settings->get('Sms', 'access_key_id'),
-                    'access_key_secret' => Yii::$app->settings->get('Sms', 'access_key_secret'),
-                    'sign_name' => Yii::$app->settings->get('Sms', 'sign_name'),
+                    'access_key_id' => $sms['access_key_id'],
+                    'access_key_secret' => $sms['access_key_secret'],
+                    'sign_name' => $sms['sign_name'],
                 ]
             ],
         ];
@@ -110,9 +119,8 @@ class SmsService extends BaseService
      */
     public function realSend($mobile, $code, $usage, $member_id = 0, $ip = 0)
     {
-
-
-        $template = Yii::$app->settings->get('Sms', 'template_code');
+        $sms  = Yii::$app->params['conf']['sms'];
+        $template = $sms['template_code'];
         try {
             // 校验发送是否频繁
             if (($smsLog = $this->findByMobile($mobile)) && $smsLog['created_at'] + 60 > time()) {
