@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-07-09 16:30:08
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-29 01:54:42
+ * @Last Modified time: 2020-11-30 00:30:03
  */
  
 
@@ -65,7 +65,13 @@ class DdMemberAccount extends \yii\db\ActiveRecord
             [['store_id','bloc_id', 'member_id', 'level', 'user_integral', 'accumulate_integral', 'give_integral', 'frozen_integral', 'status',
             'update_time','create_time'
             ], 'integer'],
-            [['user_money', 'accumulate_money', 'give_money', 'consume_money', 'frozen_money', 'consume_integral'], 'number'],
+            [['user_money', 'accumulate_money', 'give_money', 'consume_money', 'frozen_money', 
+            'credit1',
+            'credit2',
+            'credit3',
+            'credit4',
+            'credit5',
+            'consume_integral'], 'number'],
         ];
     }
 

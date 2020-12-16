@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-26 09:30:21
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-05 12:46:45
+ * @Last Modified time: 2020-12-16 00:27:14
  */
 
 namespace common\components\addons;
@@ -27,7 +27,7 @@ class AddonsModule extends Module
         $logPath = Yii::getAlias('@runtime/base/addons/'.date('ymd').'.log');
 
         $module = $this->id;
-        Yii::setAlias($module,'@common/addons/'.$module);
+        
 
         $config = [];
         Yii::$app->params['bloc_id'] = Yii::$app->service->commonGlobalsService->getBloc_id();
@@ -36,7 +36,7 @@ class AddonsModule extends Module
 
         $store_id = Yii::$app->params['store_id'];
 
-        if (empty($store_id) && Yii::$app->id != 'app-frontend' && Yii::$app->id != 'app-console' && Yii::$app->request->getPathInfo() != 'wechat/basics/notify') {
+        if (empty($store_id) && Yii::$app->id != 'app-api' && Yii::$app->id != 'app-frontend' && Yii::$app->id != 'app-console' && Yii::$app->request->getPathInfo() != 'wechat/basics/notify') {
             throw new HttpException(400, '请选择商户后操作');
         }
 

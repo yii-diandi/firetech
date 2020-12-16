@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-09 01:32:28
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-09-07 10:02:59
+ * @Last Modified time: 2020-11-29 23:12:42
  */
 
 namespace api\modules\wechat\controllers;
@@ -14,6 +14,7 @@ use api\controllers\AController;
 use common\helpers\ArrayHelper;
 use common\helpers\FileHelper;
 use common\helpers\ResultHelper;
+use common\helpers\StringHelper;
 use common\models\DdCorePaylog;
 use yii\helpers\Json;
 
@@ -205,7 +206,7 @@ class BasicsController extends AController
             'openid' => $data['openid'],
             'spbill_create_ip' => Yii::$app->request->userIP,
             'fee_type' => 'CNY',
-            'body' => $data['body'], // 内容
+            'body' => StringHelper::msubstr($data['body'],0,10), // 内容
             'out_trade_no' => $data['out_trade_no'], // 订单号
             'total_fee' => $data['total_fee'] * 100,
             'trade_type' => $data['trade_type'], //支付类型

@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-22 21:27:59
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-04-30 23:44:58
+ * @Last Modified time: 2020-11-29 21:27:13
  */
 use common\helpers\ArrayHelper;
 use diandi\admin\models\Bloc;
@@ -65,7 +65,9 @@ $bloc = Bloc::findAll(['status' => 1]);
 
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             
-                    <?php echo $form->field($model, 'bloc_id')->dropDownList(ArrayHelper::getColumn($bloc, 'business_name', 'bloc_id')); ?>
+                    <?php echo $form->field($model, 'bloc_id'); ?>
+                    
+                    <?php echo $form->field($model, 'store_id'); ?>
                     
                     <?php echo $form->field($model, 'reason')->textarea(['rows' => 4]); ?>
 

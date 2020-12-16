@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-11-02 15:42:40
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-05 13:23:48
+ * @Last Modified time: 2020-11-27 15:10:15
  */
  
 
@@ -25,19 +25,12 @@ class DdMemberSearch extends DdMember
     public function rules()
     {
         return [
-            [['member_id', 'group_id', 'level', 'store_id', 'bloc_id', 'mobile', 'gender', 'status', 'address_id', 'wxapp_id', 'create_time', 'update_time'], 'integer'],
+            [['member_id', 'group_id', 'level', 'store_id', 'bloc_id', 'mobile', 'gender', 'status', 'address_id', 'create_time', 'update_time'], 'integer'],
             [['openid', 'username', 'address', 'nickName', 'avatarUrl', 'country', 'province', 'city', 'verification_token', 'auth_key', 'password_hash', 'password_reset_token', 'realname', 'avatar', 'qq', 'vip', 'birthyear', 'constellation', 'zodiac', 'telephone', 'idcard', 'studentid', 'grade', 'zipcode', 'nationality', 'resideprovince', 'graduateschool', 'company', 'education', 'occupation', 'position', 'revenue', 'affectivestatus', 'lookingfor', 'bloodtype', 'height', 'weight', 'alipay', 'msn', 'email', 'taobao', 'site', 'bio', 'interest'], 'safe'],
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function scenarios()
-    {
-        // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
-    }
+ 
 
     /**
      * Creates data provider instance with search query applied
@@ -69,7 +62,6 @@ class DdMemberSearch extends DdMember
             'gender' => $this->gender,
             'status' => $this->status,
             'address_id' => $this->address_id,
-            'wxapp_id' => $this->wxapp_id,
             'create_time' => $this->create_time,
             'update_time' => $this->update_time,
         ]);

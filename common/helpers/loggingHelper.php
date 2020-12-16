@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-06-27 14:06:58
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-08-21 10:11:41
+ * @Last Modified time: 2020-11-28 18:21:33
  */
  
 
@@ -40,11 +40,11 @@ class loggingHelper
      */
     public static function writeLog($moduleName,$path,$mark, $content=[])
     {
-        $basepath = Yii::getAlias('@common/addons/'.$moduleName.'/logs/'.date('Y/m/d/'));
-        self::mkdirs(dirname($basepath.$path.'.log'));
+        $basepath = Yii::getAlias('@api/runtime/'.$moduleName.'/'.date('Y/m/d/').$path.'.log');
+        self::mkdirs(dirname($basepath));
         @chmod($path, 0777);
         $time = date('m/d H:i:s');
-        return file_put_contents($basepath.$path.'.log', "\r\n" .$time.'-'.$mark.':'. json_encode($content), FILE_APPEND);
+        return file_put_contents($basepath, "\r\n" .$time.'-'.$mark.':'. json_encode($content), FILE_APPEND);
     }
 
 }

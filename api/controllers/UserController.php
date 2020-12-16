@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-05 11:45:49
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-12 21:55:31
+ * @Last Modified time: 2020-12-13 14:34:10
  */
 
 
@@ -22,6 +22,7 @@ use common\helpers\ResultHelper;
 use common\models\enums\PostStatus;
 use common\models\forms\PasswdForm;
 use api\controllers\AController;
+use common\models\DdMember as ModelsDdMember;
 use common\models\DdWebsiteContact;
 use common\models\forms\EdituserinfoForm;
 
@@ -237,6 +238,66 @@ class UserController extends AController
     }
 
     /**
+     * @SWG\Post(path="/user/bindmobile",
+     *     tags={"会员资料"},
+     *     summary="绑定手机号",
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "绑定手机号",
+     *     ),
+     *     @SWG\Parameter(
+     *      name="access-token",
+     *      type="string",
+     *      in="query",
+     *      required=true
+     *    ),
+     *     @SWG\Parameter(
+     *      in="formData",
+     *      name="mobile",
+     *      type="integer",
+     *      description="手机号",
+     *      required=true,
+     *    ),
+     *    @SWG\Parameter(
+     *      in="formData",
+     *      name="code",
+     *      type="string",
+     *      description="验证码",
+     *      required=false,
+     *    ),
+     *     @SWG\Parameter(
+     *      in="formData",
+     *      name="nickName",
+     *      type="string",
+     *      description="微信昵称",
+     *      required=true,
+     *    )
+     * )
+     */
+    public function actionBindmobile()
+    {
+        global $_GPC;
+        
+        $code   = $_GPC['code'];
+        $mobile = $_GPC['mobile'];
+        $sendcode = Yii::$app->cache->get($mobile . '_code');
+        
+        if ($code != $sendcode) {
+            return ResultHelper::json(401, '验证码错误');
+        }
+
+        $member_id = Yii::$app->user->identity->member_id;
+        $fields['mobile'] = $mobile; 
+        $res = Yii::$app->service->commonMemberService->editInfo($member_id,$fields);
+        
+        if($res){
+            return ResultHelper::json(200, '绑定手机号成功',[]);
+        }
+         
+    }
+
+
+    /**
      * @SWG\Post(path="/user/edituserinfo",
      *     tags={"会员资料"},
      *     summary="修改资料",
@@ -379,11 +440,35 @@ class UserController extends AController
      */
     public function actionSendcode()
     {
+        global $_GPC;
+        $type = $_GPC['type'];
+        if(!in_array($type,['forgetpass','register','bindMobile'])){
+            return ResultHelper::json(401, "验证码请求不合法");
+        }
+        
         $data = Yii::$app->request->post();
         $mobile = $data['mobile'];
         if (empty($mobile)) {
             return ResultHelper::json(401, "手机号不能为空");
         }
+        
+        $where = [];
+        $where['mobile'] = $mobile;
+        
+        $bloc_id = yii::$app->params['bloc_id']; 
+        $store_id = yii::$app->params['store_id'];
+        
+        // 首先校验手机号是否重复
+        $member = ModelsDdMember::find()->where([
+            'mobile'=>$mobile,
+            'bloc_id'=>$bloc_id,
+            'store_id'=>$store_id,
+            ])->asArray()->one();
+        
+        if($member && $type == 'register'){
+            return ResultHelper::json(401, "手机号已经存在",[]);  
+        }    
+        
         $code   = random_int(1000, 9999);
         Yii::$app->cache->set($mobile . '_code', $code);
         // $service = Yii::$app->service;
@@ -391,7 +476,7 @@ class UserController extends AController
         $usage = '忘记密码验证';
         // $res = $service->Sms->send($mobile, $code, $usage);
         $res = Yii::$app->service->apiSmsService->send($mobile, $code, $usage);
-        return ResultHelper::json(200, "发送成功{$code}", $res);
+        return ResultHelper::json(200, "发送成功", $res);
     }
 
 
@@ -426,10 +511,8 @@ class UserController extends AController
         return $service->AccessTokenService->RefreshToken($user['member_id'], $user['group']);
     }
 
-    // ....可以是设置其他用户登陆
-
-      /**
-     * @SWG\Post(path="/user/refresh",
+    /**
+     * @SWG\Post(path="/user/feedback",
      *     tags={"重置令牌"},
      *     summary="重置令牌",
      *     @SWG\Response(

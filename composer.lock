@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "87e00fd161a408d6c97b5ef12388db3f",
+    "content-hash": "c599d5f6fbd7dc4aa4f1fd7db6946188",
     "packages": [
         {
             "name": "2amigos/qrcode-library",
@@ -967,6 +967,83 @@
                 "url"
             ],
             "time": "2020-09-30T07:37:11+00:00"
+        },
+        {
+            "name": "hashids/hashids",
+            "version": "4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vinkla/hashids.git",
+                "reference": "43bb2407f16a631f0128f47bcb67ff986c63dde2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vinkla/hashids/zipball/43bb2407f16a631f0128f47bcb67ff986c63dde2",
+                "reference": "43bb2407f16a631f0128f47bcb67ff986c63dde2",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0"
+            },
+            "suggest": {
+                "ext-bcmath": "Required to use BC Math arbitrary precision mathematics (*).",
+                "ext-gmp": "Required to use GNU multiple precision mathematics (*)."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hashids\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ivan Akimov",
+                    "email": "ivan@barreleye.com",
+                    "homepage": "https://twitter.com/IvanAkimov"
+                },
+                {
+                    "name": "Vincent Klaiber",
+                    "email": "hello@doubledip.se",
+                    "homepage": "https://doubledip.se"
+                }
+            ],
+            "description": "Generate short, unique, non-sequential ids (like YouTube and Bitly) from numbers",
+            "homepage": "http://hashids.org/php",
+            "keywords": [
+                "bitly",
+                "decode",
+                "encode",
+                "hash",
+                "hashid",
+                "hashids",
+                "ids",
+                "obfuscate",
+                "youtube"
+            ],
+            "support": {
+                "issues": "https://github.com/vinkla/hashids/issues",
+                "source": "https://github.com/vinkla/hashids/tree/4.0.0"
+            },
+            "time": "2019-04-03T13:40:29+00:00"
         },
         {
             "name": "khanamiryan/qrcode-detector-decoder",
@@ -4170,16 +4247,16 @@
         },
         {
             "name": "yii-diandi/yii2-admin",
-            "version": "1.0.63",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yii-diandi/yii2-admin.git",
-                "reference": "fbfbdd34c3a9eea8181f56cbf6b047c206a66106"
+                "reference": "d850ce5db21b44afd536be3ca329a8c532e18f1c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yii-diandi/yii2-admin/zipball/fbfbdd34c3a9eea8181f56cbf6b047c206a66106",
-                "reference": "fbfbdd34c3a9eea8181f56cbf6b047c206a66106",
+                "url": "https://api.github.com/repos/yii-diandi/yii2-admin/zipball/d850ce5db21b44afd536be3ca329a8c532e18f1c",
+                "reference": "d850ce5db21b44afd536be3ca329a8c532e18f1c",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -4228,7 +4305,11 @@
                 "extension",
                 "yii2"
             ],
-            "time": "2020-11-09T10:46:28+00:00"
+            "support": {
+                "issues": "https://github.com/yii-diandi/yii2-admin/issues",
+                "source": "https://github.com/yii-diandi/yii2-admin/tree/1.0.9"
+            },
+            "time": "2020-11-18T18:45:50+00:00"
         },
         {
             "name": "yii-diandi/yii2-migration",
@@ -8077,5 +8158,5 @@
         "php": ">=7.2.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }

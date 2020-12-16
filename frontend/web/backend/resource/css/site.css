@@ -2,7 +2,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-04-06 15:36:19
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-08 03:02:46
+ * @Last Modified time: 2020-11-28 15:29:28
  */
 
 
@@ -585,8 +585,12 @@ input[type="file"] {
 	margin-bottom: 50px
 }
 
-.padding-0 {
-	padding: 0
+.padding-left-0 {
+	padding-left:0px!important;
+}
+
+.padding-right-0 {
+	padding-right:0px!important;
 }
 
 .padding-xs {

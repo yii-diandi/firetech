@@ -3,7 +3,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-02 10:29:02
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-08-23 18:14:51
+ * @Last Modified time: 2020-12-12 20:05:01
  */
  
 namespace common\widgets\inputs;
@@ -25,6 +25,10 @@ class ButtonInput extends InputWidget
     public $tags;
     public $click;
     public $placeholder;
+    
+    public $readonly;
+    
+    public $bindModel;
     
     
     public function init ()
@@ -78,7 +82,9 @@ class ButtonInput extends InputWidget
         $eles[] = Html::activeTextInput($model, $attribute, [
             'class' => 'form-control',
             'v-model'=>$attribute,
-            'placeholder' =>$this->placeholder
+            'placeholder' =>$this->placeholder,
+            'readonly'=> $this->readonly,
+            'v-model'=> $this->bindModel,
             ]);
         $eles[] = Html::tag('span', Html::button($tags?$tags:'按钮名称', $this->chooseButtonClass), ['class' => 'input-group-btn','@click'=>$this->click]);
 

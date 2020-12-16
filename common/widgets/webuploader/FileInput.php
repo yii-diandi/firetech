@@ -3,11 +3,13 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-02 10:29:02
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-05-26 20:55:16
+ * @Last Modified time: 2020-12-08 16:59:10
  */
  
 namespace common\widgets\webuploader;
 
+use common\helpers\ImageHelper;
+use common\helpers\StringHelper;
 use Yii;
 use yii\widgets\InputWidget;
 use yii\helpers\Html;
@@ -191,24 +193,44 @@ JS;
         }
         
         if(stristr($attribute,'[') !==false){
-            // 二维数组的支持
-            $str = stristr($attribute,'[');
-            $k = str_replace(stristr($str,'['),'',$attribute);
-            $attr = trim(rtrim($str,']'),'[');
-            $value = $model->$k[$attr];
+            preg_match_all("#\[(.*?)\]#us", $attribute, $match);
+            
+
+            $k = StringHelper::msubstr($attribute,0,stripos($attribute,'['));
+
+
+            $vv = $model->$k;
+            $keys = $match[1];
+
+            if(count($keys)==1){
+
+                $value = $vv[$keys[0]];
+
+            }elseif(count($keys)==2){
+
+                $value = $vv[$keys[0]][$keys[1]];
+
+            }elseif(count($keys)==3){
+
+                $value = $vv[$keys[0]][$keys[1]][$keys[2]];
+
+            }else{
+                $value = '';
+            }
+
         }else{
             $value = $model->$attribute;
         }
         
-        if ($value && empty($this->options['value'])) {
-            $src = $this->_validateUrl($value) ? $value : Yii::$app->params['domain'] . $value;
+        if (!empty($value) && empty($this->options['value'])) {
+            $src = $this->_validateUrl($value) ? $value : ImageHelper::tomedia($value);
         }
 
 
         if(!empty($this->options['value'])){
             $src = $this->options['value'];
         }
-       
+        
         $eles[] = Html::img($src, ['class' => 'img-responsive img-thumbnail cus-img']);
         $eles[] = Html::tag('em', 'x', ['class' => 'close delImage', 'title' => '删除这张图片']);
 

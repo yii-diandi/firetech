@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-14 04:47:22
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-29 01:52:27
+ * @Last Modified time: 2020-11-21 22:54:24
  */
 
 
@@ -63,11 +63,12 @@ class DdCorePaylog extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type', 'openid', 'uniontid', 'fee', 'status', 'module', 'tag'], 'required'],
+            [['type','uniontid', 'fee', 'status', 'module', 'tag'], 'required'],
             [['fee', 'card_fee'], 'number'],
             [['status', 'is_usecard', 'card_type', 'is_wish',
                 'bloc_id',
                 'store_id',
+                'member_id',
                 'create_time',
                 'update_time'
             ], 'integer'],
@@ -96,6 +97,7 @@ class DdCorePaylog extends \yii\db\ActiveRecord
             'status' => '支付状态',
             'module' => '模块',
             'tag' => 'Tag',
+            'member_id'=>'用户id',
             'is_usecard' => '是否使用会员卡',
             'card_type' => '会员卡类型',
             'card_id' => '会员卡id',

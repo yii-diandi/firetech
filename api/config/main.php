@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-05 08:27:35
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-14 23:01:13
+ * @Last Modified time: 2020-12-15 22:20:48
  */
 $params = array_merge(
     require __DIR__.'/../../common/config/params.php',
@@ -143,7 +143,7 @@ return [
                     // 如果你的 controller 本身是复数名称 UsersController ，此参数没用，url 地址必须是 users
                     'pluralize' => false,
                     'extraPatterns' => [
-                        'GET index' => 'index',
+                        'GET,OPTIONS index' => 'index',
                     ],
                 ],
                 // 文档
@@ -152,7 +152,7 @@ return [
                     'controller' => ['ceshi'],
                     'pluralize' => false,
                     'extraPatterns' => [
-                        'GET swgdoc' => 'swgdoc',
+                        'GET,OPTIONS swgdoc' => 'swgdoc',
                     ],
                 ],
                 [
@@ -160,8 +160,8 @@ return [
                     'controller' => ['map'],
                     'pluralize' => false,
                     'extraPatterns' => [
-                        'GET distance' => 'distance',
-                        'GET citylist' => 'citylist',
+                        'GET,OPTIONS distance' => 'distance',
+                        'GET,OPTIONS citylist' => 'citylist',
                     ],
                 ],
                 [
@@ -169,14 +169,15 @@ return [
                     'controller' => ['user'],
                     'pluralize' => false,
                     'extraPatterns' => [
-                        'POST login' => 'login',
-                        'POST signup' => 'signup',
-                        'POST repassword' => 'repassword',
-                        'POST userinfo' => 'userinfo',
-                        'POST edituserinfo' => 'edituserinfo',
-                        'POST sendcode' => 'sendcode',
-                        'POST forgetpass' => 'forgetpass',
-                        'POST feedback' => 'feedback',
+                        'POST,OPTIONS   login' => 'login',
+                        'POST,OPTIONS   signup' => 'signup',
+                        'POST,OPTIONS   repassword' => 'repassword',
+                        'POST,OPTIONS   userinfo' => 'userinfo',
+                        'POST,OPTIONS   edituserinfo' => 'edituserinfo',
+                        'POST,OPTIONS   sendcode' => 'sendcode',
+                        'POST,OPTIONS   forgetpass' => 'forgetpass',
+                        'POST,OPTIONS   feedback' => 'feedback',
+                        'POST,OPTIONS   bindmobile' => 'bindmobile',
                     ],
                 ],
                 [
@@ -184,8 +185,8 @@ return [
                     'controller' => ['addons'],
                     'pluralize' => false,
                     'extraPatterns' => [
-                        'GET index' => 'index',
-                        'POST diandishop' => 'diandi-shop',
+                        'GET,OPTIONS index' => 'index',
+                        'POST,OPTIONS   diandishop' => 'diandi-shop',
                     ],
                 ],
                 // 基础接口
@@ -194,7 +195,7 @@ return [
                     'controller' => ['upload'],
                     'pluralize' => false,
                     'extraPatterns' => [
-                        'POST images' => 'images',
+                        'POST,OPTIONS   images' => 'images',
                     ],
                 ],
                 [
@@ -202,7 +203,10 @@ return [
                     'controller' => ['store'],
                     'pluralize' => false,
                     'extraPatterns' => [
-                        'GET info' => 'info',
+                        'GET,OPTIONS info' => 'info',
+                        'GET,OPTIONS cate' => 'cate',
+                        'GET,OPTIONS list' => 'list',
+                        'POST,OPTIONS detailinfo' => 'detailinfo',
                     ],
                 ],
                 [
@@ -210,7 +214,7 @@ return [
                     'controller' => ['address'],
                     'pluralize' => false,
                     'extraPatterns' => [
-                        'POST lists' => 'lists',
+                        'POST,OPTIONS  lists' => 'lists',
                     ],
                 ],
                 [
@@ -228,7 +232,7 @@ return [
                     'controller' => ['v1/category'],
                     'pluralize' => false,
                     'extraPatterns' => [
-                        'POST list' => 'list',
+                        'POST,OPTIONS  list' => 'list',
                     ],
                 ],
                 [
@@ -236,7 +240,7 @@ return [
                     'controller' => ['v1/ceshi'],
                     'pluralize' => false,
                     'extraPatterns' => [
-                        'GET ccc' => 'ccc',
+                        'GET,OPTIONS ccc' => 'ccc',
                     ],
                 ],
                 [
@@ -244,7 +248,7 @@ return [
                     'controller' => ['v1/goods'],
                     'pluralize' => false,
                     'extraPatterns' => [
-                        'POST ccc' => 'ccc',
+                        'POST,OPTIONS  ccc' => 'ccc',
                     ],
                 ],
                 [
@@ -252,7 +256,7 @@ return [
                     'controller' => ['v1/index'],
                     'pluralize' => false,
                     'extraPatterns' => [
-                        'POST ccc' => 'ccc',
+                        'POST,OPTIONS  ccc' => 'ccc',
                     ],
                 ],
                 // 小程序接口
@@ -261,8 +265,8 @@ return [
                     'controller' => ['wechat/basics'],
                     'pluralize' => false,
                     'extraPatterns' => [
-                        'POST,HEAD signup' => 'signup',
-                        'POST,HEAD payparameters' => 'payparameters',
+                        'POST,HEAD,OPTIONS signup' => 'signup',
+                        'POST,HEAD,OPTIONS payparameters' => 'payparameters',
                         'POST,HEAD,GET,OPTIONS,PUT notify' => 'notify',
                     ],
                 ],
@@ -271,7 +275,7 @@ return [
                     'controller' => ['wechat/sendmsg'],
                     'pluralize' => false,
                     'extraPatterns' => [
-                        'POST,HEAD send' => 'send',
+                        'POST,HEAD,OPTIONS send' => 'send',
                     ],
                 ],
                 [
@@ -279,7 +283,7 @@ return [
                     'controller' => ['wechat/qrcode'],
                     'pluralize' => false,
                     'extraPatterns' => [
-                        'POST getqrcode' => 'getqrcode',
+                        'POST,OPTIONS  getqrcode' => 'qrcode',
                     ],
                 ],
                 // 公众号接口
@@ -288,10 +292,10 @@ return [
                     'controller' => ['officialaccount/basics'],
                     'pluralize' => false,
                     'extraPatterns' => [
-                        'POST,HEAD signup' => 'signup',
-                        'GET,POST,HEAD auth' => 'auth',
-                        'GET,POST,HEAD userinfo' => 'userinfo',
-                        'POST,HEAD payparameters' => 'payparameters',
+                        'POST,HEAD,OPTIONS signup' => 'signup',
+                        'GET,POST,HEAD,OPTIONS auth' => 'auth',
+                        'GET,POST,HEAD,OPTIONS userinfo' => 'userinfo',
+                        'POST,HEAD,OPTIONS payparameters' => 'payparameters',
                         'POST,HEAD,GET,OPTIONS,PUT notify' => 'notify',
                     ],
                 ],
@@ -301,7 +305,7 @@ return [
                     'controller' => ['officialaccount/msg'],
                     'pluralize' => false,
                     'extraPatterns' => [
-                        'GET index' => 'index',
+                        'GET,OPTIONS index' => 'index',
                     ],
                 ],
                 [
@@ -309,7 +313,7 @@ return [
                     'controller' => ['officialaccount/jssdk'],
                     'pluralize' => false,
                     'extraPatterns' => [
-                        'POST config' => 'config',
+                        'POST,OPTIONS  config' => 'config',
                     ],
                 ],
                 [
@@ -317,7 +321,7 @@ return [
                     'controller' => ['officialaccount/qrcode'],
                     'pluralize' => false,
                     'extraPatterns' => [
-                        'POST,GET getqrcode' => 'getqrcode',
+                        'POST,GET,OPTIONS getqrcode' => 'qrcode',
                     ],
                 ],
             ],

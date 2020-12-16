@@ -3,75 +3,74 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-11-02 00:50:23
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-03 22:56:49
+ * @Last Modified time: 2020-12-13 00:42:12
  */
- 
 
 namespace common\models;
 
 use api\modules\officialaccount\models\DdWechatFans;
-use Yii;
 use api\modules\wechat\models\DdWxappFans;
+use Yii;
 
 /**
  * This is the model class for table "{{%member}}".
  *
- * @property int $member_id
- * @property int|null $group_id
- * @property int|null $level
- * @property string $openid
- * @property int|null $store_id
- * @property int $bloc_id
- * @property string|null $username 会员名称
- * @property int|null $mobile 手机号
- * @property string|null $address 用户地址
- * @property string $nickName 微信昵称
- * @property string $avatarUrl 会员头像
- * @property int $gender 0男1女
- * @property string $country 国家
- * @property string $province 省份
- * @property int|null $status 会员状态
- * @property string $city 城市
- * @property int $address_id 收货地址id
- * @property int $wxapp_id
- * @property string|null $verification_token 验证token
- * @property int $create_time
- * @property int $update_time
- * @property string $auth_key
- * @property string $password_hash
+ * @property int         $member_id
+ * @property int|null    $group_id
+ * @property int|null    $level
+ * @property string      $openid
+ * @property int|null    $store_id
+ * @property int         $bloc_id
+ * @property string|null $username             会员名称
+ * @property int|null    $mobile               手机号
+ * @property string|null $address              用户地址
+ * @property string      $nickName             微信昵称
+ * @property string      $avatarUrl            会员头像
+ * @property int         $gender               0男1女
+ * @property string      $country              国家
+ * @property string      $province             省份
+ * @property int|null    $status               会员状态
+ * @property string      $city                 城市
+ * @property int         $address_id           收货地址id
+ * @property int         $wxapp_id
+ * @property string|null $verification_token   验证token
+ * @property int         $create_time
+ * @property int         $update_time
+ * @property string      $auth_key
+ * @property string      $password_hash
  * @property string|null $password_reset_token
- * @property string|null $realname 真实姓名
- * @property string|null $avatar 头像
- * @property string|null $qq QQ号
- * @property string|null $vip VIP级别
- * @property string|null $birthyear 出生生日
- * @property string|null $constellation 星座
- * @property string|null $zodiac 生肖
- * @property string|null $telephone 固定电话
- * @property string|null $idcard 证件号码
- * @property string|null $studentid 学号
- * @property string|null $grade 班级
- * @property string|null $zipcode 邮编
- * @property string|null $nationality 国籍
- * @property string|null $resideprovince 居住地址
- * @property string|null $graduateschool 毕业学校
- * @property string|null $company 公司
- * @property string|null $education 学历
- * @property string|null $occupation 职业
- * @property string|null $position 职位
- * @property string|null $revenue 年收入
- * @property string|null $affectivestatus 情感状态
- * @property string|null $lookingfor  交友目的
- * @property string|null $bloodtype 血型
- * @property string|null $height 身高
- * @property string|null $weight 体重
- * @property string|null $alipay 支付宝帐号
- * @property string|null $msn MSN
- * @property string|null $email 电子邮箱
- * @property string|null $taobao 阿里旺旺
- * @property string|null $site 主页
- * @property string|null $bio 自我介绍
- * @property string|null $interest 兴趣爱好
+ * @property string|null $realname             真实姓名
+ * @property string|null $avatar               头像
+ * @property string|null $qq                   QQ号
+ * @property string|null $vip                  VIP级别
+ * @property string|null $birthyear            出生生日
+ * @property string|null $constellation        星座
+ * @property string|null $zodiac               生肖
+ * @property string|null $telephone            固定电话
+ * @property string|null $idcard               证件号码
+ * @property string|null $studentid            学号
+ * @property string|null $grade                班级
+ * @property string|null $zipcode              邮编
+ * @property string|null $nationality          国籍
+ * @property string|null $resideprovince       居住地址
+ * @property string|null $graduateschool       毕业学校
+ * @property string|null $company              公司
+ * @property string|null $education            学历
+ * @property string|null $occupation           职业
+ * @property string|null $position             职位
+ * @property string|null $revenue              年收入
+ * @property string|null $affectivestatus      情感状态
+ * @property string|null $lookingfor           交友目的
+ * @property string|null $bloodtype            血型
+ * @property string|null $height               身高
+ * @property string|null $weight               体重
+ * @property string|null $alipay               支付宝帐号
+ * @property string|null $msn                  MSN
+ * @property string|null $email                电子邮箱
+ * @property string|null $taobao               阿里旺旺
+ * @property string|null $site                 主页
+ * @property string|null $bio                  自我介绍
+ * @property string|null $interest             兴趣爱好
  */
 class DdMember extends \yii\db\ActiveRecord
 {
@@ -89,11 +88,11 @@ class DdMember extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['group_id', 'level', 'store_id', 'bloc_id', 'mobile', 'gender', 'status', 'address_id', 'wxapp_id', 'create_time', 'update_time'], 'integer'],
+            [['group_id', 'level', 'store_id', 'bloc_id', 'mobile', 'gender', 'status', 'address_id', 'create_time', 'update_time'], 'integer'],
             [['bloc_id', 'auth_key', 'password_hash'], 'required'],
             [['openid', 'address', 'nickName', 'avatarUrl', 'verification_token', 'password_hash', 'password_reset_token'], 'string', 'max' => 255],
             [['username'], 'string', 'max' => 30],
-            [['country', 'province', 'city'], 'string', 'max' => 100],
+            [['country', 'province', 'city', 'invitation_code'], 'string', 'max' => 100],
             [['auth_key'], 'string', 'max' => 32],
             [['realname', 'avatar', 'qq', 'vip', 'birthyear', 'constellation', 'zodiac', 'telephone', 'idcard', 'studentid', 'grade', 'zipcode', 'nationality', 'resideprovince', 'graduateschool', 'company', 'education', 'occupation', 'position', 'revenue', 'affectivestatus', 'lookingfor', 'bloodtype', 'height', 'weight', 'alipay', 'msn', 'email', 'taobao', 'site', 'bio', 'interest'], 'string', 'max' => 10],
         ];
@@ -113,7 +112,6 @@ class DdMember extends \yii\db\ActiveRecord
             ],
         ];
     }
-
 
     public function getAccount()
     {
@@ -135,18 +133,7 @@ class DdMember extends \yii\db\ActiveRecord
         return $this->hasOne(DdWechatFans::className(), ['user_id' => 'member_id']);
     }
 
-    public function fields()
-    {
-        $fields = parent::fields();
-        // p($fields);
-        // die;
-        // // $fields  ['create_time'] = function () {
-        // //     return Yii::$app->formatter->asDate($this->create_time, 'yyyy-MM-dd');
-        // // } 
-        
-        return $fields;
-    }
-
+  
 
     /**
      * {@inheritdoc}
@@ -171,7 +158,7 @@ class DdMember extends \yii\db\ActiveRecord
             'status' => '会员状态',
             'city' => '城市',
             'address_id' => '收货地址id',
-            'wxapp_id' => 'Wxapp ID',
+            'invitation_code' => '邀请码',
             'verification_token' => '验证token',
             'create_time' => '创建时间',
             'update_time' => '更新时间',

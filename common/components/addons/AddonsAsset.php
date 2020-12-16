@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-26 09:16:19
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-07 14:42:01
+ * @Last Modified time: 2020-12-07 09:35:55
  */
 
 namespace common\components\addons;
@@ -64,7 +64,7 @@ class AddonsAsset extends AssetBundle
         FileHelper::mkdirs(Yii::getAlias($this->sourcePath.$controllerPath));
 
         $path = Yii::getAlias($this->sourcePath.$controllerPath.'/'.$actionName.'.js');
-
+        
         if(is_file($path)){
             $this->js[] = $controllerPath.'/'.$actionName.'.js';             
         }else{

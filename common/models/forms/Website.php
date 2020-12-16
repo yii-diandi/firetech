@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-22 19:33:19
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-04-30 23:41:50
+ * @Last Modified time: 2020-11-29 21:30:47
  */
 
 namespace common\models\forms;
@@ -34,7 +34,8 @@ class Website extends Model
     public $keywords;
     public $themcolor;
     public $bloc_id;
-
+    public $store_id;
+    
     /**
      * {@inheritdoc}
      */
@@ -48,6 +49,7 @@ class Website extends Model
                 'description',
                 'keywords',
                 'themcolor',
+                'store_id'
             ], 'string'],
             ['bloc_id', 'integer'],
             // [['status'],'in',['1'=>'关闭','0'=>'开启']]
@@ -77,6 +79,7 @@ class Website extends Model
             'footerright' => '底部右侧',
             'footerleft' => '底部左侧',
             'themcolor' => '后台主题',
+            'store_id' => '商户id',
             'bloc_id' => '全局默认公司',
         ];
     }

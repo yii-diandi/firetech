@@ -163,6 +163,8 @@ class BaseController extends Controller
 
     public function renderView($view,$param,$return=false)
     {   
+        global $_GPC;
+        
         if(!empty($this->_params)){
             $param =  $param ===null?  $this->_params :array_merge($this->_params,$param);
         }

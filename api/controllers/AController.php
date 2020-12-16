@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-18 06:48:40
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-09-18 11:27:10
+ * @Last Modified time: 2020-12-13 22:00:21
  */
 
 namespace api\controllers;
@@ -46,9 +46,14 @@ class AController extends ActiveController
      * @var array
      */
     protected $signOptional = [];
+    
+    protected $optionsAction = [];//需要options的方法
+
+    
 
     public function behaviors()
     {
+         
         /* 添加行为 */
         $behaviors = parent::behaviors();
 
@@ -92,20 +97,32 @@ class AController extends ActiveController
             ],
         ];
 
+        $response = Yii::$app->getResponse();
+        if (Yii::$app->request->getMethod() == 'OPTIONS' && !in_array(Yii::$app->controller->action->id,$this->optionsAction)) {
+            $response->data = 'options请求 快速响应';
+            $response->send();
+            Yii::$app->end();
+        }
+
         return $behaviors;
     }
 
+ 
     public function beforeAction($action)
     {
-        Yii::$app->params['bloc_id'] = Yii::$app->service->commonGlobalsService->getBloc_id();
-        Yii::$app->params['store_id'] = Yii::$app->service->commonGlobalsService->getStore_id();
-        
+        Yii::$app->params['bloc_id']    = Yii::$app->service->commonGlobalsService->getBloc_id();
+        Yii::$app->params['store_id']   = Yii::$app->service->commonGlobalsService->getStore_id();
+        // 集团化参数赋值
+        Yii::$app->service->commonGlobalsService->getGlobalBloc();
         if (empty(Yii::$app->params['bloc_id'])) {
             return ResultHelper::json('400', '缺少公司参数bloc_id');
         }
+        
         if (empty(Yii::$app->params['store_id'])) {
             return ResultHelper::json('400', '缺少门户参数参数store_id');
         }
+        
+        
         return parent::beforeAction($action);
     }
 

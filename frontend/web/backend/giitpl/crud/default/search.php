@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-06-25 10:07:50
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-05 13:32:23
+ * @Last Modified time: 2020-12-10 19:16:18
  */
  
 /**
@@ -100,7 +100,6 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
 
         $list = $query->offset($pagination->offset)
             ->limit($pagination->limit)
-            ->asArray()
             ->all();
         
         //foreach ($list as $key => &$value) {
@@ -110,7 +109,7 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
             
 
         $provider = new ArrayDataProvider([
-            'key'=>'member_id',
+            'key'=>'id',
             'allModels' => $list,
             'totalCount' => isset($count) ? $count : 0,
             'total'=> isset($count) ? $count : 0,

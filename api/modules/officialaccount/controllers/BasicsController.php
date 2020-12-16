@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-09 01:32:28
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-09-16 20:54:27
+ * @Last Modified time: 2020-12-03 16:12:03
  */
 
 namespace api\modules\officialaccount\controllers;
@@ -167,6 +167,7 @@ class BasicsController extends AController
     public function actionAuth()
     {
         global $_GPC;
+        $logPath = Yii::getAlias('@runtime/wechat/auth/'.date('ymd').'.log');
 
         $redirect_uri = $_GPC['redirect_uri'];
         $route = $_GPC['route'];
@@ -174,7 +175,10 @@ class BasicsController extends AController
         $wechat = Yii::$app->wechat->app;
         $response = $wechat->oauth->scopes(['snsapi_userinfo'])
         ->redirect($redirect_uri);
+        
 
+        FileHelper::writeLog($logPath, 'auth'.json_encode([$redirect_uri,$route,$response]));
+        
         return ResultHelper::json(200, '授权成功', $response);
     }
 

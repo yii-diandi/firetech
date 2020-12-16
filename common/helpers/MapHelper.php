@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-24 20:13:05
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-08-03 11:28:28
+ * @Last Modified time: 2020-11-19 01:16:04
  */
 
 
@@ -121,11 +121,34 @@ class MapHelper extends BaseObject
 
 public static function get_client_ip()
 {
-    $ip = null;
-    if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-        $ip = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-        $ip = trim(current($ip));
+    static $ip = '';
+
+    $ip = $_SERVER['REMOTE_ADDR'];
+
+    if(isset($_SERVER['HTTP_CDN_SRC_IP'])) {
+
+        $ip = $_SERVER['HTTP_CDN_SRC_IP'];
+
+    } elseif (isset($_SERVER['HTTP_CLIENT_IP']) && preg_match('/^([0-9]{1,3}\.){3}[0-9]{1,3}$/', $_SERVER['HTTP_CLIENT_IP'])) {
+
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+
+    } elseif(isset($_SERVER['HTTP_X_FORWARDED_FOR']) AND preg_match_all('#\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}#s', $_SERVER['HTTP_X_FORWARDED_FOR'], $matches)) {
+
+        foreach ($matches[0] AS $xip) {
+
+        if (!preg_match('#^(10|172\.16|192\.168)\.#', $xip)) {
+
+            $ip = $xip;
+
+            break;
+
+        }
+
+        }
+
     }
+
     return $ip;
 }
 

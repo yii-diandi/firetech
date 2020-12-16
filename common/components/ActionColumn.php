@@ -3,9 +3,8 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-09 10:07:49
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-05-09 10:08:30
+ * @Last Modified time: 2020-12-04 20:22:17
  */
- 
 
 namespace common\components;
 
@@ -18,6 +17,8 @@ use yii\helpers\Html;
 class ActionColumn extends \yii\grid\ActionColumn
 {
     public $template = '{view} {update} {delete}';
+
+    public $urls = [];
 
     /**
      * Initializes the default button rendering callback for single button.
@@ -53,6 +54,15 @@ class ActionColumn extends \yii\grid\ActionColumn
                     'class' => 'btn btn-default btn-ac',
                 ], $additionalOptions, $this->buttonOptions);
                 $icon = Html::tag('span', '', ['class' => " glyphicon glyphicon-$iconName"]);
+
+                $urls = $this->urls;
+                if ($urls) {
+                    foreach ($urls as $k => $val) {
+                        $urll[$k] = $model[$val];
+                    }
+                    $urlsStr = http_build_query($urll);
+                    $url = $url.'&'.$urlsStr;
+                }
 
                 return Html::a($icon, $url, $options);
             };
