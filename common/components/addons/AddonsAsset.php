@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-26 09:16:19
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-12-07 09:35:55
+ * @Last Modified time: 2021-01-03 03:46:24
  */
 
 namespace common\components\addons;
@@ -22,7 +22,7 @@ class AddonsAsset extends AssetBundle
     /**
      * {@inheritdoc}
      */
-    public $sourcePath = '@common/addons/diandi_pro/assets';
+    public $sourcePath = '@addons/diandi_ai/assets';
 
     public $version;
 
@@ -38,12 +38,12 @@ class AddonsAsset extends AssetBundle
     public $jsOptions = [
         'type' => 'module'
     ];
-    
+  
     /**
      * {@inheritdoc}
      */
     public $depends = [
-        'yii\web\JqueryAsset',
+        // 'yii\web\JqueryAsset',
         'common\widgets\adminlte\VuemainAsset',
         'common\widgets\adminlte\ExportExcelAsset',
     ];
@@ -59,7 +59,7 @@ class AddonsAsset extends AssetBundle
         $module = Yii::$app->controller->module->id;
         $controllerPath = Yii::$app->controller->id;
         $actionName  = Yii::$app->controller->action->id;
-        $this->sourcePath = sprintf('@common/addons/%s/assets/', trim($module));
+        $this->sourcePath = sprintf('@addons/%s/assets/', trim($module));
        
         FileHelper::mkdirs(Yii::getAlias($this->sourcePath.$controllerPath));
 

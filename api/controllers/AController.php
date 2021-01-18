@@ -4,23 +4,24 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-18 06:48:40
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-12-13 22:00:21
+ * @Last Modified time: 2021-01-02 00:29:26
  */
 
 namespace api\controllers;
 
+use common\filters\auth\CompositeAuth;
+use common\filters\auth\HttpBasicAuth;
+use common\filters\auth\HttpBearerAuth;
+use common\filters\auth\QueryParamAuth;
 use common\helpers\ResultHelper;
 use Yii;
 use yii\base\InlineAction;
 use yii\base\InvalidConfigException;
 use yii\rest\ActiveController;
-use yii\filters\auth\CompositeAuth;
-use yii\filters\auth\HttpBasicAuth;
-use yii\filters\auth\HttpBearerAuth;
-use yii\filters\auth\QueryParamAuth;
 use yii\data\ActiveDataProvider;
 use yii\filters\RateLimiter;
 use yii\web\NotFoundHttpException;
+
 
 /**
  * 基类控制器.
@@ -49,11 +50,10 @@ class AController extends ActiveController
     
     protected $optionsAction = [];//需要options的方法
 
-    
+ 
 
     public function behaviors()
-    {
-         
+    { 
         /* 添加行为 */
         $behaviors = parent::behaviors();
 
@@ -84,8 +84,8 @@ class AController extends ActiveController
                 // restrict access to
                 'Origin' => explode(',',$urls),
                 // Allow only POST and PUT methods POST, GET, OPTIONS, DELETE
-                'Access-Control-Request-Method' => ['POST','PUT','GET','OPTIONS','DELETE'],
-                'Access-Control-Allow-Headers'  => ['Content-Type','Referer','Content-Length','Authorization','Accept','X-Requested-With','access-token','bloc_id','store_id'],
+                'Access-Control-Request-Method' => ['POST','PUT','OPTIONS','GET','DELETE'],
+                'Access-Control-Allow-Headers'  => ['Content-Type','Referer','Content-Length','Authorization','Accept','X-Requested-With','access-token','bloc_id','store_id','bloc-id','store-id'],
                 // Allow only headers 'X-Wsse'
                 'Access-Control-Request-Headers' => ['X-Wsse','X-PINGOTHER'],
                 // Allow credentials (cookies, authorization headers, etc.) to be exposed to the browser
@@ -96,13 +96,7 @@ class AController extends ActiveController
                 'Access-Control-Expose-Headers' => ['X-Pagination-Current-Page'],
             ],
         ];
-
-        $response = Yii::$app->getResponse();
-        if (Yii::$app->request->getMethod() == 'OPTIONS' && !in_array(Yii::$app->controller->action->id,$this->optionsAction)) {
-            $response->data = 'options请求 快速响应';
-            $response->send();
-            Yii::$app->end();
-        }
+        
 
         return $behaviors;
     }
@@ -121,7 +115,6 @@ class AController extends ActiveController
         if (empty(Yii::$app->params['store_id'])) {
             return ResultHelper::json('400', '缺少门户参数参数store_id');
         }
-        
         
         return parent::beforeAction($action);
     }

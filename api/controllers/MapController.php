@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-13 04:06:57
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-12-13 22:06:37
+ * @Last Modified time: 2020-12-22 23:40:01
  */
 
 
@@ -21,8 +21,6 @@ class MapController extends AController
 {
     public $modelClass = '';
     protected $authOptional = ['distance'];
-    
-
     
     /**
      * @SWG\Get(path="/map/distance",

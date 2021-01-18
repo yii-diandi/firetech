@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-16 09:37:55
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-08-12 13:10:23
+ * @Last Modified time: 2021-01-16 13:29:07
  */
 
 namespace common\behaviors;
@@ -40,16 +40,16 @@ class HttpRequstMethod extends Behavior
      * @param yii\web\Request $request
      */
     public function __construct(Request $request, $config = [])
-    {
+    {   
         $this->request = $request;
         parent::__construct($config);
     }
 
     public function init()
-    {
+    {   
         $bloc_id = Yii::$app->service->commonGlobalsService->getBloc_id();
         $store_id = Yii::$app->service->commonGlobalsService->getStore_id();
-
+       
         // 后台用户使用
         // if (Yii::$app->user->identity->bloc_id) {
         //     $bloc_id = Yii::$app->user->identity->bloc_id;
@@ -91,10 +91,13 @@ class HttpRequstMethod extends Behavior
         if ($this->owner->modelSearchName && !empty($whereInit)) {
             if (key_exists($this->owner->modelSearchName, Yii::$app->request->queryParams)) {
                 $whereInit = array_merge($whereInit, Yii::$app->request->queryParams[$this->owner->modelSearchName]);
-            } else {
-                $where[$this->owner->modelSearchName] = $whereInit;
             }
+            
+            $where[$this->owner->modelSearchName] = $whereInit;
+            
         }
+        
+
         $where = array_merge(\Yii::$app->request->get(), \Yii::$app->request->post(), $where);
         
         Yii::$app->request->setQueryParams($where);

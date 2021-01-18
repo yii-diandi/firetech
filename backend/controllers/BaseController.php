@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-03 07:34:16
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-02 15:04:47
+ * @Last Modified time: 2021-01-17 00:27:18
  */
 
 namespace backend\controllers;
@@ -13,8 +13,8 @@ use common\helpers\ResultHelper;
 use Yii;
 use yii\web\Controller;
 use diandi\admin\models\Menu;
-use diandi\addons\modules\searchs\DdAddons;
-use diandi\admin\models\AddonsUser;
+use diandi\addons\models\searchs\DdAddons;
+use diandi\addons\models\AddonsUser;
 use Smarty;
 
 class BaseController extends Controller
@@ -44,6 +44,7 @@ class BaseController extends Controller
     public function beforeAction($action)
     {
         global $_GPC;
+        
         //没有登录则跳转到登录界面
         if (Yii::$app->user->isGuest && \Yii::$app->controller->id != 'site') {
             return  $this->redirect(Yii::$app->urlManager->createUrl(Yii::$app->user->loginUrl));
@@ -74,6 +75,11 @@ class BaseController extends Controller
             $module_names = $AddonsUser->find()->where([
                 'user_id' => Yii::$app->user->id,
             ])->with(['addons'])->asArray()->all();
+            foreach ($module_names as $key => &$value) {
+                if(empty($value['addons'])){
+                    unset($module_names[$key]);
+                }
+            }
             Yii::$app->params['moduleAll']  = $module_names?$module_names:[];
         }
         Yii::$app->params['is_addons'] = $is_addons; //  empty($menutypes['type']) ? $nav['top'][0]['mark'] : $menutypes['type'];
@@ -139,8 +145,7 @@ class BaseController extends Controller
         $behaviors['request'] = [
             'class' => \common\behaviors\HttpRequstMethod::className(),
         ];
-
-
+        
         return $behaviors;
     }
 

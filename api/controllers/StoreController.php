@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-19 18:05:45
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-12-14 13:02:33
+ * @Last Modified time: 2021-01-17 13:16:16
  */
 
 
@@ -80,14 +80,19 @@ class StoreController extends AController
         $keywords = $_GPC['keywords'];
         $longitude = $_GPC['longitude'];
         $latitude  = $_GPC['latitude'];
+        $label_id  = intval($_GPC['label_id']);
+        
         $page  = $_GPC['page'];
         $pageSize  = $_GPC['pageSize'];
 
         FileHelper::writeLog($logPath, '经纬度计算距离参数' .json_encode([
-            $longitude,$latitude,$_GPC
+            'longitude'=>$longitude,
+            'latitude'=>$latitude,
+            '_GPC'=>$_GPC,
+            'member_id' => Yii::$app->user->identity->member_id
         ]));
         
-        $list = Yii::$app->service->commonStoreService->list($category_pid,$category_id,$longitude,$latitude,$keywords,$page,$pageSize);
+        $list = Yii::$app->service->commonStoreService->list($category_pid,$category_id,$longitude,$latitude,$keywords,$label_id,$page,$pageSize);
 
         return ResultHelper::json(200, '获取成功', $list);
         

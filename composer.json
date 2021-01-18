@@ -34,15 +34,16 @@
         "ramsey/uuid": "^3.9",
         "overtrue/easy-sms": "^1.1",
         "yii-diandi/diandiai": "^1.0",
-        "yii-diandi/yii2-admin": "^1.0",
+        "yii-diandi/yii2-admin": "2.14",
         "yii-diandi/yii2-region": "^1.0",
         "yii-diandi/yii2-migration": "^2.0",
         "yii-diandi/yii2-swoole": "^1.0",
-        "yii-diandi/yii2-addons": "^1.0",
+        "yii-diandi/yii2-addons": "^1.9",
         "phpoffice/phpspreadsheet": "^1.14",
         "yiisoft/yii2-smarty": "^2.0",
         "2amigos/qrcode-library": "^1.1",
-        "hashids/hashids": "^4.0"
+        "hashids/hashids": "^4.0",
+        "kartik-v/yii2-markdown": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

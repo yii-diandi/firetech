@@ -1,9 +1,9 @@
 <?php
 /**
  * @Author: Wang chunsheng  email:2192138785@qq.com
- * @Date:   2020-05-17 10:49:27
+ * @Date:   2020-12-17 02:30:39
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-05-25 18:55:35
+ * @Last Modified time: 2020-12-29 02:40:08
  */
 
 use richardfan\widget\JSRegister;
@@ -29,28 +29,24 @@ use richardfan\widget\JSRegister;
         box-shadow: 0 2px 6px 0 rgba(114, 124, 245, .5);
     }
 </style>
-<div class="row">
-        <div class="search">
-            <div class="input-group">
-                <input type="text" id="place"  class="form-control" placeholder="输入地点"/>
-                <span class="input-group-btn">
-                    <button type="button" class="btn btn-default ">搜索</button>                    
-                </span>
-            </div>
-        </div>
-        <div id="container"></div>
-    </div>
 
+<div class="row">
+    <div class="search">
+        <div class="input-group">
+            <input type="text" id="place" style="width: 300px" class="form-control" placeholder="输入地点"/>
+        </div>
+    </div>
+    <div id="container"></div>
+</div>
 
 <?php  JSRegister::begin([
     'id'=>'maps'
 ])?>
 <script>
-    $(function () {
+     $(function () {
         var boxId = "<?= $boxId; ?>";
         var as, x, y, address, map, lat, lng, geocoder;
         var init = function () {
-            console.log('加载地图')
             AMapUI.loadUI(['misc/PositionPicker', 'misc/PoiPicker'], function (PositionPicker, PoiPicker) {
                 //加载PositionPicker，loadUI的路径参数为模块名中 'ui/' 之后的部分
                 map = new AMap.Map('container', {
@@ -64,6 +60,7 @@ use richardfan\widget\JSRegister;
                     mode: 'dragMarker',//设定为拖拽地图模式，可选'dragMap'、'dragMarker'，默认为'dragMap'
                     map: map//依赖地图对象
                 });
+                
                 //输入提示
                 var autoOptions = {
                     input: "place"
@@ -108,6 +105,12 @@ use richardfan\widget\JSRegister;
                         pageSize: 6 //关联搜索分页
                     }
                 });
+
+                poiPicker.onCityReady(function(res) {
+                    console.log('美食',res)
+                    poiPicker.suggest('美食');
+                });
+                
                 poiPicker.on('poiPicked', function (poiResult) {
                     poiPicker.hideSearchResults();
                     lat = poiResult.item.location.lat
@@ -129,6 +132,8 @@ use richardfan\widget\JSRegister;
                     console.log(positionResult);
                 });
                 positionPicker.start();
+
+              
             });
         };
 

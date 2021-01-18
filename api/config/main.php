@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-05 08:27:35
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-12-15 22:20:48
+ * @Last Modified time: 2020-12-19 21:41:49
  */
 $params = array_merge(
     require __DIR__.'/../../common/config/params.php',
@@ -267,6 +267,7 @@ return [
                     'extraPatterns' => [
                         'POST,HEAD,OPTIONS signup' => 'signup',
                         'POST,HEAD,OPTIONS payparameters' => 'payparameters',
+                        'POST,HEAD,GET,OPTIONS,PUT refundednotify' => 'refundednotify',
                         'POST,HEAD,GET,OPTIONS,PUT notify' => 'notify',
                     ],
                 ],

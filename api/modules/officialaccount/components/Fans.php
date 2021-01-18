@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-10 20:37:35
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-14 23:32:38
+ * @Last Modified time: 2021-01-09 21:09:19
  */
 
 namespace app\modules\officialaccount\components;
@@ -54,18 +54,19 @@ class Fans extends BaseObject
                 return Yii::$app->cache->get($keys);
             }
         }
+        
         $DdMember = new DdMember();
         // 校验openID是否存在
-        $isHave = $this->checkByopenid($openid);
-        FileHelper::writeLog($logPath, '登录日志:校验openid是否存在'.json_encode($isHave));
 
-        if ($isHave) {
+        $fans = $this->fansByopenid($openid);
+
+        FileHelper::writeLog($logPath, '登录日志:校验openid是否存在'.json_encode($fans));
+
+        if (!empty($fans)) {
             FileHelper::writeLog($logPath, '登录日志:有缓存');
-
-            $fans = $this->fansByopenid($openid);
             $member = $DdMember::findIdentity($fans['user_id']);
             $userinfo = Yii::$app->service->apiAccessTokenService->getAccessToken($member, 1);
-            $userinfo['fans'] = $this->fansByopenid($openid);
+            $userinfo['fans'] = $fans;
             Yii::$app->cache->set($keys, $userinfo);
             FileHelper::writeLog($logPath, '登录日志:有缓存数据'.json_encode($userinfo));
 

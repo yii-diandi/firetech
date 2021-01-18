@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-05 11:45:49
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-12-13 14:34:10
+ * @Last Modified time: 2020-12-30 23:58:22
  */
 
 
@@ -471,10 +471,9 @@ class UserController extends AController
         
         $code   = random_int(1000, 9999);
         Yii::$app->cache->set($mobile . '_code', $code);
-        // $service = Yii::$app->service;
-        // $service->namespace = 'api';
+        
         $usage = '忘记密码验证';
-        // $res = $service->Sms->send($mobile, $code, $usage);
+        
         $res = Yii::$app->service->apiSmsService->send($mobile, $code, $usage);
         return ResultHelper::json(200, "发送成功", $res);
     }

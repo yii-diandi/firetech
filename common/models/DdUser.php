@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-04-13 16:25:31
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-10 19:32:33
+ * @Last Modified time: 2020-12-22 19:43:07
  */
 
 
@@ -44,9 +44,9 @@ class DdUser extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['gender', 'address_id', 'wxapp_id', 'create_time', 'update_time'], 'integer'],
+            [['gender', 'address_id', 'wxapp_id', 'create_time', 'update_time','is_login'], 'integer'],
             [['open_id', 'nickName', 'avatarUrl'], 'string', 'max' => 255],
-            [['country', 'province', 'city'], 'string', 'max' => 100],
+            [['country', 'province', 'city','last_login_ip'], 'string', 'max' => 100],
         ];
     }
 
@@ -56,6 +56,8 @@ class DdUser extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+            'is_login'=>'是否登录',
+            'last_login_ip'=>'最后登录ip',
             'user_id' => 'User ID',
             'open_id' => 'Open ID',
             'nickName' => 'Nick Name',

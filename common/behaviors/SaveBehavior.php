@@ -3,12 +3,12 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-15 22:50:42
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-12-13 17:43:47
+ * @Last Modified time: 2020-12-28 02:54:34
  */
 
 namespace common\behaviors;
 
-use diandi\admin\models\Bloc;
+use diandi\addons\models\Bloc;
 use Yii;
 use yii\base\Behavior;
 use yii\db\BaseActiveRecord;
@@ -69,6 +69,8 @@ class SaveBehavior extends Behavior
         //     $store_id = Yii::$app->user->identity->store_id;
         // }
 
+     
+        
         $this->_map = [
             $this->createdAttribute => time(), //在这里你可以随意格式化
             $this->updatedAttribute => time(),
@@ -89,7 +91,7 @@ class SaveBehavior extends Behavior
         if (!empty($this->attributes[$event->name])) {
             $attributes = $this->attributes[$event->name];
             foreach ($attributes as $attribute) {
-                if (array_key_exists($attribute, $this->owner->attributes)) {
+                if (array_key_exists($attribute, $this->owner->attributes) && empty($this->owner->attributes[$attribute])) {
                     $this->owner->$attribute = $this->getValue($attribute);
                 }
             }

@@ -21,6 +21,6 @@ Vue.http.options.headers = {
 }    
 console.log(VueResource)
 Vue.prototype.VueResource=VueResource
-new Vue({
+const vm = new Vue({
   render: h => h(App),
 }).$mount('#APP')

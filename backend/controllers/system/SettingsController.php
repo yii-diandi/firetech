@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-28 23:43:29
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-09-07 11:09:24
+ * @Last Modified time: 2020-12-18 11:01:14
  */
 
 
@@ -165,10 +165,9 @@ class SettingsController extends BaseController
         if(Yii::$app->request->isPost){
             $data = Yii::$app->request->post('bloc','');
             if($data){
-                Yii::$app->cache->set('globalBloc',json_decode($data,true));
-            
-                return ResultHelper::json(200,'切换成功',Yii::$app->cache->get('globalBloc')) ;
-                    
+                $key = Yii::$app->user->identity->id.'globalBloc';
+                Yii::$app->cache->set($key,json_decode($data,true));
+                return ResultHelper::json(200,'切换成功',Yii::$app->cache->get('globalBloc'));
             }else{
                 
                 return ResultHelper::json(200,'切换失败',[]) ;

@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-17 08:19:56
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-08-03 11:29:00
+ * @Last Modified time: 2020-12-17 01:31:18
  */
 
 namespace common\widgets\adminlte;
@@ -42,7 +42,7 @@ class Map extends InputWidget
      *
      * amap 高德
      * tencent 腾讯
-     * baidu 高德
+     * baidu 百度
      *
      * @var string
      */

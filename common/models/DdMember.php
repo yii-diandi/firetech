@@ -3,13 +3,14 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-11-02 00:50:23
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-12-13 00:42:12
+ * @Last Modified time: 2020-12-27 03:29:50
  */
 
 namespace common\models;
 
 use api\modules\officialaccount\models\DdWechatFans;
 use api\modules\wechat\models\DdWxappFans;
+use common\helpers\HashidsHelper;
 use Yii;
 
 /**
@@ -112,6 +113,19 @@ class DdMember extends \yii\db\ActiveRecord
             ],
         ];
     }
+
+       /**
+     * @param bool $insert
+     * @param array $changedAttributes
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        if ($insert) {
+            empty($this->invitation_code) && DdMember::updateAll(['invitation_code' => HashidsHelper::encode($this->member_id)], ['member_id' => $this->member_id]);
+        }
+        parent::afterSave($insert, $changedAttributes);
+    }
+
 
     public function getAccount()
     {

@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-12 00:35:06
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-12-02 00:43:21
+ * @Last Modified time: 2021-01-02 03:38:55
  */
 
 namespace api\models;
@@ -63,6 +63,19 @@ class DdMember extends ActiveRecord
             ],
         ];
     }
+
+        /**
+     * @param bool $insert
+     * @param array $changedAttributes
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        if ($insert) {
+            empty($this->invitation_code) && DdMember::updateAll(['invitation_code' => HashidsHelper::encode($this->member_id)], ['member_id' => $this->member_id]);
+        }
+        parent::afterSave($insert, $changedAttributes);
+    }
+
 
     /**
      * 关联api验证token.
@@ -126,29 +139,34 @@ class DdMember extends ActiveRecord
         if ($this->save()) {
             $member_id = Yii::$app->db->getLastInsertID();
             // 更新用户邀请码
+            
+            $isHave = DdMemberAccount::find()->where(['member_id'=>$member_id])->asArray()->one();
 
-            $invitation_code = HashidsHelper::encode($member_id);
-            $this->updateAll([
-                'invitation_code' => $invitation_code,
-            ], ['member_id' => $member_id]);
-            /* 写入用户初始资产 */
-            $DdMemberAccount = new DdMemberAccount();
-            $DdMemberAccount->member_id = $member_id;
-            $DdMemberAccount->status = 1;
-            $DdMemberAccount->level = 1;
-            $DdMemberAccount->user_money    =0;
-            $DdMemberAccount->accumulate_money=0;
-            $DdMemberAccount->give_money=0;
-            $DdMemberAccount->consume_money=0;
-            $DdMemberAccount->frozen_money=0;
-            $DdMemberAccount->consume_integral=0;
-            $DdMemberAccount->credit1=0;
-            $DdMemberAccount->credit2=0;
-            $DdMemberAccount->credit3=0;
-            $DdMemberAccount->credit4=0;
-            $DdMemberAccount->credit5=0;
+            if(!empty($member_id) && empty($isHave)){
+                  /* 写入用户初始资产 */
+                $DdMemberAccount = new DdMemberAccount();
+                $DdMemberAccount->member_id = $member_id;
+                $DdMemberAccount->status = 1;
+                $DdMemberAccount->level = 1;
+                $DdMemberAccount->user_money    =0;
+                $DdMemberAccount->accumulate_money=0;
+                $DdMemberAccount->give_money=0;
+                $DdMemberAccount->consume_money=0;
+                $DdMemberAccount->frozen_money=0;
+                $DdMemberAccount->consume_integral=0;
+                $DdMemberAccount->credit1=0;
+                $DdMemberAccount->credit2=0;
+                $DdMemberAccount->credit3=0;
+                $DdMemberAccount->credit4=0;
+                
+                $DdMemberAccount->credit5=0;
+                 
+                
+                $DdMemberAccount->save();
+                
+            }
 
-            $DdMemberAccount->save();
+            
             /* 写入用户apitoken */
             $service = Yii::$app->service;
             $service->namespace = 'api';
@@ -349,8 +367,8 @@ class DdMember extends ActiveRecord
     public function rules()
     {
         return [
-            [['gender', 'address_id', 'invitation_code', 'group_id', 'create_time', 'update_time'], 'integer'],
-            [['username', 'openid', 'nickName', 'avatarUrl', 'verification_token', 'address'], 'string', 'max' => 255],
+            [['gender', 'address_id', 'group_id', 'create_time', 'update_time'], 'integer'],
+            [['username', 'openid','invitation_code','nickName', 'avatarUrl', 'verification_token', 'address'], 'string', 'max' => 255],
             [['country', 'province', 'city'], 'string', 'max' => 100],
         ];
     }

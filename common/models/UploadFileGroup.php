@@ -9,7 +9,7 @@
 
 namespace common\models;
 
-use diandi\admin\models\BlocStore;
+use diandi\addons\models\BlocStore;
 use Yii;
 
 /**

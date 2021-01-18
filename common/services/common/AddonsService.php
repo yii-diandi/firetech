@@ -13,7 +13,7 @@ use Yii;
 use yii\base\InvalidConfigException;
 use common\queues\MailerJob;
 use common\services\BaseService;
-use diandi\addons\modules\searchs\DdAddons;
+use diandi\addons\models\searchs\DdAddons;
 
 class AddonsService extends BaseService
 {

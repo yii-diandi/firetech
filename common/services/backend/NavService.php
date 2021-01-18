@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-27 14:28:25
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-08-21 23:15:51
+ * @Last Modified time: 2020-12-25 20:30:48
  */
 
 namespace common\services\backend;
@@ -199,12 +199,12 @@ class NavService extends BaseService
         $menu = ArrayHelper::removeByKey($lists);
         $menus = ArrayHelper::removeByKey($menu,'parent');
         $text='<?php return '.var_export($menus,true).';';
-        $configFile =  Yii::getAlias('@common/addons/'.$addons.'/config');
+        $configFile =  Yii::getAlias('@addons/'.$addons.'/config');
         if(!is_dir($configFile)){
                 FileHelper::mkdirs($configFile);
                 @chmod($configFile, 0777); 
         }
-        $file = Yii::getAlias('@common/addons/'.$addons.'/config/menu.php');
+        $file = Yii::getAlias('@addons/'.$addons.'/config/menu.php');
         
         if(false!==fopen($file,'w+')){ 
             file_put_contents($file,$text); 

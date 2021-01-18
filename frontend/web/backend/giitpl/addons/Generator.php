@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-30 10:45:20
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-20 10:40:53
+ * @Last Modified time: 2021-01-01 01:48:47
  */
 
 namespace addonstpl;
@@ -221,7 +221,7 @@ EOD;
      */
     public function getModulePath()
     {
-        $this->moduleClass = 'common\\addons\\'.$this->moduleID.'\\site';
+        $this->moduleClass = 'addons\\'.$this->moduleID.'\\site';
 
         return Yii::getAlias('@'.str_replace('\\', '/', substr($this->moduleClass, 0, strrpos($this->moduleClass, '\\'))));
     }

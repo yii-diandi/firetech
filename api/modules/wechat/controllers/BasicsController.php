@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-09 01:32:28
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-29 23:12:42
+ * @Last Modified time: 2020-12-19 23:56:21
  */
 
 namespace api\modules\wechat\controllers;
@@ -16,6 +16,7 @@ use common\helpers\FileHelper;
 use common\helpers\ResultHelper;
 use common\helpers\StringHelper;
 use common\models\DdCorePaylog;
+use common\models\PayRefundLog;
 use yii\helpers\Json;
 
 /**
@@ -241,7 +242,7 @@ class BasicsController extends AController
 
         $input = file_get_contents('php://input');
 
-        FileHelper::writeLog($logPath, '开始回调回去到的内容'.json_encode($input));
+        FileHelper::writeLog($logPath, '开始回调'.json_encode($input));
 
         $response = Yii::$app->wechat->payment->handlePaidNotify(function ($message, $fail) {
             $logPath = Yii::getAlias('@runtime/wechat/notify/'.date('ymd').'.log');
@@ -274,4 +275,71 @@ class BasicsController extends AController
 
         return $response;
     }
+
+    // 退款回调
+    public function actionRefundednotify()
+    {
+        $logPath = Yii::getAlias('@runtime/wechat/refundednotify/'.date('ymd').'.log');
+        FileHelper::writeLog($logPath, '开始回调'.json_encode(Yii::$app->wechat->payment));
+
+        $input = file_get_contents('php://input');
+
+        FileHelper::writeLog($logPath, '退款回调数据'.json_encode($input));
+
+        $response = Yii::$app->wechat->payment->handleRefundedNotify(function ($message, $reqInfo, $fail)  {
+
+            $logPath = Yii::getAlias('@runtime/wechat/refundednotify/'.date('ymd').'.log');
+
+            FileHelper::writeLog($logPath, Json::encode(ArrayHelper::toArray($reqInfo)));
+            /////////////  建议在这里调用微信的【订单查询】接口查一下该笔订单的情况，确认是已经支付 /////////////
+
+            // return_code 表示通信状态，不代表支付状态
+            if ($reqInfo['refund_status'] === 'SUCCESS') {
+                
+                $out_refund_no      =   $reqInfo['out_refund_no'];
+                
+                $refundLog = PayRefundLog::find()->where(['out_refund_no'=>$out_refund_no])->asArray()->one();
+               
+                $module = $refundLog['module'];
+
+                $refundData = [
+                    "return_code"           =>$reqInfo['return_code'],
+                    "out_refund_no"=>$reqInfo['out_refund_no'],
+                    "out_trade_no"=>$reqInfo['out_trade_no'],
+                    "refund_account"=>$reqInfo['refund_account'],
+                    "refund_fee"=>$reqInfo['refund_fee'],
+                    "refund_id"=>$reqInfo['refund_id'],
+                    "refund_recv_accout"=>$reqInfo['refund_recv_accout'],
+                    "refund_request_source"=>$reqInfo['refund_request_source'],
+                    "refund_status"=>$reqInfo['refund_status'],
+                    "settlement_refund_fee"=>$reqInfo['settlement_refund_fee'],
+                    "settlement_total_fee"=>$reqInfo['settlement_total_fee'],
+                    "success_time"=>$reqInfo['success_time'],
+                    "total_fee"=>$reqInfo['total_fee'],
+                    "transaction_id"=>$reqInfo['transaction_id']
+                ];
+                
+                $Res = PayRefundLog::updateAll($refundData,[
+                    "out_refund_no"=>$reqInfo['out_refund_no']
+                ]);
+                
+                FileHelper::writeLog($logPath, '全局更新日志结果'.json_decode($Res));
+
+                $notify = Yii::$app->getModule($module)->Refundednotify($reqInfo);
+
+                FileHelper::writeLog($logPath, '下单模块处理数据结构'.json_decode($notify));
+
+                if ($notify) {
+                    return true;
+                }
+                
+            }
+
+            return $fail('处理失败，请稍后再通知我');
+        });
+        FileHelper::writeLog($logPath, '回调完毕'.json_encode($response));
+
+        return $response;
+    }
+    
 }

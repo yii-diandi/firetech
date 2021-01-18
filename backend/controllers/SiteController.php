@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-02 21:40:25
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-10 01:10:42
+ * @Last Modified time: 2021-01-01 04:26:26
  */
 
 
@@ -25,6 +25,7 @@ use backend\models\ResendVerificationEmailForm;
 use backend\models\ResetPasswordForm;
 use backend\models\SignupForm;
 use backend\models\VerifyEmailForm;
+use common\helpers\MapHelper;
 use common\models\DdUser;
 use common\models\User;
 
@@ -106,15 +107,32 @@ class SiteController extends BaseController
      */
     public function actionLogin()
     {
+        
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
         $model = new LoginForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            $last_login_ip = MapHelper::get_client_ip();
+            $user = DdUser::find()->where([
+                'id'=>Yii::$app->user->identity->id,
+                'last_login_ip'=>$last_login_ip
+            ])->select(['is_login'])->one();
+            
+            // if($user['is_login']==1 && $user['last_time']+60*5<time()){
+            
+            //     Yii::$app->user->logout();
+            //     Yii::$app->session->setFlash('success', '该账户已在其他浏览器登录');
+            //     return $this->goHome();
+            // }    
             // 记录最后登录的时间
             $password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
-            DdUser::updateAll(['last_time'=>time(),'password_reset_token'=>$password_reset_token],['id'=>Yii::$app->user->identity->id]);
+            DdUser::updateAll([
+                'last_time'=>time(),
+                'is_login'=>1,
+                'last_login_ip'=>$last_login_ip,
+                'password_reset_token'=>$password_reset_token],['id'=>Yii::$app->user->identity->id]);
             return $this->goHome();
         } else {
             $model->password = '';
@@ -132,8 +150,12 @@ class SiteController extends BaseController
      */
     public function actionLogout()
     {
+        DdUser::updateAll([
+            'is_login'=>0
+        ],['id'=>Yii::$app->user->identity->id]);
+        
         Yii::$app->user->logout();
-
+       
         return $this->goHome();
     }
 
@@ -147,7 +169,7 @@ class SiteController extends BaseController
 
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+            Yii::$app->session->setFlash('success', '感谢您的注册，请验证您的邮箱');
             return $this->goHome();
         }
 
@@ -169,7 +191,7 @@ class SiteController extends BaseController
             if ($model->sendEmail()) {
                 Yii::$app->session->setFlash('success', '发送成功，请查收您的邮箱');
             } else {
-                Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
+                Yii::$app->session->setFlash('error', '对不起，我们无法为提供的电子邮件地址重置密码。');
             }
         }
 

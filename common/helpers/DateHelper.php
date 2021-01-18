@@ -3,7 +3,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-15 16:10:15
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-08-05 16:12:43
+ * @Last Modified time: 2020-12-31 17:51:39
  */
  
 
@@ -322,4 +322,43 @@ class DateHelper
                     + $stop['usec'] - $start['usec'];
             } while ($timePassed < $usec);
         }
+
+
+         /**
+     * 日期转时间戳
+     *
+     * @param $value
+     * @return false|int
+     */
+    public static function dateToInt($value)
+    {
+        if (empty($value)) {
+            return $value;
+        }
+
+        if (!is_numeric($value)) {
+            return strtotime($value);
+        }
+
+        return $value;
+    }
+
+    /**
+     * 时间戳转日期
+     *
+     * @param $value
+     * @return false|int
+     */
+    public static function intToDate($value, $format = 'Y-m-d H:i:s')
+    {
+        if (empty($value)) {
+            return date($format);
+        }
+
+        if (is_numeric($value)) {
+            return date($format, $value);
+        }
+
+        return $value;
+    }
 }

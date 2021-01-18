@@ -1,4 +1,11 @@
 <?php
+/**
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2021-01-18 00:38:16
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2021-01-18 10:33:45
+ */
+ 
 
 use yii\web\Response;
 
@@ -8,12 +15,13 @@ $db  = yii\helpers\ArrayHelper::merge(
     require(__DIR__ . '/db-local.php')
 );
 $config = [
-    'id' => 'basic',
+    'id' => 'app-swoole',
     'basePath' => dirname(__DIR__),
     'language'=>'en',
     'sourceLanguage'=>'zh-CN',
     'timeZone'=>'Asia/Shanghai',
-    'controllerNamespace' => 'yiiunit\extension\swoole\controllers',
+    'controllerNamespace' => 'console\controllers\swoole',
+    // 'controllerNamespace' => 'yiiunit\extension\swoole\controllers',
     'bootstrap' => [
         'log',
         'contentNegotiator'=>[

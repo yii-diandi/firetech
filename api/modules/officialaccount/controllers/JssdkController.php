@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-09 01:32:28
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-09-23 23:34:47
+ * @Last Modified time: 2020-12-30 03:11:26
  */
 
 namespace api\modules\officialaccount\controllers;
@@ -22,7 +22,7 @@ use yii\helpers\Json;
  */
 class JssdkController extends AController
 {
-    protected $authOptional = [];
+    protected $authOptional = ['config'];
     public $modelClass = 'api\modules\wechat\models\DdWxappFans';
 
      /**
@@ -58,6 +58,7 @@ class JssdkController extends AController
      */
     public function actionConfig()
     {
+        global $_GPC;
         $app = Yii::$app->wechat->app;
         $APIs = [
             'checkJsApi',
@@ -96,6 +97,13 @@ class JssdkController extends AController
             'openCard',
             'openAddress'
         ];
+        
+
+        if(!empty($_GPC['url'])){
+            $app->jssdk->setUrl($_GPC['url']);
+        }
+
+
         // $app->jssdk->buildConfig(array $APIs, $debug = false, $beta = false, $json = true, array $openTagList = []);
         $configs = $app->jssdk->buildConfig($APIs,false,false,false);
         

@@ -41,11 +41,12 @@ frontend/web/ErrorFiles
 frontend/web/u.asp
 frontend/web/.uini
 frontend/web/u.php
-淘宝数据.xlsx
 vendor
 common/widgets/adminlte/yii-vue/node_modules
 node_modules
 common/addons/*
-#common/config/main-local.php
+addons/*
+!addons/diandi_ai
 common/config/main-local.php
 console/config/main-local.php
+api/runtime

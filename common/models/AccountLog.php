@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-12-15 17:37:07
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-12-15 17:37:16
+ * @Last Modified time: 2021-01-04 22:14:44
  */
  
 
@@ -41,8 +41,8 @@ class AccountLog extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['bloc_id', 'store_id', 'member_id', 'is_add', 'update_time', 'create_time'], 'integer'],
-            [['money'], 'number'],
+            [['bloc_id', 'store_id', 'member_id', 'is_add', 'update_time', 'create_time','money_id'], 'integer'],
+            [['money','old_money'], 'number'],
             [['account_type'], 'string', 'max' => 30],
             [['remark'], 'string', 'max' => 255],
         ];
@@ -75,8 +75,10 @@ class AccountLog extends \yii\db\ActiveRecord
             'member_id' => '会员id',
             'account_type' => '资金类型',
             'money' => '资金',
+            'old_money'=>'原来的资金',
             'is_add' => '0增加，1减少',
             'remark' => '备注',
+            'money_id'=>'操作日志ID',
             'update_time' => '创建时间',
             'create_time' => '更新时间',
         ];

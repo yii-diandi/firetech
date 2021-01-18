@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-11-02 01:03:17
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-02 04:49:43
+ * @Last Modified time: 2020-12-20 18:43:39
  */
  
 
@@ -122,17 +122,7 @@ use yii\widgets\ActiveForm;
                 <?= $form->field($model, 'address_id')->textInput() ?>
 
                 <?= $form->field($model, 'vip')->textInput(['maxlength' => true]) ?>
-                  
-                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        vuevuevue
-                        <el-rate v-model="birthyear"></el-rate>
-                        <el-date-picker
-                              v-model="birthyear"
-                              type="datetime"
-                              placeholder="选择日期时间">
-                        </el-date-picker>   
-                  </div>
-                   
+                
                          
                 <?= $form->field($model, 'birthyear')->textInput(['maxlength' => true]) ?>
 

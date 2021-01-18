@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-11-02 02:15:08
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-04 04:07:27
+ * @Last Modified time: 2021-01-02 03:17:11
  */
 
 use common\components\backend\VueBackendAsset;
@@ -121,11 +121,12 @@ $this->params['breadcrumbs'][] = $this->title;
         prop="create_time"
         width="200"
       ></el-table-column>
-      <el-table-column show-overflow-tooltip label="操作" width="180px" >
+      <el-table-column show-overflow-tooltip label="操作" width="280px" >
         <template #default="{ row }">
           <el-button type="text" @click="handleView(row)">查看</el-button>
           <el-button type="text" @click="handleEdit(row)">编辑</el-button>
           <el-button type="text" @click="handleDelete(row)">删除</el-button>
+          <el-button type="text" @click="editPassword(row)">修改密码</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -146,6 +147,19 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
   </div>
 
+
+
+  <el-dialog title="修改密码" :visible.sync="dialogFormVisible">
+      <el-form :model="form">
+        <el-form-item label="登录密码" :label-width="formLabelWidth">
+          <el-input v-model="form.password" autocomplete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="passwordSubmit">确 定</el-button>
+      </div>
+    </el-dialog>
   
                
                 

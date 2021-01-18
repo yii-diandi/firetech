@@ -2,7 +2,7 @@
 * @Author: Wang chunsheng  email:2192138785@qq.com
 * @Date:   2020-11-02 04:19:34
 * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
-* @Last Modified time: 2020-11-04 04:06:04
+* @Last Modified time: 2021-01-02 03:37:15
 */
 
 
@@ -12,6 +12,11 @@ new Vue({
         return {
             listKey:'member_id',//列表数据主键
             height:'',
+            formLabelWidth: '120px',
+            dialogFormVisible:false,
+            form:{
+              password:''
+            },
             imgShow: true,
             downloadLoading: false,
             list: [],//列表数据
@@ -127,6 +132,38 @@ new Vue({
             console.log('打开前前')
           }
         })
+      },
+      passwordSubmit(){
+        let that = this
+        that.$http.post('repassword',{
+          'newpassword':that.form.password, 
+          'mobile':that.mobile, 
+          'password_reset_token':that.password_reset_token
+        }).then((response) => {
+          //响应成功回调
+          if (response.data.code == 200) {
+            that.$message({
+              message:response.data.message,
+              type: 'success'
+            });
+          }else{
+            that.$message.error(response.data.message);
+          }
+      }, (response) => {
+          //响应错误回调
+          console.log(response)
+      });
+        
+        that.dialogFormVisible = false
+
+        
+      },  
+      editPassword(row){
+        let that = this
+        console.log(row)
+        that.mobile = row.mobile
+        that.password_reset_token = row.password_reset_token
+        that.dialogFormVisible = true
       },
       handleDelete(row) {
         let that = this

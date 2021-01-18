@@ -3,12 +3,13 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-11-02 15:01:16
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-02 22:51:18
+ * @Last Modified time: 2021-01-02 03:36:06
  */
  
 
 namespace backend\controllers\member;
 
+use api\models\DdMember as ModelsDdMember;
 use Yii;
 use common\models\DdMember;
 use common\models\searchs\DdMemberSearch;
@@ -16,7 +17,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use backend\controllers\BaseController;
+use common\helpers\ErrorsHelper;
 use common\helpers\ResultHelper;
+use common\models\forms\PasswdForm;
 
 /**
  * DdMemberController implements the CRUD actions for DdMember model.
@@ -134,6 +137,36 @@ class DdMemberController extends BaseController
             
         }
         
+    }
+
+    public function actionRepassword()
+    {
+        $model = new PasswdForm();
+        if ($model->load(Yii::$app->request->post(), '')) {
+            if (!$model->validate()) {
+                $res = ErrorsHelper::getModelError($model);
+                return ResultHelper::json(404, $res);
+            }
+            /* @var $member \common\models\backend\Member */
+            $data = Yii::$app->request->post();
+            $mobile = $data['mobile'];
+           
+
+            $member = ModelsDdMember::findByMobile($data['mobile']);
+            $member->password_hash = Yii::$app->security->generatePasswordHash($model->newpassword);
+            $member->generatePasswordResetToken();
+            if ($member->save()) {
+              
+                return ResultHelper::json(200, '修改成功');
+            }else{
+                $res = ErrorsHelper::getModelError($member);
+                return ResultHelper::json(401, $res);
+            }
+            
+        } else {
+            $res = ErrorsHelper::getModelError($model);
+            return ResultHelper::json(401, $res);
+        }
     }
 
     /**

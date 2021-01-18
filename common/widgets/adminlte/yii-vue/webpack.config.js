@@ -43,7 +43,7 @@ module.exports = {
         modules: ["node_modules"],
         alias: {
             'vue$': 'vue/dist/vue.min.js',
-            components: path.resolve(__dirname + '/src/components/'),
+            components: path.resolve(__dirname + '/app/components/'),
             '@': path.resolve('src')
         }
     },
@@ -53,7 +53,7 @@ module.exports = {
     ],
     devServer: {
         historyApiFallback: {
-          index: `src/App.vue`
+          index: `app/App.vue`
         },
         host: '127.0.0.1',
         disableHostCheck: true

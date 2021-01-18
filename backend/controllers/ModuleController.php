@@ -3,14 +3,14 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-03 16:37:30
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-05-27 18:00:34
+ * @Last Modified time: 2021-01-17 00:28:41
  */
 
 namespace backend\controllers;
 
 use Yii;
 use common\models\DdAiApplications;
-use diandi\addons\modules\searchs\DdAddons;
+use diandi\addons\models\searchs\DdAddons;
 use yii\web\NotFoundHttpException;
 
 /**

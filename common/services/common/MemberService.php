@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-07-09 14:52:10
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-12-15 17:39:36
+ * @Last Modified time: 2021-01-09 17:39:41
  */
 
 namespace common\services\common;
@@ -59,7 +59,7 @@ class MemberService extends BaseService
             $store_id   = Yii::$app->params['global_store_id'];
         }
         
-        $logPath = Yii::getAlias('@runtime/MemberService/updateAccount/'.date('Y/md').'.log');
+        $logPath = Yii::getAlias('@runtime/MemberService/baseInfo/'.date('Y/md').'.log');
 
         FileHelper::writeLog($logPath, '模块内回调' .json_encode([
             'global_bloc_id'=>Yii::$app->params['global_bloc_id'],
@@ -67,15 +67,29 @@ class MemberService extends BaseService
             'global_store_id'=>Yii::$app->params['global_store_id'],
             'bloc_id'   =>$bloc_id,
             'store_id'  =>$store_id,
+            'member_id'=>$member_id
         ]));
+
+        $andWhere = [];
+        
+        if(!empty(intval($bloc_id))){
+            $andWhere['bloc_id'] = $bloc_id;
+        }
+
+        if(!empty(intval($store_id))){
+            $andWhere['store_id'] = $store_id;
+        }
         
         $list =  DdMember::find()->with(['account','group','fans'])->where([
-            'member_id'=>$member_id,
-            'bloc_id'=>$bloc_id,
-            'store_id'=>$store_id,
-            ])->asArray()->one();
+            'member_id'=>$member_id
+            ])->andFilterWhere($andWhere)->asArray()->one();
+            
+        FileHelper::writeLog($logPath, '获取用户基础信息sql:' .DdMember::find()->with(['account','group','fans'])->where([
+            'member_id'=>$member_id
+            ])->andFilterWhere($andWhere)->createCommand()->getRawSql());
+        FileHelper::writeLog($logPath, '获取用户基础信息' .json_encode($list));
         
-        if(empty($list['account']) && !empty($store_id)){
+        if(empty($list['account']) && !empty($store_id) && !empty($list)){
             $account = [
                 "member_id"=>$member_id,
                 "level"=>0,
@@ -171,23 +185,15 @@ class MemberService extends BaseService
             'member_id'=>$member_id
         ]));
         
+        $old_money = DdMemberAccount::find()->where(['member_id'=>$member_id])->select($fields)->scalar();
+
         $Res = DdMemberAccount::updateAllCounters([
             $fields=>$num
         ],['member_id'=>$member_id]);
+        
         if($Res){
-           
-            $accountLog = [
-                'member_id'     =>$member_id,
-                'account_type'=>$fields,
-                'money'=>$num,
-                'is_add'=>$num>0?1:0,
-                'remark'=>'',
-                   
-            ];
             
-            $AccountLog = new AccountLog();
-            $AccountLog->load($accountLog,'');
-            $AccountLog->save();
+            $this->addAccountLog($member_id,$fields,$num,$old_money);
             
             $list =  DdMember::find()->with(['account','group','fans'])->where([
                 'member_id'=>$member_id,
@@ -198,6 +204,25 @@ class MemberService extends BaseService
         }else{
             return false;
         }
+    }
+
+    public  function addAccountLog($member_id,$fields,$money,$old_money,$money_id=0,$remark='')
+    {
+        $accountLog = [
+            'member_id'     =>$member_id,
+            'account_type'=>$fields,
+            'money'=>$money,
+            'money_id'=>$money_id,
+            'old_money'=>$old_money,
+            'is_add'=>$money>0?1:0,
+            'remark'=>'',
+               
+        ];
+        
+        $AccountLog = new AccountLog();
+        $AccountLog->load($accountLog,'');
+        $Res = $AccountLog->save();
+        return $Res;
     }
 
 }

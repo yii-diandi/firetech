@@ -4,117 +4,116 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-04 01:06:37
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-12-10 01:23:04
+ * @Last Modified time: 2021-01-17 18:54:45
  */
 
 namespace common\services\common;
- 
 
-use common\addons\diandi_distribution\models\DistributionLevel;
 use common\helpers\ArrayHelper;
 use common\helpers\FileHelper;
 use common\helpers\ImageHelper;
 use common\services\BaseService;
-use diandi\admin\models\BlocStore;
-use diandi\admin\models\StoreCategory;
+use diandi\addons\models\BlocStore;
+use diandi\addons\models\StoreCategory;
 use Yii;
 use yii\data\Pagination;
 
 /**
- * Class AddressController
+ * Class AddressController.
  */
 class StoreService extends BaseService
 {
-    public $modelClass = 'diandi\admin\models\BlocStore';
+    public $modelClass = 'diandi\addons\models\BlocStore';
 
-    public static function list($category_pid,$category_id=0,$longitude='',$latitude='',$keywords='',$page=1,$pageSize=10)
+    public static function list($category_pid, $category_id = 0, $longitude = '', $latitude = '', $keywords = '',$label_id=0,$page = 1, $pageSize = 10)
     {
         global $_GPC;
 
         $logPath = Yii::getAlias('@runtime/StoreService/list/'.date('Y/md').'.log');
-        
-        
-        FileHelper::writeLog($logPath, '经纬度计算距离参数' .json_encode([
-            $longitude,$latitude
+
+        FileHelper::writeLog($logPath, '经纬度计算距离参数'.json_encode([
+            $longitude, $latitude,
         ]));
-        
+
         $list = [];
         $BlocStore = new BlocStore();
         $where = [];
         $whereLike = [];
-
-        if(!empty($category_pid)){
+        $whereNot =  [];
+        if (!empty($category_pid)) {
             $where['category_pid'] = $category_pid;
         }
-        
-        if(!empty($category_id)){
+
+        if (!empty($category_id)) {
             $where['category_id'] = $category_id;
         }
 
-        if(!empty($keywords)){
-            $whereLike = ['like','name',$keywords];
-        }
+        // $global_store_id = intval(Yii::$app->params['global_store_id']);
+        // if (!empty($global_store_id)) {
+        //     $whereNot = ['!=', 'store_id', $global_store_id];
+        // }
 
+        if (!empty($keywords)) {
+            $whereLike = ['like', 'name', $keywords];
+        }
 
         $BlocStore = new BlocStore();
 
-        $selectF[] = '*';   
+        $selectF[] = '*';
         $distance = '';
+
         
-        if(!empty($longitude) && !empty($latitude)){
-            $distance  = "ROUND(
-                6378.138 * 2 * ASIN(
         
-                    SQRT(
-        
-                        POW(
-        
-                            SIN(
-        
-                                (
-        
-                                    {$latitude} * PI() / 180 - latitude * PI() / 180
-        
-                                ) / 2
-        
-                            ),
-        
-                            2
-        
-                        ) + COS({$latitude} * PI() / 180) * COS(latitude * PI() / 180) * POW(
-        
-                            SIN(
-        
-                                (
-        
-                                    {$longitude} * PI() / 180 - longitude * PI() / 180
-        
-                                ) / 2
-        
-                            ),
-        
-                            2
-        
-                        )
-        
+        // (
+        //     st_distance (
+        //         point ({$longitude}, {$latitude}),
+        //         point (longitude,latitude) 
+        //     ) * 111195
+        // )
+
+        if (!empty($longitude) && !empty($latitude)) {
+            $distance = " (6378.138 * 2 * ASIN(
+                SQRT(
+                    POW(
+                        SIN(
+                            (
+                                {$latitude} * PI() / 180 - latitude * PI() / 180
+                            ) / 2
+                        ),
+                        2
+                    ) + COS( {$latitude} * PI() / 180) * COS(latitude * PI() / 180) * POW(
+                        SIN(
+                            (
+                                {$longitude} * PI() / 180 - longitude * PI() / 180
+                            ) / 2
+                        ),
+                        2
                     )
-        
                 )
-        
-            )";
-            $selectF[] =  $distance.'  distance'; 
-        }
-      
-        FileHelper::writeLog($logPath, '经纬度计算距离sql01:' .BlocStore::find()->where($where)->andFilterWhere($whereLike)->with(['bloc'])->select($selectF)->createCommand()->getRawSql());
-        
-        // 创建一个 DB 查询来获得所有
-        $query = BlocStore::find()->where($where)->andFilterWhere($whereLike)->with(['bloc'])->select($selectF);
-        
-        if(!empty($distance)){
-            $query->orderBy([$distance=>SORT_ASC]);
+            ) * 1000)";
+            $selectF[] = $distance.'  distance';
         }
 
-        FileHelper::writeLog($logPath, '经纬度计算距离sql02:' . $query->createCommand()->getRawSql());
+
+        // 创建一个 DB 查询来获得所有
+        $query = BlocStore::find()->where($where)
+                    ->andFilterWhere($whereLike)
+                    // ->andFilterWhere($whereNot)
+                    ->with(['bloc']);
+        
+        if(!empty($label_id)){
+            $query->joinWith('label as label');
+            $query->andFilterWhere(['label.label_id'=>$label_id]);
+        }
+                    
+        $query->select($selectF);
+        
+        if (!empty($distance)) {
+            $query->orderBy([$distance => SORT_ASC]);
+        }
+
+        
+        FileHelper::writeLog($logPath, '经纬度计算距离sql02:'.$query->createCommand()->getRawSql());
 
         $count = $query->count();
 
@@ -130,44 +129,40 @@ class StoreService extends BaseService
             ->limit($pagination->limit)
             ->asArray()
             ->all();
-           
-        $cates =  StoreCategory::find()->indexBy('category_id')->asArray()->all();
 
-        
+        $cates = StoreCategory::find()->indexBy('category_id')->asArray()->all();
+
         $info = [];
 
         foreach ($stores as $key => &$store) {
-            
-            $store['distance'] = number_format($store['distance'],2,'.','');
+            $store['distance'] = number_format($store['distance'] / 1000, 2, '.', '');
 
             $store['cateName'] = $cates[$store['category_id']]['name'];
             $store['catepName'] = $cates[$store['category_pid']]['name'];
-            $store['logopath'] = Yii::getAlias("@attachment/".$store['logo']);
+            $store['logopath'] = Yii::getAlias('@attachment/'.$store['logo']);
             $store['logo'] = ImageHelper::tomedia($store['logo']);
             $extra = unserialize($store['extra']);
             $extra = $extra ? $extra : [];
             $info = array_merge($store, $extra);
-            
         }
 
         return $stores;
-        
     }
 
     public static function getCate($parent_id)
     {
         global $_GPC;
-        
+
         $where = [];
-        if(!empty($parent_id) && is_numeric($parent_id)){
+        if (!empty($parent_id) && is_numeric($parent_id)) {
             $where['parent_id'] = $parent_id;
         }
-        $lists =  StoreCategory::find()->where($where)->asArray()->all();
-       
+        $lists = StoreCategory::find()->where($where)->asArray()->all();
+
         foreach ($lists as $key => &$value) {
             $value['thumb'] = ImageHelper::tomedia($value['thumb']);
-        }                
-        $list =  ArrayHelper::itemsMerge($lists,0,'category_id','parent_id','child',1);
+        }
+        $list = ArrayHelper::itemsMerge($lists, 0, 'category_id', 'parent_id', 'child', 1);
 
         return $list;
     }

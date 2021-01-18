@@ -3,12 +3,13 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-07-09 16:30:08
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-30 00:30:03
+ * @Last Modified time: 2021-01-05 00:11:37
  */
  
 
 namespace common\models;
 
+use diandi\addons\models\BlocStore;
 use Yii;
 
 /**
@@ -75,6 +76,16 @@ class DdMemberAccount extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getMember()
+    {
+        return $this->hasOne(DdMember::className(),['member_id'=>'member_id']);
+    }
+
+    public function getStore()
+    {
+        return $this->hasOne(BlocStore::className(),['store_id'=>'store_id']);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -85,7 +96,7 @@ class DdMemberAccount extends \yii\db\ActiveRecord
             'store_id' => '商户id',
             'bloc_id' => '公司id',
             'member_id' => '会员id',
-            'level' => '会员等级',
+            'level' => '会员组',
             'user_money' => '当前余额',
             'accumulate_money' => '累计余额',
             'give_money' => '累计赠送余额',

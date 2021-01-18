@@ -1,4 +1,11 @@
 <?php
+/**
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2020-12-26 02:02:13
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2021-01-09 21:53:56
+ */
+ 
 
 namespace common\helpers;
 
@@ -23,5 +30,23 @@ class ErrorsHelper extends BaseObject
         $firstError = array_shift($errors);
         if (!is_array($firstError)) return '';
         return array_shift($firstError);
+    }
+
+    // 事务中快速报错
+    public static function throwError($Res,$msg='')
+    {
+        if(!$Res){
+            throw new \Exception($msg);            
+        }
+    }
+
+    public static function throwMsg($e)
+    {
+       return [
+           'msg'=>$e->getMessage(),
+           'line'=>$e->getLine(),
+           'file'=>$e->getFile(),
+           'code'=>$e->getCode(),
+       ];
     }
 }
