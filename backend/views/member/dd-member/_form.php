@@ -3,10 +3,10 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-11-02 01:03:17
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-12-20 18:43:39
+ * @Last Modified time: 2021-01-24 16:34:36
  */
- 
 
+use common\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -43,7 +43,8 @@ use yii\widgets\ActiveForm;
                 <h3 class="box-title">基本信息</h3>
           </div>
           <div class="box-body">
-                <?= $form->field($model, 'group_id')->textInput() ?>
+                              
+                <?= $form->field($model, 'group_id')->dropDownList(ArrayHelper::map($group,'group_id','item_name')) ?>
 
                 <?= $form->field($model, 'level')->textInput() ?>
 

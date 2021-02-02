@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-12-26 02:02:13
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-09 21:53:56
+ * @Last Modified time: 2021-01-31 22:36:34
  */
  
 
@@ -45,8 +45,9 @@ class ErrorsHelper extends BaseObject
        return [
            'msg'=>$e->getMessage(),
            'line'=>$e->getLine(),
-           'file'=>$e->getFile(),
+           'file' => method_exists($e, 'getFile') ? $e->getFile() : '',
            'code'=>$e->getCode(),
-       ];
+           'trace' =>method_exists($e, 'getTrace') ? $e->getTrace() : '',
+        ];
     }
 }

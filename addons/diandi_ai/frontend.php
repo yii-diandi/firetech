@@ -1,4 +1,11 @@
 <?php
+/**
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2021-01-22 21:02:12
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2021-01-22 21:02:14
+ */
+ 
 
 namespace addons\diandi_ai;
 
@@ -12,7 +19,7 @@ class frontend extends AddonsModule
     /**
      * {@inheritdoc}frontend
      */
-    public $controllerNamespace = 'common\addons\diandi_ai\frontend';
+    public $controllerNamespace = 'addons\diandi_ai\frontend';
 
     /**
      * {@inheritdoc}

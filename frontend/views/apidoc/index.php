@@ -3,8 +3,8 @@
 /**
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-04 00:36:04
- * @Last Modified by:   Wang Chunsheng 2192138785@qq.com
- * @Last Modified time: 2020-03-04 01:02:04
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2021-01-22 21:44:52
  */
 
 
@@ -21,7 +21,7 @@ SwaggerAsset::register($this);
 
 <head>
     <meta charset="UTF-8">
-    <title>Swagger UI</title>
+    <title>店滴AI接口文档</title>
     <?php $this->head(); ?>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700" rel="stylesheet">
     <style>

@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-06-01 19:54:55
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-09-19 15:47:36
+ * @Last Modified time: 2021-01-23 11:47:35
  */
 
 namespace addons\diandi_ai\api;
@@ -11,7 +11,8 @@ namespace addons\diandi_ai\api;
 use api\controllers\AController;
 use addons\diandi_ai\models\DdAiFaces;
 use addons\diandi_ai\models\DdAiMember;
-use diandi\diandiai\AipFace;
+use addons\diandi_ai\components\baidu\AipFace;
+use addons\diandi_ai\services\BaiduFace;
 use Yii;
 
 /**
@@ -77,76 +78,11 @@ class FaceController extends AController
      */
     public function actionDetect()
     {
-        $data = Yii::$app->request->post();
-        // $ac = get_class_methods($client);
-        // return $ac;
-        $images = $data['images'];
-        $image = base64_encode(file_get_contents($images));
-        $imageType = 'BASE64';
-        // 如果有可选参数
-        $options = [];
-        // 包括age,
-        // beauty 美丽程度,
-        // expression 表情,
-        // face_shape 身材 ,
-        // gender 性别,
-        // glasses 眼镜,
-        // landmark,
-        // landmark72，
-        // landmark150，
-        // race 人种,
-        // quality 图片质量,
-        // eye_status,
-        // emotion 情绪,
-        // face_type 信息
-        // 逗号分隔. 默认只返回face_token、人脸框、概率和旋转角度
-        $options['face_field'] = 'age,beauty,expression,face_shape,gender,glasses,race,quality,eye_status,emotion';
-        $options['max_face_num'] = 2;
-        $options['face_type'] = 'LIVE';
-        $options['liveness_control'] = 'LOW';
-        $DdAiMember = new  DdAiMember();
+        global $_GPC;
+          
+        $Res = BaiduFace::Detect($_GPC['images']);
 
-        // 人脸检索存在就返回
-        $groupIdList = 1;
-        $face_exit = $this->client->search($image, $imageType, $groupIdList, $options);
-        // return $face_exit['result']['user_list'];
-        if ($face_exit['result']['user_list'][0]['score'] > 95) {
-            $user_id = $face_exit['result']['user_list'][0]['user_id'];
-
-            return $DdAiMember::find()->where(['user_id' => $user_id])->one();
-        }
-        // 带参数调用人脸检测
-        $aidatas = $this->client->detect($image, $imageType, $options);
-        $face_group_id = 1;
-        if ($aidatas['error_msg'] == 'SUCCESS') {
-            /* 脸部校验成功 */
-            $face_list = $aidatas['result']['face_list'];
-            
-            $DdAiFaces = new DdAiFaces();
-            foreach ($face_list as $key => $value) {
-                $_DdAiMember = clone $DdAiMember;
-                $_DdAiFaces = clone $DdAiFaces;
-                $face_id = $_DdAiMember->addMember($value, $images, $face_group_id);
-                if (is_numeric($face_id) && $face_id > 0) {
-                    $res[$face_id] = $this->client->addUser($image, $imageType, $face_group_id, $face_id);
-                    if ($res[$face_id]['error_code'] == 0) {
-                        $faceadd = [
-                            'ai_user_id' => $face_id,
-                            'ai_group_id' => $face_group_id,
-                            'ai_face_status' => 'ok',
-                            'face_image' => $images,
-                            'face_token' => $value['face_token'],
-                        ];
-                        $_DdAiFaces->setAttributes($faceadd);
-                        $_DdAiFaces->save();
-                    }
-                } else {
-                    return $face_id;
-                }
-            }
-        }
-
-        return $res;
+        return $Res;
     }
 
     /**
@@ -186,26 +122,9 @@ class FaceController extends AController
      */
     public function actionSearchs()
     {
-        $data = Yii::$app->request->post();
-
-        $client = $this->client;
-        // $ac = get_class_methods($client);
-        // return $ac;
-        $images = $data['images'];
-        $image = base64_encode(file_get_contents($images));
-        $imageType = 'BASE64';
-
-        // 如果有可选参数
-        $options = [];
-        $options['face_field'] = 'age';
-        $options['max_face_num'] = 2;
-        $options['face_type'] = 'LIVE';
-        $options['liveness_control'] = 'LOW';
-        $groupIdList = 1;
-        // 带参数调用人脸检测
-        $res = $client->search($image, $imageType, $groupIdList, $options);
-
-        return $res;
+        global $_GPC;
+        $Res  = BaiduFace::Searchs($_GPC['images']);
+        return $Res;
     }
 
     /**

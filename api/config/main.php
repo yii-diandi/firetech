@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-05 08:27:35
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-12-19 21:41:49
+ * @Last Modified time: 2021-01-27 22:29:06
  */
 $params = array_merge(
     require __DIR__.'/../../common/config/params.php',
@@ -178,6 +178,7 @@ return [
                         'POST,OPTIONS   forgetpass' => 'forgetpass',
                         'POST,OPTIONS   feedback' => 'feedback',
                         'POST,OPTIONS   bindmobile' => 'bindmobile',
+                        'POST,OPTIONS   refresh' => 'refresh'
                     ],
                 ],
                 [

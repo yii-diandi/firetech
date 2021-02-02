@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-09-19 11:03:51
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-09-19 12:19:00
+ * @Last Modified time: 2021-01-22 21:42:01
  */
  
 
@@ -49,7 +49,7 @@ class DocController extends Controller
             'json-base' => [
                 'class' => 'yii2mod\swagger\OpenAPIRenderer',
                 'scanDir' => [
-                    Yii::getAlias('@common/addons/diandi_ai/api'),
+                    Yii::getAlias('@addons/diandi_ai/api'),
                     Yii::getAlias('@frontend/controllers')
                 ],
                 'cacheKey' => 'diandi_ai-api',

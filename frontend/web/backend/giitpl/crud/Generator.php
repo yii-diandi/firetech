@@ -2,8 +2,8 @@
 /**
  * @Author: Wang chunsheng  &#60;2192138785@qq.com&#62;
  * @Date:   2020-04-29 19:56:39
- * @Last Modified by:   Wang chunsheng  <2192138785@qq.com>
- * @Last Modified time: 2020-04-29 20:00:04
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2021-01-20 20:12:29
  */
  
 /**
@@ -12,7 +12,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\gii\generators\crud;
+namespace addonstpl\crud;
 
 use Yii;
 use yii\db\ActiveRecord;
@@ -62,7 +62,7 @@ class Generator extends \yii\gii\Generator
      */
     public function getName()
     {
-        return 'CRUD Generator';
+        return '增删改查控制器生成';
     }
 
     /**
@@ -70,8 +70,7 @@ class Generator extends \yii\gii\Generator
      */
     public function getDescription()
     {
-        return 'This generator generates a controllers and views that implement CRUD (Create, Read, Update, Delete)
-            operations for the specified data model.';
+        return '这个生成器生成实现CRUD(创建、读取、更新、删除)的控制器和视图。指定数据模型的操作。';
     }
 
     /**

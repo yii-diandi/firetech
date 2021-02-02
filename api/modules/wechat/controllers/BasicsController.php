@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-09 01:32:28
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-12-19 23:56:21
+ * @Last Modified time: 2021-01-31 15:29:51
  */
 
 namespace api\modules\wechat\controllers;
@@ -273,7 +273,7 @@ class BasicsController extends AController
         });
         FileHelper::writeLog($logPath, '回调完毕'.json_encode($response));
 
-        return $response;
+        $response->send();
     }
 
     // 退款回调
@@ -339,7 +339,7 @@ class BasicsController extends AController
         });
         FileHelper::writeLog($logPath, '回调完毕'.json_encode($response));
 
-        return $response;
+        $response->send();
     }
     
 }

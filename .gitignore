@@ -47,6 +47,7 @@ node_modules
 common/addons/*
 addons/*
 !addons/diandi_ai
+frontend/web/backend/upload
 common/config/main-local.php
 console/config/main-local.php
 api/runtime

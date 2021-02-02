@@ -1,10 +1,12 @@
 <?php
 /**
  * @Author: Wang chunsheng  email:2192138785@qq.com
- * @Date:   2020-05-31 17:11:53
+ * @Date:   2021-01-20 20:41:47
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-05-31 17:35:16
+ * @Last Modified time: 2021-01-20 20:41:48
  */
+ 
+
 use yii\widgets\Menu;
 use yii\helpers\Html;
 
@@ -13,23 +15,51 @@ use yii\helpers\Html;
 
 $asset = yii\gii\GiiAsset::register($this);
 ?>
-<?php $this->beginPage(); ?>
+<?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="none">
-    <?php $this->registerCsrfMetaTags(); ?>
-    <title><?= Html::encode($this->title); ?></title>
-    <?php $this->head(); ?>
+    <?php $this->registerCsrfMetaTags() ?>
+    <title><?= Html::encode($this->title) ?></title>
+    <?php $this->head() ?>
 </head>
 <body>
     <div class="page-container">
-        <?php $this->beginBody(); ?>
-     
+        <?php $this->beginBody() ?>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <div class="container">
+                <?php echo Html::a(Html::img($asset->baseUrl . '/logo.png'), ['default/index'], [
+                    'class' => ['navbar-brand']
+                ]); ?>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#gii-nav"
+                        aria-controls="gii-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="gii-nav">
+                    <?php
+                        echo Menu::widget([
+                            'options' => ['class' => ['navbar-nav', 'ml-auto']],
+                            'activateItems' => true,
+                            'itemOptions' => [
+                                'class' => ['nav-item']
+                            ],
+                            'linkTemplate' => '<a class="nav-link" href="{url}">{label}</a>',
+                            'items' => [
+                                ['label' => 'Home', 'url' => ['default/index']],
+                                ['label' => 'Help', 'url' => 'http://www.yiiframework.com/doc-2.0/ext-gii-index.html'],
+                                ['label' => 'Application', 'url' => Yii::$app->homeUrl],
+                            ]
+                    ]);
+                    ?>
+                </div>
+            </div>
+        </nav>
         <div class="container content-container">
-            <?= $content; ?>
+            <?= $content ?>
         </div>
         <div class="footer-fix"></div>
     </div>
@@ -40,12 +70,12 @@ $asset = yii\gii\GiiAsset::register($this);
                     <p>A Product of <a href="http://www.yiisoft.com/">Yii Software LLC</a></p>
                 </div>
                 <div class="col-6">
-                    <p class="text-right"><?= Yii::powered(); ?></p>
+                    <p class="text-right"><?= Yii::powered() ?></p>
                 </div>
             </div>
         </div>
     </footer>
-<?php $this->endBody(); ?>
+<?php $this->endBody() ?>
 </body>
 </html>
-<?php $this->endPage(); ?>
+<?php $this->endPage() ?>

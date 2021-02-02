@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-28 23:43:29
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-09-19 09:08:18
+ * @Last Modified time: 2021-01-23 11:19:20
  */
 
 namespace addons\diandi_ai\backend;
@@ -19,6 +19,8 @@ use Yii;
  */
 class ConfigController extends BaseController
 {
+    public $modelSearchName = "";
+
     public function actions()
     {
         global $_GPC;
@@ -46,7 +48,7 @@ class ConfigController extends BaseController
             $model->getConf($bloc_id);
         }
 
-        return $this->render('chinamobile', [
+        return $this->render('baidu', [
             'model' => $model,
         ]);
     }

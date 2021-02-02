@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-05 08:21:08
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-08-09 12:15:52
+ * @Last Modified time: 2021-01-20 20:11:44
  */
 $params = array_merge(
     require __DIR__.'/../../common/config/params.php',
@@ -31,7 +31,7 @@ return [
         '@diandi/admin' => '@vendor/yii-diandi/yii2-admin',
         '@diandi/adminlte' => '@vendor/yii-diandi/adminlte/src',
         '@diandi/addons' => '@vendor/yii-diandi/yii2-addons',
-        '@addonstpl' => '@frontend/web/backend/giitpl/addons',
+        '@addonstpl' => '@frontend/web/backend/giitpl',
     ],
     'as access' => [
         'class' => 'diandi\admin\components\AccessControl',

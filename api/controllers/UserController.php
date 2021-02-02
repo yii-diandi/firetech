@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-05 11:45:49
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-12-30 23:58:22
+ * @Last Modified time: 2021-01-27 23:05:46
  */
 
 
@@ -30,7 +30,7 @@ use common\models\forms\EdituserinfoForm;
 class UserController extends AController
 {
     public $modelClass = '';
-    protected $authOptional = ['login', 'signup', 'repassword', 'sendcode', 'forgetpass'];
+    protected $authOptional = ['login', 'signup', 'repassword', 'sendcode', 'forgetpass','refresh'];
 
     /**
      * @SWG\Post(path="/user/signup",
@@ -221,16 +221,26 @@ class UserController extends AController
      *      name="mobile",
      *      type="integer",
      *      in="formData",
-     *      required=true
+     *      required=false
      *    )
      * )
      */
     public function actionUserinfo()
     {
+        global $_GPC;
+        
+        $mobile = $_GPC['mobile'];
+        
         $data = Yii::$app->request->post();
-        // findByMobile
-        $access_token = $data['access-token'];
-        $userobj = DdMember::findByMobile($data['mobile']);
+
+        $member_id = Yii::$app->user->identity->member_id;
+        
+        if(!empty($mobile)){
+            $userobj = DdMember::findByMobile($data['mobile']);
+        }else{
+            $userobj = DdMember::findIdentity($member_id);
+        }
+        
         $service = Yii::$app->service;
         $service->namespace = 'api';
         $userinfo = $service->AccessTokenService->getAccessToken($userobj, 1);
@@ -497,17 +507,25 @@ class UserController extends AController
       *    ),
      * )
      */
-    public function actionRefresh($refresh_token)
+    public function actionRefresh()
     {
+        global $_GPC;
+        
+        $refresh_token = $_GPC['refresh_token'];
+        
         $user = DdApiAccessToken::find()
             ->where(['refresh_token' => $refresh_token])
             ->one();
+            
         if (!$user) {
             throw new NotFoundHttpException('令牌错误，找不到用户!');
         }
         $service = Yii::$app->service;
         $service->namespace = 'api';
-        return $service->AccessTokenService->RefreshToken($user['member_id'], $user['group']);
+       
+        $access_token = $service->AccessTokenService->RefreshToken($user['member_id'], $user['group_id']);
+
+        return ResultHelper::json(200, "发送成功",['access_token'=>$access_token]);
     }
 
     /**

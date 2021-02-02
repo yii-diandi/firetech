@@ -3,8 +3,9 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-06-23 20:21:49
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-02 00:03:12
+ * @Last Modified time: 2021-01-25 14:14:36
  */
+
  
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
@@ -30,9 +31,15 @@ return [
             /** ------ 数据库命令行备份 ------ **/
         'migrate' => [
             'class' => 'diandi\migration\ConsoleController',
-        ],
+        ]
     ],
     'components' => [
+        'user' => [
+            'class' => 'yii\web\User',
+            'identityClass' => 'common\models\Users',
+            'enableSession' => false,
+            'enableAutoLogin' => false,
+        ],
         'log' => [
             'targets' => [
                 [
@@ -41,13 +48,15 @@ return [
                 ],
             ],
         ],
+        'session' => [ 
+            'class' => 'yii\web\Session'
+        ],
         'queue' => [
             'class' => 'yii\queue\redis\Queue',
             'redis' => 'redis', // 连接组件或它的配置
             'channel' => 'queue', // Queue channel key
             'as log' => 'yii\queue\LogBehavior', // 日志
         ]
-        
     ],
     'params' => $params,
 ];

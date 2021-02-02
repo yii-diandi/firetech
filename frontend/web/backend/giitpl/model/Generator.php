@@ -1,11 +1,18 @@
 <?php
 /**
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2021-01-20 19:59:55
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2021-01-20 20:12:40
+ */
+ 
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\gii\generators\model;
+namespace addonstpl\model;
 
 use Yii;
 use yii\base\InvalidConfigException;
@@ -58,7 +65,7 @@ class Generator extends \yii\gii\Generator
      */
     public function getName()
     {
-        return 'Model Generator';
+        return '模型生成器';
     }
 
     /**
@@ -66,7 +73,7 @@ class Generator extends \yii\gii\Generator
      */
     public function getDescription()
     {
-        return 'This generator generates an ActiveRecord class for the specified database table.';
+        return '这个生成器为指定的数据库表生成一个ActiveRecord类。';
     }
 
     /**

@@ -1,11 +1,18 @@
 <?php
 /**
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2021-01-20 20:00:36
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2021-01-20 20:12:52
+ */
+ 
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\gii\generators\module;
+namespace addonstpl\module;
 
 use yii\gii\CodeFile;
 use yii\helpers\Html;
@@ -32,7 +39,7 @@ class Generator extends \yii\gii\Generator
      */
     public function getName()
     {
-        return 'Module Generator';
+        return '子模块生成器';
     }
 
     /**
@@ -40,7 +47,7 @@ class Generator extends \yii\gii\Generator
      */
     public function getDescription()
     {
-        return 'This generator helps you to generate the skeleton code needed by a Yii module.';
+        return '这个生成器帮助您生成Yii模块所需的框架代码。';
     }
 
     /**

@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-13 09:20:33
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-10-23 16:18:52
+ * @Last Modified time: 2021-01-25 08:43:02
  */
 use common\helpers\ImageHelper;
 use common\widgets\Alert;
@@ -48,9 +48,7 @@ AppAsset::register($this);
 	============================================= -->
 	<div id="website-loading">
 		<a class="logo logo-loader" href="index-default.html">
-			<img src="/assets/bchduerh/images/files/logo-header-alt.png" alt="">
-			<h3><span class="colored">IT Geeks</span></h3>
-			<span>Web Services</span>
+			<img src="<?= ImageHelper::tomedia($settings->get('Website', 'flogo')); ?>" data-logo-alt="/assets/bchduerh/images/files/logo-header-alt.png" alt="">
 		</a><!-- .logo end -->
 		<div class="loader">
 			<div class="la-ball-pulse la-2x">
@@ -80,8 +78,6 @@ AppAsset::register($this);
 								<div class="hb-content">
 									<a class="logo logo-header" href="index.html">
 										<img src="<?= ImageHelper::tomedia($settings->get('Website', 'flogo')); ?>" data-logo-alt="/assets/bchduerh/images/files/logo-header-alt.png" alt="">
-										<h3><span class="colored">IT Geeks</span></h3>
-										<span>Web Services</span>
 									</a><!-- .logo end -->
 									<ul id="menu-main" class="menu-main">
 										<li><a href="#banner" data-scroll-nav="0" class="current">首页</a></li>

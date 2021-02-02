@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-11-02 15:42:40
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-27 15:10:15
+ * @Last Modified time: 2021-01-29 23:09:19
  */
  
 
@@ -26,7 +26,7 @@ class DdMemberSearch extends DdMember
     {
         return [
             [['member_id', 'group_id', 'level', 'store_id', 'bloc_id', 'mobile', 'gender', 'status', 'address_id', 'create_time', 'update_time'], 'integer'],
-            [['openid', 'username', 'address', 'nickName', 'avatarUrl', 'country', 'province', 'city', 'verification_token', 'auth_key', 'password_hash', 'password_reset_token', 'realname', 'avatar', 'qq', 'vip', 'birthyear', 'constellation', 'zodiac', 'telephone', 'idcard', 'studentid', 'grade', 'zipcode', 'nationality', 'resideprovince', 'graduateschool', 'company', 'education', 'occupation', 'position', 'revenue', 'affectivestatus', 'lookingfor', 'bloodtype', 'height', 'weight', 'alipay', 'msn', 'email', 'taobao', 'site', 'bio', 'interest'], 'safe'],
+            [['openid', 'username', 'address', 'nickName', 'avatarUrl', 'country', 'province', 'city', 'verification_token', 'auth_key', 'password_hash', 'password_reset_token', 'realname', 'avatar', 'qq', 'vip', 'birthyear', 'constellation', 'zodiac', 'telephone', 'idcard', 'studentid', 'grade', 'zipcode', 'nationality', 'resideprovince', 'graduateschool', 'company', 'education', 'occupation', 'position', 'revenue', 'affectivestatus', 'lookingfor', 'bloodtype', 'height', 'weight', 'alipay', 'msn', 'email', 'taobao', 'site', 'bio', 'interest','invitation_code'], 'safe'],
         ];
     }
 
@@ -64,6 +64,7 @@ class DdMemberSearch extends DdMember
             'address_id' => $this->address_id,
             'create_time' => $this->create_time,
             'update_time' => $this->update_time,
+            'invitation_code' => $this->invitation_code
         ]);
 
         $query->andFilterWhere(['like', 'openid', $this->openid])

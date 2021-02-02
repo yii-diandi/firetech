@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-09 01:32:28
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-12-03 16:12:03
+ * @Last Modified time: 2021-01-31 15:34:10
  */
 
 namespace api\modules\officialaccount\controllers;
@@ -376,7 +376,8 @@ class BasicsController extends AController
             return $fail('处理失败，请稍后再通知我');
         });
         FileHelper::writeLog($logPath, '回调完毕'.json_encode($response));
-
-        return $response;
+        
+        $response->send();
+        
     }
 }

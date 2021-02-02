@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-09-19 08:56:25
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-09-19 09:07:17
+ * @Last Modified time: 2021-01-23 11:24:33
  */
 
 /***
@@ -28,6 +28,7 @@ class Baidu extends Model
     /**
      * @var string application name
      */
+    public $id;
     public $APP_ID;
     public $name;
 
@@ -35,6 +36,7 @@ class Baidu extends Model
      * @var string admin email
      */
     public $API_KEY;
+    public $bloc_id;
 
     /**
      * @var string

@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-11-02 15:01:16
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-02 03:36:06
+ * @Last Modified time: 2021-01-27 01:51:15
  */
  
 
@@ -19,6 +19,7 @@ use yii\filters\VerbFilter;
 use backend\controllers\BaseController;
 use common\helpers\ErrorsHelper;
 use common\helpers\ResultHelper;
+use common\models\DdMemberGroup;
 use common\models\forms\PasswdForm;
 
 /**
@@ -85,9 +86,12 @@ class DdMemberController extends BaseController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->member_id]);
         }
-
+        
+        $group = DdMemberGroup::find()->asArray()->all();
+        
         return $this->renderView('create', [
-            'model' => $model,
+                'group' => $group,
+                'model' => $model,
         ]);
     }
 
@@ -106,8 +110,11 @@ class DdMemberController extends BaseController
             return $this->redirect(['view', 'id' => $model->member_id]);
         }
 
+        $group = DdMemberGroup::find()->asArray()->all();
+
         return $this->renderView('update', [
-            'model' => $model,
+                'group' => $group,
+                'model' => $model,
         ]);
     }
 
@@ -137,6 +144,14 @@ class DdMemberController extends BaseController
             
         }
         
+    }
+
+    
+    public function actionGroups()
+    {
+        $list = DdMemberGroup::find()->asArray()->all();
+        
+        return ResultHelper::json(200,'获取成功',$list);    
     }
 
     public function actionRepassword()

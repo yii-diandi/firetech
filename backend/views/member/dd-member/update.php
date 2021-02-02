@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-11-02 01:24:58
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-02 04:45:59
+ * @Last Modified time: 2021-01-24 16:34:58
  */
 
 use common\components\backend\VueBackendAsset;
@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
 
                 <?= $this->render('_form', [
+                'group' => $group,
                 'model' => $model,
                 ]) ?>
             </div>

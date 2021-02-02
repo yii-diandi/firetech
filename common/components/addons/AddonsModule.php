@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-26 09:30:21
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-12-23 01:04:30
+ * @Last Modified time: 2021-01-25 15:00:59
  */
 
 namespace common\components\addons;
@@ -45,7 +45,7 @@ class AddonsModule extends Module
             Yii::$app->i18n->translations[$module] = [
                 'class' => 'yii\i18n\PhpMessageSource',
                 'sourceLanguage' => 'en',
-                'basePath' => '@addons/diandi_dingzuo/messagess',
+                'basePath' => '@addons/'.$module.'/messagess',
             ];
         }
 
@@ -83,8 +83,11 @@ class AddonsModule extends Module
 
             Yii::$app->setComponents($config['components']);
         }
-        // 初始化公众号配置信息
-        $this->initWechat();
+
+        if(in_array($appId,['app-backend','app-api','app-frontend'])){
+            // 初始化公众号配置信息
+            $this->initWechat();
+        }
     }
 
     public function getMenus()

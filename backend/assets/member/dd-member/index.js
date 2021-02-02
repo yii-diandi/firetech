@@ -2,7 +2,7 @@
 * @Author: Wang chunsheng  email:2192138785@qq.com
 * @Date:   2020-11-02 04:19:34
 * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
-* @Last Modified time: 2021-01-02 03:37:15
+* @Last Modified time: 2021-01-27 02:03:21
 */
 
 
@@ -12,6 +12,7 @@ new Vue({
         return {
             listKey:'member_id',//列表数据主键
             height:'',
+            groups:[],
             formLabelWidth: '120px',
             dialogFormVisible:false,
             form:{
@@ -58,6 +59,7 @@ new Vue({
       init(){
         let that = this;
         that.getList();
+        that.getGroups()
       },
       // 获取列表数据
       getList(queryForm){
@@ -88,6 +90,25 @@ new Vue({
                 console.log(response)
             });
 
+      },
+      getGroups(){
+  
+        let that = this;
+
+          that.$http.post('groups',{}).then((response) => {
+            //响应成功回调
+            if (response.data.code == 200) {
+              that.groups = response.data.data
+            }
+            setTimeout(() => {
+              this.listLoading = false
+            }, 500)
+            return false;
+        }, (response) => {
+            //响应错误回调
+            console.log(response)
+        });
+        
       },
       // 检索
       onSearch() {

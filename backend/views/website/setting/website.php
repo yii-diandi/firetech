@@ -4,10 +4,10 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-22 21:27:59
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-29 21:27:13
+ * @Last Modified time: 2021-01-24 15:19:37
  */
 use common\helpers\ArrayHelper;
-use diandi\admin\models\Bloc;
+use diandi\addons\models\Bloc;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 

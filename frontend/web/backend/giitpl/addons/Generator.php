@@ -3,10 +3,10 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-30 10:45:20
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-01 01:48:47
+ * @Last Modified time: 2021-01-20 20:12:01
  */
 
-namespace addonstpl;
+namespace addonstpl\addons;
 
 use yii\gii\CodeFile;
 use yii\helpers\Html;
