@@ -1,0 +1,67 @@
+import SyDialog from './fire-dialog'
+import Vue from 'vue'
+
+const SyDialogConstructor = Vue.extend(SyDialog)
+
+const dialog = (opts = {}) => {
+  let _a = new SyDialogConstructor({el: document.createElement('div')})
+  _a.title = opts.title || '标题'
+  _a.url = opts.url || ''
+  _a.param = opts.param || {}
+  _a.visible = true
+
+  renderBtns(_a,opts.btns || [])
+  renderCloseCallBack(opts)
+  document.body.appendChild(_a.$el)
+  return new Promise(resolve => {
+    return (
+      _a.close = () => {
+        _a.visible = false
+        opts.closeCallBack()
+        resolve()
+      })
+  })
+}
+
+function renderCloseCallBack(opts) {
+  opts.closeCallBack = opts.closeCallBack || function () {}
+}
+
+function renderComponents(_a, btns) {
+  let importComponent = import(_a.url);
+  _a.plugs = [()=>importComponent]
+  _a.btns = btns || []
+  importComponent.then(component => {
+    try {
+      // 如果要跳转的组件本来就有需要显示在顶部的按钮就渲染出来
+      let subBtns = component.default.methods.getBtns();
+      for (let sb of subBtns) {
+        _a.btns.push(sb)
+      }
+    } catch (e) {}
+    renderBtns(_a, _a.btns)
+  })
+}
+
+function renderBtns(_a, btns) {
+  _a.btns = []
+  let getName = function (btn) {
+    let name = btn.click.name || 'click'
+    i++;
+    return name + i;
+  }
+
+  let i = 0;
+  for (let btn of btns) {
+    const name = btn.name || '按钮'
+    const clickEventName = getName(btn)
+    const func = btn.click || function(){alert(666)}
+    _a.btns.push({
+      name: name,
+      clickEventName: clickEventName,
+      func: func
+    })
+  }
+}
+export default dialog
+

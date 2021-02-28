@@ -51,3 +51,4 @@ frontend/web/backend/upload
 common/config/main-local.php
 console/config/main-local.php
 api/runtime
+common/widgets/adminlte/bower-asset

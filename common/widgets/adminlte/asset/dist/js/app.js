@@ -2,7 +2,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-04-12 16:36:35
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-04 04:31:31
+ * @Last Modified time: 2021-02-26 14:36:14
  */
 /*! AdminLTE app.js
  * ================
@@ -249,33 +249,38 @@ function _init() {
         },
         fix: function () {
             // Remove overflow from .wrapper if layout-boxed exists
-            $(".layout-boxed > .wrapper").css('overflow', 'hidden');
-            //Get window height and the wrapper height
-            var neg = $('.main-header').outerHeight() + $('.main-footer').outerHeight();
-            var window_height = $(window).height();
-            var sidebar_height = $(".sidebar").height();
-            //Set the min-height of the content and sidebar based on the
-            //the height of the document.
-            if ($("body").hasClass("fixed")) {
-                $(".content-wrapper, .right-side").css('min-height', window_height - $('.main-footer').outerHeight());
-            } else {
-                var postSetWidth;
-                if (window_height >= sidebar_height) {
-                    $(".content-wrapper, .right-side").css('min-height', window_height - neg);
-                    postSetWidth = window_height - neg;
-                } else {
-                    $(".content-wrapper, .right-side").css('min-height', sidebar_height);
-                    postSetWidth = sidebar_height;
-                }
+            // $(".layout-boxed > .wrapper").css('overflow', 'hidden');
+            // //Get window height and the wrapper height
+            // var neg = $('.main-header').outerHeight() + $('.main-footer').outerHeight();
+            // var window_height = $(window).height();
+            // var sidebarHeight = $(".sidebar").height();
+            
+            // var sidebar_height  = Number(sidebarHeight)+80 
 
-                //Fix for the control sidebar height
-                var controlSidebar = $($.AdminLTE.options.controlSidebarOptions.selector);
-                if (typeof controlSidebar !== "undefined") {
-                    if (controlSidebar.height() > postSetWidth)
-                        $(".content-wrapper, .right-side").css('min-height', controlSidebar.height());
-                }
+            // console.log(sidebar_height,Number(sidebarHeight))
+            // //Set the min-height of the content and sidebar based on the
+            // //the height of the document.
+            // if ($("body").hasClass("fixed")) {
+            //     $(".content-wrapper, .right-side").css('min-height', window_height - $('.main-footer').outerHeight());
+            // } else {
+            //     var postSetWidth;
+            //     if (window_height >= sidebar_height) {
+            //         console.log('这里')
+            //         $(".content-wrapper, .right-side").css('min-height', window_height - neg);
+            //         postSetWidth = window_height - neg;
+            //     } else {
+            //         $(".content-wrapper, .right-side").css('min-height', sidebar_height);
+            //         postSetWidth = sidebar_height;
+            //     }
 
-            }
+            //     //Fix for the control sidebar height
+            //     var controlSidebar = $($.AdminLTE.options.controlSidebarOptions.selector);
+            //     if (typeof controlSidebar !== "undefined") {
+            //         if (controlSidebar.height() > postSetWidth)
+            //             $(".content-wrapper, .right-side").css('min-height', controlSidebar.height());
+            //     }
+
+            // }
         },
         fixSidebar: function () {
             //Make sure the body tag has the .fixed class

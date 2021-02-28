@@ -3,7 +3,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-04-12 17:53:38
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-08-06 16:20:05
+ * @Last Modified time: 2021-02-27 15:56:52
  */
  
 
@@ -12,9 +12,9 @@ use yii\widgets\Breadcrumbs;
 ?>
 
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper" id="content-wrapper">
+<section class="content-wrapper">
     <!--bootstrap tab风格 多标签页-->
-    <div class="content-tabs">
+    <div class="content-tabs"  :style="{ 'border-bottom' : '2px solid' + menuBgColor}">
         <button class="roll-nav roll-left tabLeft" onclick="scrollTabLeft()">
             <i class="fa fa-backward"></i>
         </button>
@@ -27,7 +27,6 @@ use yii\widgets\Breadcrumbs;
             <i class="fa fa-forward" style="margin-left: 3px;"></i>
         </button>
         <div class="btn-group roll-nav roll-right">
-
             <button class="dropdown tabClose" data-toggle="dropdown">
                 页签操作<i class="fa fa-caret-down" style="padding-left: 3px;"></i>
             </button>
@@ -47,5 +46,5 @@ use yii\widgets\Breadcrumbs;
         </div>
     </div>
 
-</div>
+</section> 
 <!-- /.content-wrapper -->

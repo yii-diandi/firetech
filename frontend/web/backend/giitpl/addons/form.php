@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-30 16:57:52
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-20 22:03:46
+ * @Last Modified time: 2021-02-25 00:57:20
  */
 
 ?>
@@ -14,7 +14,21 @@
                         echo $form->field($generator, 'moduleID');
                         echo $form->field($generator, 'title');
                         echo $form->field($generator, 'version');
-                        echo $form->field($generator, 'type');
+
+                        echo $form->field($generator, 'type')
+                        ->dropDownList([
+                                'base'=>'基础',
+                                'business'=>'商业',
+                                'marketing'=>'营销',
+                                'member'=>'会员',
+                                'system'=>'系统',
+                                'enterprise'=>'企业',
+                                'services'=>'服务',
+                                'other'=>'其他'
+                            ]); 
+                        
+
+                        
                         echo $form->field($generator, 'ability');
                         echo $form->field($generator, 'description');
                         echo $form->field($generator, 'author');

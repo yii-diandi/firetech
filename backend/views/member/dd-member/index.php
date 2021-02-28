@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-11-02 02:15:08
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-02 03:17:11
+ * @Last Modified time: 2021-02-21 12:26:47
  */
 
 use common\components\backend\VueBackendAsset;
@@ -48,8 +48,6 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     
     <div class="table-container">
-     
-
     <el-table
       ref="tableSort"
       v-loading="listLoading"

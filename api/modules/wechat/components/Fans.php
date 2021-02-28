@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-10 20:37:35
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-09-16 20:51:16
+ * @Last Modified time: 2021-02-03 19:42:16
  */
 
 namespace app\modules\wechat\components;
@@ -72,13 +72,20 @@ class Fans extends BaseObject
             $password = StringHelper::randomNum();
 
             FileHelper::writeLog($logPath, '登录日志:昵称去除特殊字符'.json_encode($this->removeEmoji($nickname)));
-            
-            $nickname = stripcslashes($nickname);
-            $nickname = stripslashes($nickname);
-            // $nickname = $this->removeEmoji($nickname);
 
-            // $nickname = $this->filterEmoji($nickname);
+            $nickname = $this->removeEmoji($nickname);
+
+            $nickname = $this->filterEmoji($nickname);
             // 去除斜杠后的数据
+            
+            FileHelper::writeLog($logPath, '登录日志:处理好以后的昵称：'.$nickname);
+            
+            if(empty($nickname)){
+                // 使用随机昵称
+                $strName  = StringHelper::getname();
+                $nickname = $strName[0];
+            }
+            
 
             FileHelper::writeLog($logPath, '登录日志:处理好以后的昵称：'.$nickname);
 

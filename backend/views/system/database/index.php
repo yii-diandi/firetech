@@ -3,10 +3,10 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-06-04 19:00:54
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-06-23 20:52:29
+ * @Last Modified time: 2021-02-20 18:53:03
  */
 
-use common\widgets\adminlte\VuemainAsset;
+use common\widgets\firevue\VuemainAsset;
 use richardfan\widget\JSRegister;
 use yii\widgets\ActiveForm;
 

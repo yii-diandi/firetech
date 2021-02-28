@@ -3,7 +3,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-04-12 18:37:35
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-13 08:46:17
+ * @Last Modified time: 2021-02-25 00:41:25
  */
 use common\widgets\MyGridView;
 
@@ -19,12 +19,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="firetech-main">
 
 <div class="dd-article-index ">
-    <?php // echo $this->render('_search', ['model' => $searchModel]);?>
+    <?php  //echo $this->render('_search', ['model' => $searchModel]);?>
     <div class="panel panel-default">
         <div class="box-body">
     <?= MyGridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 

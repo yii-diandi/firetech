@@ -3,11 +3,11 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-06-23 21:07:35
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-06-24 01:07:33
+ * @Last Modified time: 2021-02-20 18:52:58
  */
  
 use common\helpers\Auth;
-use common\widgets\adminlte\VuemainAsset;
+use common\widgets\firevue\VuemainAsset;
 use diandi\admin\components\Helper;
 use richardfan\widget\JSRegister;
 use yii\helpers\Url;

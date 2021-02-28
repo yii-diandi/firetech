@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-27 14:28:25
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-12-25 20:30:48
+ * @Last Modified time: 2021-02-25 14:52:24
  */
 
 namespace common\services\backend;
@@ -88,7 +88,9 @@ class NavService extends BaseService
                 $type = Yii::$app->params['plugins'];
               
                 if ($menu['type'] == 'plugins') {
-                    $parent = is_numeric($menu['parent']) ? $menu['parent'] : $menu['id'];
+                    $parent_id = intval($menu['parent']);
+                    $parent = $parent_id>0 ? $parent_id : $menu['id'];
+                    
                     $menu_type = $menu['type'].$parent;
                     // $module_name = $menu['module_name'];
                     // $addonsdefault = "/{$module_name}/default/index";
@@ -116,8 +118,13 @@ class NavService extends BaseService
 
                 //没配置图标的显示默认图标
                 (!isset($return['icon']) || !$return['icon']) && $return['icon'] = 'fa fa-circle-z';
-                $items && $return['children'] = $items;
                 
+                if(!empty($items)){
+                    $return['children'] = $items;
+                }else{
+                    $return['children'] = [];
+                    
+                }
                 
                 if ($type == $return['type']) {
                     $return['is_show'] = 'show';
@@ -136,12 +143,11 @@ class NavService extends BaseService
                 $where = ['is_sys' => 'addons', 'module_name' => $module_name];
             }
 
-            $initmenus = MenuHelper::getAssignedMenu(Yii::$app->user->id, null, $callback, $where, true);
+            $initmenus = MenuHelper::getAssignedMenu(Yii::$app->user->id, null, $callback, $where);
             $initmenu = ArrayHelper::arraySort($initmenus, 'order');
             
             $cacheClass = new CacheHelper();
             $cacheClass->set('backend_'.$module_name.'initmenu_'.$is_addons, $initmenu);
-            // p($initmenu);
             return $initmenu;
         }
     }
@@ -194,7 +200,7 @@ class NavService extends BaseService
     public static function addonsMens($addons)
     {
         $list =  Menu::find()->where(['module_name'=>$addons])->asArray()->all();
-        $lists = ArrayHelper::itemsMerge($list,null,'id','parent','child',3);
+        $lists = ArrayHelper::itemsMerge($list,0,'id','parent','child',3);
             //    去除id
         $menu = ArrayHelper::removeByKey($lists);
         $menus = ArrayHelper::removeByKey($menu,'parent');

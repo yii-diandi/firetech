@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng
  * @Date:   2020-04-29 02:27:17
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-07 11:20:27
+ * @Last Modified time: 2021-02-20 19:11:44
  */
 
 namespace common\widgets\layout;
@@ -28,7 +28,7 @@ class Left extends Widget
     public $theme = 'default';
 
     public $depends = [
-        'common\widgets\adminlte\VuemainAsset',
+        'common\widgets\firevue\VuemainAsset',
     ];
     
     /**

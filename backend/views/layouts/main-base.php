@@ -4,10 +4,11 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-14 23:50:50
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-12-25 14:54:34
+ * @Last Modified time: 2021-02-27 18:24:26
  */
 
-
+use common\widgets\adminlte\AdminLteAsset;
+use common\widgets\firevue\VuemainAsset;
 use richardfan\widget\JSRegister;
 use yii\helpers\Html;
 use yii\web\View;
@@ -29,12 +30,11 @@ if (Yii::$app->controller->action->id === 'login' || Yii::$app->controller->acti
         ['content' => $content]
     );
 } else {
-    if (class_exists('backend\assets\AppAsset')) {
-        backend\assets\AppAsset::register($this);
+    if (class_exists('common\widgets\adminlte\ThemeAsset')) {
+        common\widgets\adminlte\ThemeAsset::register($this);
     }
 
     $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@common/widgets/adminlte/asset'); ?>
-  
     <?php $this->beginPage() ?>
     <!DOCTYPE html>
     <html lang="<?= Yii::$app->language ?>">
@@ -49,35 +49,47 @@ if (Yii::$app->controller->action->id === 'login' || Yii::$app->controller->acti
       
     </head>
 
-    <body class="hold-transition <?= empty(Yii::$app->params['Website']['themcolor']) ?'skin-blue':Yii::$app->params['Website']['themcolor'] ?>   sidebar-mini fixed">
+    <body class="hold-transition <?= empty(Yii::$app->params['Website']['themcolor']) ?'skin-blue':Yii::$app->params['Website']['themcolor'] ?>   sidebar-mini fixed"  style="overflow: hidden;">
 
         <?php $this->beginBody() ?>
-        <div class="wrapper">
-            <?= $this->render(
-                'header.php',
-                ['directoryAsset' => $directoryAsset]
-            ) ?>
-            <?= $this->render(
-                'left.php',
-                ['directoryAsset' => $directoryAsset]
-            )
-            ?>
-            <?= $this->render(
-                'content-base.php',
-                ['content' => $content, 'directoryAsset' => $directoryAsset]
-            ) ?>
-
-
-
-            <?= $this->render(
-                'footer.php',
-                [
-                    'content' => $content, 
-                    'directoryAsset' => $directoryAsset,
-                    'is_addons'=>$is_addons
-                ]
-            ) ?>
-
+        <div class="wrapper" id="fire-main">
+        <el-container v-cloak>
+            <el-aside class="left-aside"  :width="asideWidth" ref="layoutLeft">
+                    <?= $this->render(
+                        'left.php',
+                        ['directoryAsset' => $directoryAsset]
+                    )
+                    ?>
+            </el-aside>
+            <el-container>
+                <el-header class="padding-0">
+                    <?= $this->render(
+                        'header.php',
+                        ['directoryAsset' => $directoryAsset]
+                    ) ?>
+                
+                </el-header>
+                <el-main>
+                    <?= $this->render(
+                        'content-base.php',
+                        ['content' => $content, 'directoryAsset' => $directoryAsset]
+                    ) ?>
+                   <el-footer  class="padding-0">
+                            <?= $this->render(
+                                    'footer.php',
+                                    [
+                                        'content' => $content, 
+                                        'directoryAsset' => $directoryAsset,
+                                        'is_addons'=>$is_addons
+                                    ]
+                            ) ?>
+                    
+                </el-footer>
+                </el-main>
+                
+            </el-container>
+        </el-container>
+           
         </div>
 
 

@@ -1,4 +1,11 @@
 <?php
+/**
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2021-02-23 00:20:44
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2021-02-23 19:57:38
+ */
+ 
 
 /**
  * Message translations.
@@ -20,6 +27,7 @@
 return [
     'ID' => 'ID',
     'Type' => '类型',
+    'Activate'=>'审核',
     'Section' => '配置标识',
     'Key' => '配置项',
     'Value' => '配置值',
@@ -37,7 +45,7 @@ return [
     'Inactive' => '禁用',
     'Update Setting: {0} -> {1}' => '更改设置: {0} -> {1}',
     'Update Setting' => '更改设置',
-    'Update' => '更改',
+    'Update' => '更新',
     'Create' => '新建',
     'Delete' => '删除',
     'Go Back' => '返回',

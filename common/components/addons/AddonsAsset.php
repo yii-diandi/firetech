@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-26 09:16:19
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-03 03:46:24
+ * @Last Modified time: 2021-02-21 17:28:56
  */
 
 namespace common\components\addons;
@@ -22,7 +22,7 @@ class AddonsAsset extends AssetBundle
     /**
      * {@inheritdoc}
      */
-    public $sourcePath = '@addons/diandi_ai/assets';
+    public $sourcePath = '';
 
     public $version;
 
@@ -44,8 +44,7 @@ class AddonsAsset extends AssetBundle
      */
     public $depends = [
         // 'yii\web\JqueryAsset',
-        'common\widgets\adminlte\VuemainAsset',
-        'common\widgets\adminlte\ExportExcelAsset',
+        'common\widgets\firevue\VuemainAsset'
     ];
 
     public $action = '';
@@ -57,28 +56,41 @@ class AddonsAsset extends AssetBundle
     {
         global $_GPC;
         $module = Yii::$app->controller->module->id;
-        $controllerPath = Yii::$app->controller->id;
-        $actionName  = Yii::$app->controller->action->id;
-        $this->sourcePath = sprintf('@addons/%s/assets/', trim($module));
-       
-        FileHelper::mkdirs(Yii::getAlias($this->sourcePath.$controllerPath));
-
-        $path = Yii::getAlias($this->sourcePath.$controllerPath.'/'.$actionName.'.js');
         
-        if(is_file($path)){
-            $this->js[] = $controllerPath.'/'.$actionName.'.js';             
-        }else{
+        if(is_dir(Yii::getAlias('@addons/'.$module))){
+          $controllerPath = Yii::$app->controller->id;
+          $actionName  = Yii::$app->controller->action->id;
+          $this->sourcePath = sprintf('@addons/%s/assets/', trim($module));
+          
+          FileHelper::mkdirs(Yii::getAlias($this->sourcePath.$controllerPath));
+  
+          $path = Yii::getAlias($this->sourcePath.$controllerPath.'/'.$actionName.'.js');
+          
+          if(is_file($path)){
+              $this->js[] = $controllerPath.'/'.$actionName.'.js';             
+          }
+        }
+       
+        
+        parent::init();
+    }
+
+    
+    public function createDemoJs($module,$controllerPath,$actionName)
+    {
+        global $_GPC;
+        $sourcePath = sprintf('@addons/%s/assets/', trim($module));
+        
+        FileHelper::mkdirs(Yii::getAlias($sourcePath.$controllerPath));
+
+        $path = Yii::getAlias($sourcePath.$controllerPath.'/'.$actionName.'.js');
+        
+        if(!is_file($path)){
             $content = $this->demoJs();
             file_put_contents($path,$content, FILE_APPEND);
             $this->js[] = $controllerPath.'/'.$actionName.'.js';             
         }
-        
-        if (YII_ENV_DEV) {
-            // p($_GPC);
-        }
-        parent::init();
     }
-
 
     public function demoJs()
     {   

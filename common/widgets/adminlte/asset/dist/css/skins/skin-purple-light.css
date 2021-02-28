@@ -1,10 +1,28 @@
 /*
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2021-02-27 16:06:34
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2021-02-27 16:08:15
+ */
+/*
  * Skin: Purple
  * ------------
  */
 .skin-purple-light .main-header .navbar {
   background-color: #605ca8;
 }
+
+
+.content-tabs .page-tabs a.active {
+  background: #605ca8;
+  color: #999;
+  border-right: solid 1px #2c3e50
+}
+
+.content-tabs .page-tabs a.active i:hover {
+  color: #999 !important
+}
+
 .skin-purple-light .main-header .navbar .nav > li > a {
   color: #ffffff;
 }
@@ -151,3 +169,4 @@
     border-left: 1px solid #d2d6de;
   }
 }
+

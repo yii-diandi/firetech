@@ -3,11 +3,12 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-03 07:10:17
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-04 04:41:16
+ * @Last Modified time: 2021-02-27 17:08:12
  */
 
 namespace common\widgets\adminlte;
 
+use Yii;
 use yii\base\Exception;
 use yii\web\AssetBundle as BaseAdminLteAsset;
 
@@ -30,9 +31,9 @@ class AdminLteAsset extends BaseAdminLteAsset
         // 'plugins/jQuery/jquery-2.2.3.min.js',
         // 'plugins/jQuery/jquery-migrate.js',
         // 'dist/main.js',
-        'dist/js/app.min.js',
+        'dist/js/app.js',
         'dist/js/demo.min.js',
-        'dist/js/app_iframe.min.js',
+        'dist/js/app_iframe.js',
     ];
 
     public $jsOptions = [
@@ -40,7 +41,7 @@ class AdminLteAsset extends BaseAdminLteAsset
     ];
 
     public $depends = [
-        'common\widgets\adminlte\VuemainAsset',
+        'common\widgets\firevue\VuemainAsset',
         // 'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
@@ -53,18 +54,24 @@ class AdminLteAsset extends BaseAdminLteAsset
      */
     public $skin = 'all-skins';
 
+
+
     /**
      * {@inheritdoc}
      */
     public function init()
     {
-        // Append skin color file if specified
+        global $_GPC;
+     
+        $this->skin = !empty(Yii::$app->cache->get('themcolor'))?Yii::$app->cache->get('themcolor'):Yii::$app->settings->get('Website', 'themcolor');
+         // Append skin color file if specified
         if ($this->skin) {
             if (('all-skins' !== $this->skin) && (strpos($this->skin, 'skin-') !== 0)) {
                 throw new Exception('Invalid skin specified');
             }
             $this->css[] = sprintf('dist/css/skins/%s.min.css', trim($this->skin));
         }
+
 
         parent::init();
     }

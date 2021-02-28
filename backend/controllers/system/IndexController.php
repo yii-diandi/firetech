@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-11 17:41:27
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-05-31 17:25:05
+ * @Last Modified time: 2021-02-27 06:16:56
  */
 
 
@@ -12,6 +12,8 @@ namespace backend\controllers\system;
 
 use Yii;
 use  backend\controllers\BaseController;
+use common\helpers\ImageHelper;
+use common\helpers\ResultHelper;
 use common\models\DdRegion;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -47,4 +49,29 @@ class IndexController extends BaseController
             return $cates;
         }
     }
+
+    public function actionInfo()
+    {
+        global $_GPC;
+        // 初始化菜单
+        $is_addons = Yii::$app->params['is_addons'];
+
+        $AllNav   = Yii::$app->service->backendNavService->getMenu('', $is_addons);
+         
+        
+
+        $moduleAll =  Yii::$app->params['moduleAll'];
+
+        $Website   = Yii::$app->settings->getAllBySection('Website');
+        $Website['blogo']   = ImageHelper::tomedia($Website['blogo']);
+        $Website['flogo']   = ImageHelper::tomedia($Website['flogo']);
+        return ResultHelper::json(200,'获取成功',[
+                'AllNav'=>$AllNav,
+                'is_addons'=>$is_addons,
+                'moduleAll'=>$moduleAll,
+                'Website'=>$Website
+            ]);
+        
+    }
+
 }

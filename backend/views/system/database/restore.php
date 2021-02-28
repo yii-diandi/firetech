@@ -3,9 +3,9 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-06-23 21:08:55
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-06-24 09:37:04
+ * @Last Modified time: 2021-02-20 18:53:07
  */
-use common\widgets\adminlte\VuemainAsset;
+use common\widgets\firevue\VuemainAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
 

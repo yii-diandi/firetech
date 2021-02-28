@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-10 20:37:35
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-09 21:09:19
+ * @Last Modified time: 2021-02-03 19:32:51
  */
 
 namespace app\modules\officialaccount\components;
@@ -80,9 +80,15 @@ class Fans extends BaseObject
 
             $nickname = $this->filterEmoji($nickname);
             // 去除斜杠后的数据
-
+            
             FileHelper::writeLog($logPath, '登录日志:处理好以后的昵称：'.$nickname);
-
+            
+            if(empty($nickname)){
+                // 使用随机昵称
+                $strName  = StringHelper::getname();
+                $nickname = $strName[0];
+            }
+            
             $res = $DdMember->signup($nickname, 0, $password);
 
             FileHelper::writeLog($logPath, '登录日志:会员注册返回结果'.json_encode($res));

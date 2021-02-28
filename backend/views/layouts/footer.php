@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-02-29 22:47:16
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-04 02:07:15
+ * @Last Modified time: 2021-02-27 02:21:39
  */
 use richardfan\widget\JSRegister;
 
@@ -97,7 +97,12 @@ $initmenu = Yii::$app->params['leftNav'];
          });*/
 
        
-
+        let storeSeleted = localStorage.getItem("bloc"); 
+        
+        if(storeSeleted){
+            $('#bloc-left-name').text(JSON.parse(storeSeleted).store_name);        
+        }
+        
         $('.sidebar-menu').sidebarMenu({
                 data: <?= $initmenu; ?>
         });
@@ -108,30 +113,29 @@ $initmenu = Yii::$app->params['leftNav'];
         });
 
         // 动态创建菜单后，可以重新计算 SlimScroll
-        $.AdminLTE.layout.fixSidebar();
-        // $.AdminLTE.options.change_skin('skin-yellow')
-        if ($.AdminLTE.options.sidebarSlimScroll) {
+        // $.AdminLTE.layout.fixSidebar();
+        // // $.AdminLTE.options.change_skin('skin-yellow')
+        // if ($.AdminLTE.options.sidebarSlimScroll) {
 
-            if ($(window).width() <= 700) {
-                $('.left-treeview').addClass('show').removeClass('hide')
-            }
-            if (typeof $.fn.slimScroll != 'undefined') {
-                //Destroy if it exists
-                var $sidebar = $(".sidebar");
-                $sidebar.slimScroll({
-                    destroy: true
-                }).height("auto");
-                //Add slimscroll
-                $sidebar.slimscroll({
-                    height: ($(window).height() - $(".main-header").height()) + "px",
-                    color: "rgba(0,0,0,0.2)",
-                    size: "3px"
-                });
-            }
-        }
-
-
+        //     if ($(window).width() <= 700) {
+        //         $('.left-treeview').addClass('show').removeClass('hide')
+        //     }
+        //     if (typeof $.fn.slimScroll != 'undefined') {
+        //         //Destroy if it exists
+        //         var $sidebar = $(".sidebar");
+        //         $sidebar.slimScroll({
+        //             destroy: true
+        //         }).height("auto");
+        //         //Add slimscroll
+        //         $sidebar.slimscroll({
+        //             height: ($(window).height() - $(".main-header").height()) + "px",
+        //             color: "rgba(0,0,0,0.2)",
+        //             size: "3px"
+        //         });
+        //     }
+        // }
     });
+   
 </script>
 
 <?php JSRegister::end(); ?>

@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-03 07:34:16
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-17 00:27:18
+ * @Last Modified time: 2021-02-27 17:08:16
  */
 
 namespace backend\controllers;
@@ -89,17 +89,14 @@ class BaseController extends Controller
         // $menutypes = Menu::find()->where(['like', 'route', $requestedRoute])->select(['type'])->one();
         /*初始化当前菜单类别*/
         Yii::$app->params['plugins'] = $nav['top'][0]['mark']; //  empty($menutypes['type']) ? $nav['top'][0]['mark'] : $menutypes['type'];
-        // 初始化菜单
-        Yii::$app->params['topNav'] = Yii::$app->service->backendNavService->getMenu('top', $is_addons);
-        Yii::$app->params['leftNav'] = Yii::$app->service->backendNavService->getMenu('left', $is_addons);
+        
         Yii::$app->params['bloc_id'] = Yii::$app->service->commonGlobalsService->getBloc_id();
         Yii::$app->params['store_id'] = Yii::$app->service->commonGlobalsService->getStore_id();
         // p(Yii::$app->params['topNav'],Yii::$app->params['leftNav']);
         // 获取全局消息
         Yii::$app->service->commonGlobalsService->getMessage(Yii::$app->params['bloc_id']);
         /* 设置模板主题 */
-        Yii::$app->params['Website']['themcolor'] = Yii::$app->settings->get('Website', 'themcolor');
-
+        Yii::$app->params['Website']['themcolor'] = !empty(Yii::$app->cache->get('themcolor'))?Yii::$app->cache->get('themcolor'):Yii::$app->settings->get('Website', 'themcolor');
         // 设置模板标题
         Yii::$app->params['Website']['title'] = $is_addons ? Yii::$app->params['module']['title'] : Yii::$app->settings->get('Website', 'name');
 
@@ -155,9 +152,17 @@ class BaseController extends Controller
         $this->_params[$key]  = $val;
     }
     
+    public function renderHtml($view,$param=[],$return=false)
+    {   
+        if(!empty($this->_params)){
+            $param =  $param ===null?  $this->_params :array_merge($this->_params,$param);
+        }
+        
+        return $this->render($view.'.html', $param,$return);
+    }
     
 
-    public function renderVue($view,$param,$return=false)
+    public function renderVue($view,$param=[],$return=false)
     {   
         if(!empty($this->_params)){
             $param =  $param ===null?  $this->_params :array_merge($this->_params,$param);
@@ -166,7 +171,7 @@ class BaseController extends Controller
         return $this->render($view.'.vue', $param,$return);
     }
 
-    public function renderView($view,$param,$return=false)
+    public function renderView($view,$param=[],$return=false)
     {   
         global $_GPC;
         

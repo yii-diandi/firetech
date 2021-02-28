@@ -3,8 +3,8 @@
 /**
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-02-29 16:57:19
- * @Last Modified by:   Wang Chunsheng 2192138785@qq.com
- * @Last Modified time: 2020-04-09 11:39:00
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2021-02-28 10:01:22
  */
 
 return [
@@ -19,7 +19,7 @@ return [
         'delimiter' => ',',
         // 基本配置
         'baseConfig' => [
-            'defaultImage' => '/attachment/image/emptyimg.png',
+            'defaultImage' => '/resource/images/public/emptyimg.png',
             'disableGlobalDnd' => true,
             'accept' => [
                 'title' => 'Images',

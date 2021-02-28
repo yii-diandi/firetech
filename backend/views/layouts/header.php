@@ -4,156 +4,87 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-28 15:31:10
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-18 00:49:02
+ * @Last Modified time: 2021-02-28 10:42:39
  */
+
 use yii\helpers\Html;
 use common\helpers\ImageHelper;
 
 $settings = Yii::$app->settings;
 $menucate = Yii::$app->service->backendNavService->getMenu('left');
 $moduleAll =  Yii::$app->params['moduleAll'];
-/* @var $this \yii\web\View */
-/* @var $content string */
 ?>
-<header class="main-header">
-    <!-- Logo -->
-    <a href="<?= Yii::$app->homeUrl; ?>" class="logo">
-        <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><?= Yii::$app->params['Website']['title']; ?></span>
-        <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><?= Yii::$app->params['Website']['title']; ?></span>
-    </a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
-        <!-- Sidebar toggle button-->
-        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </a>
-        <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
-        <ul class="nav navbar-nav" id="top-nav">
-
-        <?php if (Yii::$app->params['is_addons']): ?>
-
-                    <li class="dropdown pull-right" >
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">切换模块 <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <?php foreach ($moduleAll as $key => $value): ?>
-                                <li><a href="module?addons=<?=  $value['module_name'] ?>"><?=  $value['addons']['title'] ?></a></li>
-                                <li class="divider"></li>
-                                
-                            <?php endforeach; ?>
-                        </ul>
-                    </li>
-        <?php endif; ?>
-        </ul>
-        
-           
-        </div>
-        <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-                <!-- Messages: style can be found in dropdown.less-->
-                <li>
-                    <a  data-toggle="modal" href='#selectStore-id'>
-                        <i class="fa fa-edit"></i> 
-                        <span id="bloc-left-name">点我选择商户</span>
-                    </a>
-                </li>
+<el-row type="flex"  :gutter="0" class="main-header"  :style="{ 'border-bottom' : '1px solid' + menuBgColor,background:menuBgColor }">
+  <el-col :xs="3" :sm="2" :md="1" :lg="1" :xl="1" style="min-width: 65px;">
+        <el-menu :default-active="activeIndex"  class="el-menu-demo" mode="horizontal"
+                    :background-color="menuBgColor"
+                    :text-color="menuTextColor"
+                    :active-text-color="menuActiveColor"
+                >
+            <el-menu-item  @click="CollapseSet" class="hamburger"  :class="{'is-active':isCollapse}">
+                <i class="el-icon-s-fold"></i>
+            </el-menu-item>
+        </el-menu>
+  </el-col>  
+  <el-col  :xs="8" :sm="6" :md="16" :lg="16" :xl="16" class="hidden-sm-and-down">
+       
+            <el-menu :default-active="0"
+                            v-show="topMenu"
+                            :background-color="menuBgColor"
+                            :text-color="menuTextColor"
+                            :active-text-color="menuActiveColor"
                 
-                <li class="dropdown messages-menu">
-                   
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-bell-o"></i>
-                        <span class="label label-success"><?= Yii::$app->params['message']['total']; ?></span>
-                    </a>
-                    <?php if (Yii::$app->params['message']['total'] > 0): ?>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <!-- inner menu: contains the actual data -->
-                                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; max-height: 200px;">
-                                <ul class="menu" style="overflow: hidden; width: 100%; height: 200px;padding-left:10px;padding-right:10px;">
-                                <?php foreach (Yii::$app->params['message']['list'] as $key => $value): ?>
-                                    
-                                    <dl style="padding-top: 10px">
-                                        <dt>来自： <?= $value['type']; ?> <?= date('Y-m-d H:i', $value['create_time']); ?></dt>
-                                        <dd style="line-height: 30px"> 
-                                            <a href="<?= $value['url']; ?>" target="_block">
-                                                <?= $value['message']; ?>
-                                            </a>
-                                        </dd>
-                                     
-                                    </dl>   
-                                  
-                                  
-                                    <?php endforeach; ?>
-                               
-                              
-                                </ul>
-                            </li>
-                            <li class="text-center"><a href="#">查看更多</a></li>
-                            </ul>
-                    <?php endif; ?>
-                    
-                </li>
+                 class="el-menu-demo" mode="horizontal" @select="menuTopSelect">
+          
+                    <el-menu-item :index="index"  v-for="(item,index) in topMenu" 
+                        >{{item.text}}</el-menu-item>
+                        <el-submenu index="addons" v-show="is_addons">
+                            <template slot="title">切换模块</template>
+                        <el-menu-item :index="item.module_name" v-for="(item,index) in moduleAll"  :data-addons="item">
+                           {{item.addons.title}}
+                        </el-menu-item>
+                </el-submenu>
+            </el-menu>
+  </el-col>
+  <el-col  :xs="21" :sm="22" :md="7" :lg="7" :xl="7" :background-color="menuBgColor">
+        <el-row type="flex" justify="end" v-show="menuBgColor && openMypannel">
+                <el-menu :default-active="activeIndex"
+                                v-show="topMenu"
+                                :background-color="menuBgColor"
+                                :text-color="menuTextColor"
+                                :active-text-color="menuActiveColor"
+        
+                    class="el-menu-demo" mode="horizontal">
+            
+                            <el-menu-item  @click="selectStore">
+                                <span id="bloc-left-name">点我选择商户</span>
+                            </el-menu-item>
+                            <el-submenu index="addons">
+                                <template slot="title">
+                                    <small><?= Yii::$app->user->identity->username; ?></small>
+                                </template>
+                                <el-menu-item  onclick="addTabs({title: '个人资料',close: true,url: '/admin/user/update?id=<?= Yii::$app->user->identity->id; ?>',urlType: 'relative'});">
+                                    个人资料
+                                </el-menu-item>
+                                <el-menu-item  onclick="addTabs({title: '修改密码',close: true,url: '/site/reset-password?token=<?= Yii::$app->user->identity->password_reset_token; ?>',urlType: 'relative'});">
+                                    修改密码
+                                </el-menu-item>
+                                <el-menu-item  onclick="addTabs({title: '清理缓存',close: true,url: '/system/settings/clear-cache',urlType: 'relative'});">
+                                    清理缓存
+                                </el-menu-item>
+                                <el-menu-item  onclick="addTabs({title: '我的公司',close: true,url: '/addons/bloc/index',urlType: 'relative'});">
+                                    我的公司
+                                </el-menu-item>
+                                <el-menu-item @click="loginOut">
+                                    退出登录
+                                </el-menu-item>
 
-                <!-- User Account: style can be found in dropdown.less -->
-                <li class="dropdown user user-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?= ImageHelper::tomedia(Yii::$app->user->identity->avatar, 'avatar.jpg'); ?>" class="user-image" alt="User Image">
-                        <span class="hidden-xs"><?= Yii::$app->user->identity->username; ?></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <!-- User image -->
-                        <li class="user-header">
-                            <img src="<?= ImageHelper::tomedia(Yii::$app->user->identity->avatar, 'avatar.jpg'); ?>" class="img-circle" alt="User Image">
-
-                            <p>
-                                <?= Yii::$app->user->identity->username; ?>
-                                <small><?= Yii::$app->user->identity->username; ?></small>
-                            </p>
-                        </li>
-                        <!-- Menu Body -->
-                        <li class="user-body">
-                            <div class="row">
-                                <div class="col-xs-4 text-center">
-                                    <a class="nav-link" onclick="addTabs({title: '个人资料',close: true,url: '/admin/user/update?id=<?= Yii::$app->user->identity->id; ?>',urlType: 'relative'});">个人资料</a>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <a class="nav-link" onclick="addTabs({title: '修改密码',close: true,url: '/site/reset-password?token=<?= Yii::$app->user->identity->password_reset_token; ?>',urlType: 'relative'});">修改密码</a>
-                                </div>
-                                
-                                <div class="col-xs-4 text-center">
-                                    <a class="nav-link" onclick="addTabs({title: '清理缓存',close: true,url: '/system/settings/clear-cache',urlType: 'relative'});">清理缓存</a>
-                                </div>
-
-                            </div>
-                            <!-- /.row -->
-                        </li>
-                        <!-- Menu Footer-->
-                        <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat nav-link"
-                                onclick="addTabs({title: '我的公司',close: true,url: '/admin/bloc/index',urlType: 'relative'});"
-                                >我的公司</a>
-                            </div>
-                            <div class="pull-right">
-                                <?= Html::a(
-                                    '退出登录',
-                                    ['/site/logout'],
-                                    ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
-                                ); ?>
-                                <!-- <a href="#" class="btn btn-default btn-flat">Sign out</a> -->
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                <!-- Control Sidebar Toggle Button -->
-                <li>
-                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
+                            </el-submenu>
+                            <el-menu-item class="hidden-xs-only"  data-toggle="control-sidebar">
+                                <i class="fa fa-gears"></i>
+                            </el-menu-item>
+                </el-menu>
+        </el-row>
+           
+  </el-col>
+</el-row>

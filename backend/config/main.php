@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-05 08:21:08
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-20 20:11:44
+ * @Last Modified time: 2021-02-25 01:24:02
  */
 $params = array_merge(
     require __DIR__.'/../../common/config/params.php',
@@ -106,6 +106,14 @@ return [
                         'right_delimiter' => '}>',
                     ],
                 ],
+                'html' => [
+                    'class' => 'yii\smarty\ViewRenderer',
+                    'cachePath' => '@runtime/Smarty/cache',
+                    'options' => [
+                        'left_delimiter' => '<{',
+                        'right_delimiter' => '}>',
+                    ],
+                ]
             ],
         ],
         'authManager' => [

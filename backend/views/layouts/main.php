@@ -3,9 +3,13 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-08 12:17:00
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-08-06 15:55:07
+ * @Last Modified time: 2021-02-27 06:01:59
  */
 // use common\widgets\adminlte\VueJsAsset;
+
+use common\components\addons\AddonsAsset;
+use common\widgets\adminlte\AdminLteAsset;
+use common\widgets\firevue\VuemainAsset;
 use yii\helpers\Html;
 use yii\web\View;
 
@@ -15,6 +19,10 @@ use yii\web\View;
 $this->registerJs("window.sysinfo={
     'CSRF_HEADER':'". \yii\web\Request::CSRF_HEADER ."',".
     "csrfToken:'". Yii::$app->request->csrfToken."'};",View::POS_HEAD);
+
+// 加载单页面vue对应的js
+AddonsAsset::register($this);
+
 
 if (Yii::$app->controller->action->id === 'login') {
     /**
@@ -26,8 +34,8 @@ if (Yii::$app->controller->action->id === 'login') {
         ['content' => $content]
     );
 } else {
-    if (class_exists('backend\assets\AppAsset')) {
-        backend\assets\AppAsset::register($this);
+    if (class_exists('common\widgets\adminlte\ThemeAsset')) {
+        common\widgets\adminlte\ThemeAsset::register($this);
     }
 
     $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@common/widgets/adminlte/asset'); ?>
@@ -53,7 +61,7 @@ if (Yii::$app->controller->action->id === 'login') {
        
     </head>
 
-    <body class="hold-transition sidebar-mini fixed">
+    <body class="hold-transition sidebar-mini fixed" >
 
         <?php $this->beginBody(); ?>
         <?= $this->render(

@@ -2,7 +2,7 @@
 * @Author: Wang chunsheng  email:2192138785@qq.com
 * @Date:   2020-11-02 04:19:34
 * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
-* @Last Modified time: 2021-01-27 02:03:21
+* @Last Modified time: 2021-02-23 02:24:28
 */
 
 
@@ -10,6 +10,8 @@ new Vue({
     el: '#dd-member-index',//当前页面id
     data: function () {
         return {
+            pRul:'',
+            dialogVisible:false,
             listKey:'member_id',//列表数据主键
             height:'',
             groups:[],
@@ -133,8 +135,7 @@ new Vue({
         console.log(row,row[this.listKey])
         that.Popup({
           url:'view?id='+row[this.listKey],
-          title:'店滴AI555',
-          
+          title:'店滴AI',
           openbefore: () => {
             // 点击按钮事件
             console.log('打开前前')
@@ -147,12 +148,21 @@ new Vue({
         that.Popup({
           url:'update?id='+row[this.listKey],
           title:'更新',
-          
-          openbefore: () => {
-            // 点击按钮事件
-            console.log('打开前前')
+          param: {
+            auto: true,
+            num: 100
+          },
+          closeCallBack () {
+            console.log('关闭回调')
+            
           }
         })
+      },
+      ceshia(){
+        let that = this
+        that.pRul = 'index'
+        that.dialogVisible = true
+        console.log('弹窗测试')
       },
       passwordSubmit(){
         let that = this

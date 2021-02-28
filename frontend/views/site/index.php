@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-22 15:56:49
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-25 08:24:35
+ * @Last Modified time: 2021-02-19 09:26:55
  */
 use common\helpers\ImageHelper;
 use richardfan\widget\JSRegister;
@@ -359,7 +359,7 @@ $this->title = $title.'-'.$intro;
 			
 		</section><!-- #content end -->
 <?php JSRegister::begin([
-    'key' => '3445',
+    'key' => 'site',
 ]); ?>
 <script>
 	$('#relations').click(function(){
@@ -381,10 +381,9 @@ $this->title = $title.'-'.$intro;
 
 			}
 		},'json');
-		console.log('565655')
 	})
 	
 	<?= $statcode ?>
 
 </script>
-<?php JSRegister::end([]) ?>;
+<?php JSRegister::end([]) ?>

@@ -3,9 +3,9 @@
  * @Author: Wang Chunsheng
  * @Date:   2020-04-29 02:20:18
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-07-10 20:48:23
+ * @Last Modified time: 2021-02-22 23:44:59
  */
-use common\widgets\adminlte\VuemainAsset;
+use common\widgets\firevue\VuemainAsset;
 use richardfan\widget\JSRegister;
 
 VuemainAsset::register($this);

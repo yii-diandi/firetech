@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-02 21:40:25
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-01 04:26:26
+ * @Last Modified time: 2021-02-27 00:44:50
  */
 
 
@@ -26,6 +26,7 @@ use backend\models\ResetPasswordForm;
 use backend\models\SignupForm;
 use backend\models\VerifyEmailForm;
 use common\helpers\MapHelper;
+use common\helpers\ResultHelper;
 use common\models\DdUser;
 use common\models\User;
 
@@ -155,8 +156,10 @@ class SiteController extends BaseController
         ],['id'=>Yii::$app->user->identity->id]);
         
         Yii::$app->user->logout();
-       
-        return $this->goHome();
+        
+        return ResultHelper::json(200,'退出成功',[
+            'url'=>Url::to(['site/login'])
+        ]);
     }
 
     /**

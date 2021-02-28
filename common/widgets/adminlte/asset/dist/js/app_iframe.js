@@ -2,7 +2,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-02-29 20:08:50
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-11-04 03:58:12
+ * @Last Modified time: 2021-02-27 15:40:47
  */
 /**
  Core script to handle the entire theme and core functions
@@ -2224,10 +2224,14 @@ function activeTabByPageId(pageId) {
     $(".menu_tab").removeClass("active");
     $("#tab-content").find(".active").removeClass("active");
     //激活TAB
-    var $title = findTabTitle(pageId).addClass('active');
-    findTabPanel(pageId).addClass("active");
-    // scrollToTab($('.menu_tab.active'));
-    scrollToTab($title[0]);
+    console.log(findTabTitle(pageId),pageId)
+    if(findTabTitle(pageId)){
+        var $title = findTabTitle(pageId).addClass('active');
+        findTabPanel(pageId).addClass("active");
+            // scrollToTab($('.menu_tab.active'));
+        scrollToTab($title[0]);  
+    }
+  
 }
 
 $(function() {

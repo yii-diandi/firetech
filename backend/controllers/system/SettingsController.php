@@ -4,16 +4,19 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-28 23:43:29
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-12-18 11:01:14
+ * @Last Modified time: 2021-02-27 19:06:47
  */
 
 
 namespace backend\controllers\system;
 
 use  backend\controllers\BaseController;
+use common\helpers\CacheHelper;
 use common\helpers\ResultHelper;
 use common\models\forms\ClearCache;
 use Yii;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 
 /**
  * Class SiteController
@@ -22,6 +25,24 @@ use Yii;
  */
 class SettingsController extends BaseController
 {
+
+    public $enableCsrfValidation = false;
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'them' => ['post'],
+                ],
+            ],
+        ];
+    }
+    
     /**
      * @inheritdoc
      */
@@ -176,4 +197,26 @@ class SettingsController extends BaseController
             
         }
     }
+
+    public function actionStore()
+    {
+        
+        return $this->render('store');
+    }
+
+
+    public function actionThem()
+    {
+        global $_GPC;
+        $themcolor = $_GPC['themcolor'];
+        
+        $this->cache->set('themcolor',$themcolor);
+        
+        return ResultHelper::json(200,'主题设置成功',[
+                'themcolor' => $_GPC,
+                'themcolorCache' => $this->cache->get('themcolor'),
+            ]);
+    }
+
+    
 }
