@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-03 16:37:30
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-17 00:28:41
+ * @Last Modified time: 2021-03-01 23:30:26
  */
 
 namespace backend\controllers;
@@ -30,7 +30,7 @@ class ModuleController extends BaseController
         $module = Yii::$app->params['addons'];
 
         if(empty(Yii::$app->params['store_id'])){
-            Yii::$app->session->setFlash('error', '请选择商户后进去');
+            Yii::$app->session->setFlash('error', '请点击右上角选择商户后进入模块');
             $this->refresh();
             return $this->goHome();
         } 

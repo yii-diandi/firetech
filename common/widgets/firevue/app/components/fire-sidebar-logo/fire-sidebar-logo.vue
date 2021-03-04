@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-logo-container hidden-xs-only" :class="{'collapse':collapse}">
+  <div class="sidebar-logo-container hidden-xs-only" :class="{'collapse':collapse}" :style="{ background : background , borderRight  : ' 1px solid '+ borderRight }">
     <transition name="sidebarLogoFade">
       <a v-if="collapse" key="collapse" class="sidebar-logo-link" href="/backend">
         <img v-if="logo" :src="logo" class="sidebar-logo">
@@ -20,6 +20,14 @@ export default {
     collapse: {
       type: Boolean,
       required: true
+    },
+    borderRight:{
+      type: String,
+      default: '店滴AI'
+    },
+    background:{
+      type: String,
+      default: '店滴AI'
     },
     title: {
       type: String,

@@ -2,7 +2,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2021-02-27 16:07:46
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-02-27 16:07:50
+ * @Last Modified time: 2021-02-28 13:58:26
  */
 /*
  * Skin: Yellow
@@ -22,6 +22,11 @@
   color: #999 !important
 }
 
+.el-button--primary,.btn-primary {
+  color: #fff;
+  background-color: #f39c12;
+  border-color: #f39c12;
+}
 
 .skin-yellow-light .main-header .navbar .nav > li > a {
   color: #ffffff;

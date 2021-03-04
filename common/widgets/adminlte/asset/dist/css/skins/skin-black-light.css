@@ -2,7 +2,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2021-02-27 15:59:43
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-02-27 16:09:48
+ * @Last Modified time: 2021-02-28 13:59:08
  */
 /*
  * Skin: Black
@@ -38,9 +38,15 @@
 }
 
 .content-tabs .page-tabs a.active {
-  background: #ffffff;
-  color: #999999;
+  background: #333;
+  color: #fff;
   border-right: solid 1px #2c3e50
+}
+
+.el-button--primary,.btn-primary {
+  color: #999999;
+  background-color: #333;
+  border-color: #333;
 }
 
 .content-tabs .page-tabs a.active i:hover {

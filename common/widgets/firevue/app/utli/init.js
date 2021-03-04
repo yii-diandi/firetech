@@ -8,13 +8,14 @@
 // 全局vue
 import Global from './global.js'
 import  validate  from './validate.js'
-new Vue({
+window.sysInit = new Vue({
     el: '#fire-main',
     data: function () {
         return {
+            isSubmit:false,
             widheight:0,
             skinClass:'',
-            widwidth:0,
+            widwidth:`${document.documentElement.clientWidth}`,
             is_addons:false,
             isCollapse: false,
             isLeftAll:false,
@@ -35,23 +36,23 @@ new Vue({
                     bgColor:'#3c8dbc',
                     bgClass:'bg-green',
                     text:'#fff',
-                    active:'',
+                    active:'#fff',
                     title:'蓝色', 
                 },
                 {
                     skinClass:'skin-black',
-                    bgColor:'#fff',
+                    bgColor:'#333',
                     bgClass:'bg-black',
-                    text:'#3c8dbc',
-                    active:'',
-                    title:'白色', 
+                    text:'#fff',
+                    active:'#409EFF',
+                    title:'黑色', 
                 },
                 {
                     skinClass:'skin-purple',
                     bgColor:'#605ca8',
                     bgClass:'bg-purple',
                     text:'#fff',
-                    active:'',
+                    active:'#fff',
                     title:'紫色', 
                 },
                 {
@@ -59,7 +60,7 @@ new Vue({
                     bgColor:'#00a65a',
                     bgClass:'bg-green',
                     text:'#fff',
-                    active:'',
+                    active:'#fff',
                     title:'绿色', 
                 },
                 {
@@ -67,7 +68,7 @@ new Vue({
                     bgColor:'#dd4b39',
                     bgClass:'bg-red',
                     text:'#fff',
-                    active:'',
+                    active:'#fff',
                     title:'红色', 
                 },
                 {
@@ -75,7 +76,7 @@ new Vue({
                     bgColor:'#f39c12',
                     bgClass:'bg-yellow',
                     text:'#fff',
-                    active:'',
+                    active:'#fff',
                     title:'黄色', 
                 },
                 {
@@ -83,15 +84,15 @@ new Vue({
                     bgColor:'#3c8dbc',
                     bgClass:'bg-light-blue',
                     text:'#fff',
-                    active:'',
+                    active:'#fff',
                     title:'蓝色高亮', 
                 },
                 {
                     skinClass:'skin-black-light',
                     bgColor:'#fff',
                     bgClass:'bg-light-black',
-                    text:'#fff',
-                    active:'',
+                    text:'#303133',
+                    active:'#303133',
                     title:'白色高亮', 
                 },
                 {
@@ -99,7 +100,7 @@ new Vue({
                     bgColor:'#605ca8',
                     bgClass:'bg-purple',
                     text:'#fff',
-                    active:'',
+                    active:'#fff',
                     title:'紫色高亮', 
                 },
                 {
@@ -107,7 +108,7 @@ new Vue({
                     bgColor:'#00a65a',
                     bgClass:'bg-green',
                     text:'#fff',
-                    active:'',
+                    active:'#fff',
                     title:'绿色高亮', 
                 },
                 {
@@ -115,7 +116,7 @@ new Vue({
                     bgColor:'#dd4b39',
                     bgClass:'bg-red',
                     text:'#fff',
-                    active:'',
+                    active:'#fff',
                     title:'红色高亮', 
                 },
                 {
@@ -123,7 +124,7 @@ new Vue({
                     bgColor:'#f39c12',
                     bgClass:'bg-yellow',
                     text:'#fff',
-                    active:'',
+                    active:'#fff',
                     title:'黄色高亮', 
                 }
             ]
@@ -151,10 +152,14 @@ new Vue({
             let cate = event.currentTarget.dataset.cate
             that.menuCate        = cate
         },
-        sysInfo(){
+        sysInfo(Website){
             let that = this;
             this.$nextTick(function () {
+                let themcolor = Website.themcolor
                 var tmp = that.getStore('skin');
+                if(!tmp){
+                    tmp = themcolor
+                }
                 if (tmp && $.inArray(tmp, that.my_skins)){
                    
                     that.my_skins.forEach((item,index)=>{
@@ -194,7 +199,6 @@ new Vue({
         },  
         init(){
             let that = this;
-            that.sysInfo()
             let  addons = Global.getUrlParam('addons')
 
             let str = ''
@@ -215,7 +219,7 @@ new Vue({
                     that.is_addons = response.data.data.is_addons
                     that.moduleAll = response.data.data.moduleAll
                     that.Website   = response.data.data.Website
-
+                    that.sysInfo(that.Website)
                     
                 }
                 
@@ -281,22 +285,28 @@ new Vue({
         },
         setThemcolor(themcolor){
             let that = this;
-
-
-            that.$http.post('/backend/system/settings/them', {
+            if(!that.isSubmit){
+            
+                that.$http.post('/backend/system/settings/them', {
                     themcolor:themcolor
-            }).then((response) => {
-                //响应成功回调
-                if (response.data.code == 200) {
-                    this.$message(response.data.message);
-                    console.log(response.data.data)
-                    location.reload();
-                }
-                
-            }, (response) => {
-                //响应错误回调
-                console.log(response)
-            });
+                }).then((response) => {
+                    //响应成功回调
+                    if (response.data.code == 200) {
+                        this.$message(response.data.message);
+                        console.log(response.data.data)
+                        that.isSubmit = true
+                        location.reload();
+                    }
+                    
+                }, (response) => {
+                    //响应错误回调
+                    console.log(response)
+                });
+            
+            }else{
+                that.$message.error('操作太频繁，请等待');
+            } 
+          
         },
         selectStore(row) {
             let that = this

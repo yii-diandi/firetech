@@ -3,7 +3,7 @@
  * @Author: Wang Chunsheng
  * @Date:   2020-04-29 02:20:18
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-02-22 23:44:59
+ * @Last Modified time: 2021-02-28 13:54:27
  */
 use common\widgets\firevue\VuemainAsset;
 use richardfan\widget\JSRegister;
@@ -16,7 +16,10 @@ VuemainAsset::register($this);
         border-radius: 4px 4px 0 0;
     }
 </style>
-<el-menu  active-text-color="#409EFF" :default-active="activeIndex" class="el-menu-demo topnavmenu" mode="horizontal" @select="handleSelect" id="_tab"  v-show="items.length>0"  v-cloak>
+<el-menu  
+    :text-color="sysInitData.menuBgColor"
+    :active-text-color="sysInitData.menuBgColor"
+:default-active="activeIndex" class="el-menu-demo topnavmenu" mode="horizontal" @select="handleSelect" id="_tab"  v-show="items.length>0"  v-cloak>
     <el-menu-item :index="'menu'+index" v-for="(menu,index) in items" :key="index" :class="menu.active?'is-active':''">
         <a :href="menu.url"  v-if="menu.label">{{menu.label}}</a>
     </el-menu-item>
@@ -36,10 +39,12 @@ VuemainAsset::register($this);
             return { 
                 items:<?= $items; ?>,
                 activeIndex:'menu0',
+                sysInitData:{}
             }
         },
         created: function () {
             let that  = this; 
+            that.sysInitData = window.parent.sysInit.$data
             that.items.forEach((item,key)=>{
                 if(item.active){
                     that.activeIndex = 'menu'+key

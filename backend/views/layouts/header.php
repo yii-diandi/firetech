@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-28 15:31:10
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-02-28 10:42:39
+ * @Last Modified time: 2021-03-03 11:03:11
  */
 
 use yii\helpers\Html;
@@ -17,17 +17,16 @@ $moduleAll =  Yii::$app->params['moduleAll'];
 <el-row type="flex"  :gutter="0" class="main-header"  :style="{ 'border-bottom' : '1px solid' + menuBgColor,background:menuBgColor }">
   <el-col :xs="3" :sm="2" :md="1" :lg="1" :xl="1" style="min-width: 65px;">
         <el-menu :default-active="activeIndex"  class="el-menu-demo" mode="horizontal"
-                    :background-color="menuBgColor"
-                    :text-color="menuTextColor"
+                    :background-color="menuTextColor"
+                    :text-color="menuBgColor"
                     :active-text-color="menuActiveColor"
                 >
             <el-menu-item  @click="CollapseSet" class="hamburger"  :class="{'is-active':isCollapse}">
-                <i class="el-icon-s-fold"></i>
+                <i class="el-icon-s-fold" :style="{ color : menuBgColor } " ></i>
             </el-menu-item>
         </el-menu>
   </el-col>  
   <el-col  :xs="8" :sm="6" :md="16" :lg="16" :xl="16" class="hidden-sm-and-down">
-       
             <el-menu :default-active="0"
                             v-show="topMenu"
                             :background-color="menuBgColor"
@@ -81,7 +80,7 @@ $moduleAll =  Yii::$app->params['moduleAll'];
 
                             </el-submenu>
                             <el-menu-item class="hidden-xs-only"  data-toggle="control-sidebar">
-                                <i class="fa fa-gears"></i>
+                                <i class="fa fa-gears" :style="{ color : menuTextColor } "></i>
                             </el-menu-item>
                 </el-menu>
         </el-row>

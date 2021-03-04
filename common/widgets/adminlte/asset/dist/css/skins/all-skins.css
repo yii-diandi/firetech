@@ -1,4 +1,10 @@
 /*
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2021-02-28 13:28:04
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2021-02-28 13:59:16
+ */
+/*
  * Skin: Blue
  * ----------
  */
@@ -8,6 +14,14 @@
 .skin-blue .main-header .navbar .nav > li > a {
   color: #ffffff;
 }
+
+.el-button--primary,.btn-primary {
+  color: #FFF;
+  background-color: #3c8dbc;
+  border-color: #367fa9;
+}
+
+
 .skin-blue .main-header .navbar .nav > li > a:hover,
 .skin-blue .main-header .navbar .nav > li > a:active,
 .skin-blue .main-header .navbar .nav > li > a:focus,

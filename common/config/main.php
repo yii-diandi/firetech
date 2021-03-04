@@ -4,14 +4,14 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-02-29 16:57:27
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-02-23 11:02:15
+ * @Last Modified time: 2021-03-01 16:00:22
  */
 
 return [
     'name' => '店滴',
     'version' => '1.0.7',
     'aliases' => [
-        '@bower' => '@common/widgets/adminlte/bower-asset',
+        '@bower' => '@vendor/bower-asset',
         '@vue' => '@common/widgets/firevue',
         '@npm' => '@vendor/npm-asset',
         '@TencentYoutuyun' => '@vendor/youtu/TencentYoutuyun',

@@ -2,7 +2,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-02-29 20:08:50
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-02-27 15:40:47
+ * @Last Modified time: 2021-02-28 12:28:29
  */
 /**
  Core script to handle the entire theme and core functions
@@ -1889,7 +1889,6 @@ var addLeftTabs = function(options) {
         $('.top-treeview').removeClass('active')
 
         $('.left-treeview').each(function(index, item) {
-            console.log(options.mark);
             if ($(item).hasClass('left-' + options.mark)) {
                 $('.top-' + options.mark).addClass('active')
                 $(item).addClass('show').removeClass('hide')
@@ -1917,7 +1916,6 @@ var addTabs = function(options) {
     }
 
     var pageId = options.id;
-    console.log(pageId)
 
     //判断这个id的tab是否已经存在,不存在就新建一个
     if (findTabPanel(pageId) === null) {
@@ -2224,7 +2222,6 @@ function activeTabByPageId(pageId) {
     $(".menu_tab").removeClass("active");
     $("#tab-content").find(".active").removeClass("active");
     //激活TAB
-    console.log(findTabTitle(pageId),pageId)
     if(findTabTitle(pageId)){
         var $title = findTabTitle(pageId).addClass('active');
         findTabPanel(pageId).addClass("active");
@@ -2587,16 +2584,3 @@ $(function() {
    
     
 })(jQuery);
-
-//sidebar - menu组件封装
-//在页面上面直接调用sidebar - menu的方法
-try{
-    if(window.console&&window.console.log){
-        console.log("\u5E97\u6EF4AI\uFF1A\u57FA\u4E8EAI\u6280\u672F\u7684\u5E94\u7528\u5F00\u6E90\u7BA1\u7406\u7CFB\u7EDF\uFF0C\u5BF9\u63A5AI\u6709\u5173\u7684\u8F6F\u4EF6\u3001\u786C\u4EF6\uFF0C\u63D0\u4F9B\u57FA\u4E8EAI\u6280\u672F\u7684\u6574\u4F53\u89E3\u51B3\u65B9\u6848","\u9762\u5411\u4F01\u4E1A\u7684\u4E1A\u52A1\u6269\u5C55\uFF0CAI\u6570\u636E\u7EDF\u4E00\u7EF4\u62A4");
-        console.log("\u96C6\u56E2\u5316SAAS\u7BA1\u7406\u7CFB\u7EDF\uFF0C\u5B50\u516C\u53F8\u7BA1\u7406\uFF0C\u5546\u6237\u7BA1\u7406\uFF0C\u5404\u79CD\u7EC8\u7AEF\u7BA1\u7406");
-        console.log("\u9002\u5408\u4E8E\u5FEB\u901F\u5E94\u7528\u5230APP\u3001\u5C0F\u7A0B\u5E8F\u3001\u5927\u6570\u636E\u722C\u866B\u3001\u4F01\u4E1A\u7EA7\u5E94\u7528\u7684\u5F00\u53D1");
-        console.log("\u5B98\u65B9\u4EA4\u6D41\u793E\u533A\uFF1Ahttp://bbs.wayfirer.com/")
-    }
-}catch(e){
-
-};

@@ -2,7 +2,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2021-02-27 16:06:34
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-02-27 16:08:15
+ * @Last Modified time: 2021-02-28 13:58:43
  */
 /*
  * Skin: Purple
@@ -21,6 +21,12 @@
 
 .content-tabs .page-tabs a.active i:hover {
   color: #999 !important
+}
+
+.el-button--primary,.btn-primary {
+  color: #fff;
+  background-color: #605ca8;
+  border-color: #605ca8;
 }
 
 .skin-purple-light .main-header .navbar .nav > li > a {

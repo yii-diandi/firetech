@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-15 22:50:42
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-12-28 02:54:34
+ * @Last Modified time: 2021-03-04 10:54:27
  */
 
 namespace common\behaviors;
@@ -22,6 +22,8 @@ class SaveBehavior extends Behavior
 
     public $updatedAttribute = 'update_time';
 
+    public $adminAttribute = 'admin_id';
+    
     public $storeAttribute = 'store_id';
 
     public $blocAttribute = 'bloc_id';
@@ -43,7 +45,7 @@ class SaveBehavior extends Behavior
         
         if (empty($this->attributes)) {
             $this->attributes = [
-                BaseActiveRecord::EVENT_BEFORE_INSERT => [$this->createdAttribute, $this->updatedAttribute, $this->blocAttribute, $this->storeAttribute, $this->blocPAttribute], //准备数据 在插入之前更新created和updated两个字段
+                BaseActiveRecord::EVENT_BEFORE_INSERT => [$this->createdAttribute, $this->updatedAttribute, $this->blocAttribute, $this->storeAttribute, $this->blocPAttribute,$this->adminAttribute], //准备数据 在插入之前更新created和updated两个字段
                 BaseActiveRecord::EVENT_BEFORE_UPDATE => [$this->updatedAttribute, $this->blocAttribute, $this->storeAttribute, $this->blocPAttribute], // 在更新之前更新updated字段
             ];
         }
@@ -69,15 +71,17 @@ class SaveBehavior extends Behavior
         //     $store_id = Yii::$app->user->identity->store_id;
         // }
 
-     
+        $admin_id = Yii::$app->user->identity->id;
         
         $this->_map = [
             $this->createdAttribute => time(), //在这里你可以随意格式化
             $this->updatedAttribute => time(),
-            $this->blocAttribute => $bloc_id,
+            $this->blocAttribute  => $bloc_id,
             $this->storeAttribute => $store_id,
             $this->blocPAttribute => $blocPid['pid'],
+            $this->adminAttribute => $admin_id
         ];
+        
     }
 
     //@see http://www.yiichina.com/doc/api/2.0/yii-base-behavior#events()-detail
@@ -88,6 +92,7 @@ class SaveBehavior extends Behavior
 
     public function evaluateAttributes($event)
     {
+        
         if (!empty($this->attributes[$event->name])) {
             $attributes = $this->attributes[$event->name];
             foreach ($attributes as $attribute) {
@@ -95,7 +100,10 @@ class SaveBehavior extends Behavior
                     $this->owner->$attribute = $this->getValue($attribute);
                 }
             }
+
+
         }
+        
     }
 
     protected function getValue($attribute)
