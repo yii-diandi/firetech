@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-06-23 20:21:49
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-25 14:14:36
+ * @Last Modified time: 2021-03-18 15:47:38
  */
 
  
@@ -56,7 +56,11 @@ return [
             'redis' => 'redis', // 连接组件或它的配置
             'channel' => 'queue', // Queue channel key
             'as log' => 'yii\queue\LogBehavior', // 日志
-        ]
+        ],
+        'authManager' => [
+            'class' => 'diandi\\admin\\components\\DbManager', // 使用数据库管理配置文件
+            'defaultRoles' => array('基础权限组'), //默认角色
+        ],
     ],
     'params' => $params,
 ];

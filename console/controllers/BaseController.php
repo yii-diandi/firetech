@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2021-01-25 12:30:32
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-25 12:56:00
+ * @Last Modified time: 2021-03-19 18:02:08
  */
  
 namespace console\controllers;
@@ -19,6 +19,7 @@ class BaseController extends \yii\console\Controller
     
     public $bloc_id;
     
+
     public function actions()
     {
         Yii::$app->service->commonGlobalsService->initId($this->bloc_id, $this->store_id, $this->addons);

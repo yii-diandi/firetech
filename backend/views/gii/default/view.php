@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2021-01-20 21:55:17
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-20 21:59:47
+ * @Last Modified time: 2021-03-25 00:41:17
  */
  
 
@@ -51,14 +51,14 @@ foreach ($generator->templates as $name => $path) {
                     ]) ?>
                     <?= $form->field($generator, 'template')
                         ->sticky()
-                        ->hint('Please select which set of the templates should be used to generated the code.')
-                        ->label('Code Template')
+                        ->hint('请选择应该使用哪组模板库生成代码。')
+                        ->label('模板库')
                         ->dropDownList($templates) ?>
                     <div class="form-group">
-                        <?= Html::submitButton('Preview', ['name' => 'preview', 'class' => 'btn btn-primary']) ?>
+                        <?= Html::submitButton('预览', ['name' => 'preview', 'class' => 'btn btn-primary']) ?>
 
                         <?php if (isset($files)): ?>
-                            <?= Html::submitButton('Generate', ['name' => 'generate', 'class' => 'btn btn-success']) ?>
+                            <?= Html::submitButton('生成', ['name' => 'generate', 'class' => 'btn btn-success']) ?>
                         <?php endif; ?>
                     </div>
                 </div>

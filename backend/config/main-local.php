@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-05 08:17:26
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-20 21:57:50
+ * @Last Modified time: 2021-03-25 02:21:02
  */
 $config = [
     'components' => [
@@ -30,6 +30,19 @@ if (YII_ENV) {
         /*自定义*/
         'allowedIPs' => ['127.0.0.1', '::1'],
         'generators' => [
+            'addons' => [
+                'class' => 'addonstpl\addons\Generator',
+                'templates' => [
+                    'default' => '@frontend/web/backend/giitpl/addons/default',
+                ],
+            ],
+            'model' => [
+                'class' => 'addonstpl\model\Generator',
+                'templates' => [
+                    'default' => '@frontend/web/backend/giitpl/addons/default',
+                    'mymodel' => '@frontend/web/backend/giitpl/model/default'
+                ],
+            ],
             'crud' => [ //生成器名称
                 'class' => 'addonstpl\crud\Generator',
                 'templates' => [ //设置我们自己的模板
@@ -43,17 +56,22 @@ if (YII_ENV) {
                     'addons' => '@frontend/web/backend/giitpl/module/default',
                 ],
             ],
-            'addons' => [
-                'class' => 'addonstpl\addons\Generator',
+            'controller' => [
+                'class' => 'addonstpl\controller\Generator',
                 'templates' => [
-                    'default' => '@frontend/web/backend/giitpl/addons/default',
+                    'default' => '@frontend/web/backend/giitpl/controller/default',
                 ],
             ],
-            'model' => [
-                'class' => 'addonstpl\model\Generator',
+            'form' => [
+                'class' => 'addonstpl\form\Generator',
                 'templates' => [
-                    'default' => '@frontend/web/backend/giitpl/addons/default',
-                    'mymodel' => '@frontend/web/backend/giitpl/model/default'
+                    'default' => '@frontend/web/backend/giitpl/form/default',
+                ],
+            ],
+            'extension' => [
+                'class' => 'addonstpl\extension\Generator',
+                'templates' => [
+                    'default' => '@frontend/web/backend/giitpl/extension/default',
                 ],
             ],
 

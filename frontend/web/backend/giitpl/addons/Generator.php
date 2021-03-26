@@ -3,11 +3,12 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-30 10:45:20
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-20 20:12:01
+ * @Last Modified time: 2021-03-24 20:16:46
  */
 
 namespace addonstpl\addons;
 
+use common\helpers\FileHelper;
 use yii\gii\CodeFile;
 use yii\helpers\Html;
 use Yii;
@@ -156,6 +157,10 @@ EOD;
             $this->render('api.php')
         );
         $files[] = new CodeFile(
+            $modulePath.'/console.php',
+            $this->render('console.php')
+        );
+        $files[] = new CodeFile(
             $modulePath.'/frontend.php',
             $this->render('frontend.php')
         );
@@ -200,6 +205,28 @@ EOD;
             $this->render('manifest.xml')
         );
 
+        // 配置文件生成
+        $files[] = new CodeFile(
+            $modulePath.'/config/api.php',
+            $this->render('config/api.php')
+        );
+        $files[] = new CodeFile(
+            $modulePath.'/config/menu.php',
+            $this->render('config/menu.php')
+        );
+        $files[] = new CodeFile(
+            $modulePath.'/config/console.php',
+            $this->render('config/console.php')
+        );
+
+        $dirs = ['migrations','assets','components','models','models\searchs','models\forms','models\enums','services'];
+
+        foreach ($dirs as $key => $value) {
+        
+            FileHelper::mkdirs($modulePath."/{$value}");
+            
+        }
+        
         return $files;
     }
 

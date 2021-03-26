@@ -27,21 +27,6 @@ function renderCloseCallBack(opts) {
   opts.closeCallBack = opts.closeCallBack || function () {}
 }
 
-function renderComponents(_a, btns) {
-  let importComponent = import(_a.url);
-  _a.plugs = [()=>importComponent]
-  _a.btns = btns || []
-  importComponent.then(component => {
-    try {
-      // 如果要跳转的组件本来就有需要显示在顶部的按钮就渲染出来
-      let subBtns = component.default.methods.getBtns();
-      for (let sb of subBtns) {
-        _a.btns.push(sb)
-      }
-    } catch (e) {}
-    renderBtns(_a, _a.btns)
-  })
-}
 
 function renderBtns(_a, btns) {
   _a.btns = []

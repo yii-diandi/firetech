@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-03 07:10:17
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-02-27 17:08:12
+ * @Last Modified time: 2021-03-16 14:54:39
  */
 
 namespace common\widgets\adminlte;
@@ -28,12 +28,8 @@ class AdminLteAsset extends BaseAdminLteAsset
         'dist/css/skins/all-skins.min.css',
     ];
     public $js = [
-        // 'plugins/jQuery/jquery-2.2.3.min.js',
-        // 'plugins/jQuery/jquery-migrate.js',
-        // 'dist/main.js',
-        'dist/js/app.js',
-        'dist/js/demo.min.js',
-        'dist/js/app_iframe.js',
+        'dist/js/app.min.js',
+        'dist/js/app_iframe.min.js',
     ];
 
     public $jsOptions = [
@@ -54,7 +50,20 @@ class AdminLteAsset extends BaseAdminLteAsset
      */
     public $skin = 'all-skins';
 
-
+    public $skins = [
+        'skin-blue',
+        'skin-black',
+        'skin-purple',
+        'skin-green',
+        'skin-red',
+        'skin-yellow',
+        'skin-blue-light',
+        'skin-black-light',
+        'skin-purple-light',
+        'skin-green-light',
+        'skin-red-light',
+        'skin-yellow-light'
+    ];
 
     /**
      * {@inheritdoc}
@@ -65,14 +74,9 @@ class AdminLteAsset extends BaseAdminLteAsset
      
         $this->skin = !empty(Yii::$app->cache->get('themcolor'))?Yii::$app->cache->get('themcolor'):Yii::$app->settings->get('Website', 'themcolor');
          // Append skin color file if specified
-        if ($this->skin) {
-            if (('all-skins' !== $this->skin) && (strpos($this->skin, 'skin-') !== 0)) {
-                throw new Exception('Invalid skin specified');
-            }
+        if (in_array($this->skin,$this->skins)) {
             $this->css[] = sprintf('dist/css/skins/%s.min.css', trim($this->skin));
         }
-
-
         parent::init();
     }
 }

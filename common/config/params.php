@@ -4,12 +4,12 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-05 08:35:24
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-09-06 15:30:20
+ * @Last Modified time: 2021-03-15 12:53:16
  */
 return [
     'uploadFile' => [
-        'extensions' => ['jpg', 'png', 'jpeg', 'jpe', 'pdf', 'mp4'],
-        'mime_types' => ['image/*', 'application/pdf', 'video/mp4'],
+        'extensions' => ['jpg', 'png', 'jpeg', 'jpe', 'pdf', 'mp4','xls','txt'],
+        'mime_types' => ['image/*', 'application/pdf', 'video/mp4','application/vnd.ms-excel','text/plain'],
         'max_size' => 10 * 1024 * 1024,
         'min_size' => 1,
         'message' => '上传失败',

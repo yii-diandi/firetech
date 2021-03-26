@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-12 16:40:19
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-10 21:48:09
+ * @Last Modified time: 2021-03-22 22:44:15
  */
 
 namespace api\models;
@@ -115,6 +115,7 @@ class DdApiAccessToken extends ActiveRecord implements IdentityInterface, RateLi
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         // 判断验证token有效性是否开启
         if (Yii::$app->params['user.accessTokenValidity'] === true) {
             $timestamp = (int) substr($token, strrpos($token, '_') + 1);
@@ -122,12 +123,9 @@ class DdApiAccessToken extends ActiveRecord implements IdentityInterface, RateLi
 
             // 验证有效期
             if ($timestamp + $expire <= time()) {
-                echo(json_encode([
-                    'code'=>CodeStatus::getValueByName('token失效'),
-                    'message'=>'您的登录验证已经过期，请重新登录',
-                    'data'=>[]
-                    ]));
-                die;
+        
+                throw new UnauthorizedHttpException('您的登录验证已经过期，请重新登录',CodeStatus::getValueByName('token失效'));
+                
             }
         }
         $service = Yii::$app->service;

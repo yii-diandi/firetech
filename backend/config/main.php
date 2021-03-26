@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-05 08:21:08
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-02-25 01:24:02
+ * @Last Modified time: 2021-03-20 15:53:41
  */
 $params = array_merge(
     require __DIR__.'/../../common/config/params.php',
@@ -41,6 +41,7 @@ return [
             // 'admin/*', //允许所有人访问admin节点及其子节点
             'system/welcome/index',
             'system/settings/set-cache',
+            'system/settings/store',
             'addons/addons/index',
             'upload/upload',
             'module',
@@ -152,7 +153,7 @@ return [
             'cache' => 'cache',
         ],
         'assetManager' => [
-            'linkAssets' => true,
+            'linkAssets' => YII_DEBUG ? true : false,
           ],
         'formatter' => [
             'class' => 'yii\i18n\Formatter',

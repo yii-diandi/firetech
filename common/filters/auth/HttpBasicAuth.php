@@ -3,14 +3,16 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-12-30 01:48:37
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-02 00:38:39
+ * @Last Modified time: 2021-03-22 13:50:47
  */
  
 namespace common\filters\auth;
 
 
 use common\models\enums\CodeStatus;
+use Yii;
 use yii\filters\auth\HttpBasicAuth as AuthHttpBasicAuth;
+use yii\web\UnauthorizedHttpException;
 
 class HttpBasicAuth extends AuthHttpBasicAuth
 {
@@ -20,12 +22,9 @@ class HttpBasicAuth extends AuthHttpBasicAuth
      */
     public function handleFailure($response)
     {
-        echo(json_encode([
-            'code'=>CodeStatus::getValueByName('token失效'),
-            'message'=>'用户token验证失败',
-            'data'=>[]
-            ]));
-        die;
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        throw new UnauthorizedHttpException('用户token验证失败',CodeStatus::getValueByName('token失效'));
+
     }
     
 

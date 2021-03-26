@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2021-01-20 22:06:07
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-20 22:07:07
+ * @Last Modified time: 2021-03-25 00:50:43
  */
  
 
@@ -18,7 +18,7 @@ use yii\helpers\Html;
 
 ?>
 <div class="default-view-files">
-    <p>Click on the above <code>Generate</code> button to generate the files selected below:</p>
+    <p>点击上面的<code>生成按钮</code> 生成下面选择的文件的按钮:</p>
 
     <div class="row form-group">
         
@@ -29,13 +29,13 @@ use yii\helpers\Html;
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right margin-top">
             <div id="action-toggle" class="btn-group btn-group-xs">
                 <label class="btn btn-success active" title="Filter files that are created">
-                    <input type="checkbox" value="<?= CodeFile::OP_CREATE ?>" checked> Create
+                    <input type="checkbox" value="<?= CodeFile::OP_CREATE ?>" checked> 创建
                 </label>
                 <label class="btn btn-outline-secondary active" title="Filter files that are unchanged.">
-                    <input type="checkbox" value="<?= CodeFile::OP_SKIP ?>" checked> Unchanged
+                    <input type="checkbox" value="<?= CodeFile::OP_SKIP ?>" checked> 没有变化
                 </label>
                 <label class="btn btn-warning active" title="Filter files that are overwritten">
-                    <input type="checkbox" value="<?= CodeFile::OP_OVERWRITE ?>" checked> Overwrite
+                    <input type="checkbox" value="<?= CodeFile::OP_OVERWRITE ?>" checked> 覆盖
                 </label>
             </div>
         </div>
@@ -44,8 +44,8 @@ use yii\helpers\Html;
     <table class="table table-bordered table-striped table-sm">
         <thead>
             <tr>
-                <th class="file">Code File</th>
-                <th class="action">Action</th>
+                <th class="file">创建文件列表</th>
+                <th class="action">操作</th>
                 <?php
                 $fileChangeExists = false;
                 foreach ($files as $file) {

@@ -1,43 +1,61 @@
-# 欢迎使用店滴AI
-- 完美的swagger api稳定，可以在线测试的接口稳定。
-- 使用稳定的YII后台框架，自研系统，方便二次开发，欢迎有开发能力的朋友加入进来一起开发模块进行售卖，官方提供技术支持，推广支持，品牌支持
-# 关于我们
-店滴AI：基于AI技术的应用开源管理系统，对接AI有关的软件、硬件，提供基于AI技术的整体解决方案。
-我们提供开源的AI管理系统源码，欢迎各界朋友使用。
+# 欢迎使用店滴 AI
+
+店滴 AI，一款基于 php，python 开发的，可以快速搭建 AI 软硬件交互场景业务的免费开源框架。封装了常用的表单组件、权限控制、集团化 SAAS 模式， 实现了模块化开发，人脸库维护、人脸智能识别、百度壁虎硬件智能控制、大数据采集的 AI 开源框架。方便二次开发，欢迎有开发能力的朋友加入进来一起开发模块进行售卖，官方提供技术支持，推广支持，品牌支持。
+
 ## 官方地址
-### 官方网址：[http://www.wayfirer.com/](http://www.wayfirer.com/ "http://www.wayfirer.com/")
-### 接口地址：[http://www.wayfirer.com//index.php?r=doc](http://www.wayfirer.com//index.php?r=doc "http://www.wayfirer.com//index.php?r=doc")
-### 后台代码GIT：[https://gitee.com/wayfiretech_admin/firetech](https://gitee.com/wayfiretech_admin/firetech "https://gitee.com/wayfiretech_admin/firetech")
-#### 加群连接
-1. qq群：麻烦下载的朋友加下qq交流群：[823429313]( https://jq.qq.com/?_wv=1027&k=5cutnyx "823429313")，可以获取后台管理，接口管理系统，代码开源，
-欢迎使用。
-# 微信公众号：
-![店滴AI](http://www.wayfirer.com/attachment/202003/15/4a0aec77-66cf-3354-9b4a-daf2bab58fb5.png "店滴AI")
+
+##### 官方网址：[http://www.wayfirer.com/](http://www.wayfirer.com/ "http://www.wayfirer.com/")
+
+##### 接口地址：[http://www.wayfirer.com//index.php?r=doc](http://www.wayfirer.com//index.php?r=doc "http://www.wayfirer.com//index.php?r=doc")
+
+##### 后台代码 GIT：[https://gitee.com/wayfiretech_admin/firetech](https://gitee.com/wayfiretech_admin/firetech "https://gitee.com/wayfiretech_admin/firetech")
+
+##### 前台uniapp框架 (https://gitee.com/wayfiretech_admin/diandi_vue)
+
+#### 官方媒介   
+- 点击链接加入群聊【店滴AI应用开源系统】：https://jq.qq.com/?_wv=1027&k=4d2Rl2lc
+
+| qq群 ![enter image description here](https://images.gitee.com/uploads/images/2021/0324/215601_1a43562c_866769.png "qq_code.png")  | 微信公众号 ![enter image description here](https://images.gitee.com/uploads/images/2021/0324/215919_0429f2fb_866769.jpeg "wechat_code.jpg") |
+|---|---|
+|抖音 ![enter image description here](https://images.gitee.com/uploads/images/2021/0324/220613_f34d5210_866769.jpeg "dou_code.jpg")  | 企业微信![enter image description here](https://images.gitee.com/uploads/images/2021/0324/220531_f42a8098_866769.jpeg "qiye_code.jpg")  |
+
+# 特性
+- 使用稳定的 YII 框架，优化处理开发过程，开发体验如 tp 一样顺滑。
+- 支持多层权限管控，路由权限，数据权限，菜单权限，集团权限，商户权限，扩展功能权限随意搭配调度
+- 基于 swoole 协程化，定时任务调度，im 聊天环境支持，系统接口支持协程,应对高并发
+- 开源百度 ai 接口对接，完成人脸库维护，人脸库创建，人脸库在线识别，人脸会员建立
+- 多模块可安装，便于迅速扩展业务，支持横向纵向双向扩展业务需求
+- 后台支持多种开发模式，php 混合开发，element-ui 的 vue 开发模式，纯 html 的传统开发都支持
+- 表单多样，除 yii 自身的表单组件，系统还对表单做了丰富，支持一句话配置万能表单
+
 
 
 
 # 环境准备：
 
-	php>=7.2
-	redis
-	git 工具下载：https://git-scm.com/downloads
-	composer https://www.phpcomposer.com/ 
-	composer建议使用阿里镜像 https://developer.aliyun.com/composer
+    php>=7.2
+    redis
+    git 工具下载：https://git-scm.com/downloads
+    composer https://www.phpcomposer.com/
+    composer建议使用阿里镜像 https://developer.aliyun.com/composer
 
-
-# 第一步：git下载代码
+# 第一步：git 下载代码
 
 ```
 git clone https://gitee.com/wayfiretech_admin/firetech.git
 
 ```
-# 第二步：更新composer 扩展
+
+# 第二步：更新 composer 扩展
+
 ```
 cd 你的文件路径
 composer update
 
 ```
+
 # 第三步：建立数据库并完成配置
+
 ```
 cd common\config
 
@@ -51,8 +69,8 @@ vim common\config\main-local.php
 /**
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-12 20:12:31
- * @Last Modified by:   Wang Chunsheng 2192138785@qq.com
- * @Last Modified time: 2020-03-22 19:35:10
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2021-03-24 22:06:38
  */
 
 return [
@@ -84,11 +102,9 @@ return [
 
 ```
 
-
-
 # Nginx 部署配置
 
-首先解析网站到 frontend\web，然后配置nginx如下：
+首先解析网站到 frontend\web，然后配置 nginx 如下：
 
 ```
 server {
@@ -146,4 +162,22 @@ server {
 
 
 ```
+# 特别鸣谢
 
+感谢以下的项目，排名不分先后
+
+- Yii：http://www.yiiframework.com
+
+- EasyWechat：https://www.easywechat.com
+
+- Bootstrap：http://getbootstrap.com
+
+- AdminLTE：https://adminlte.io
+
+- Vue: https://vuejs.org/
+
+- vue-ele-form: https://github.com/dream2023/vue-ele-form
+
+- element-ui: https://element.eleme.cn/
+
+- 百度ai:https://ai.baidu.com/

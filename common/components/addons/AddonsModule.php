@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-26 09:30:21
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-02-20 18:50:00
+ * @Last Modified time: 2021-03-24 21:19:58
  */
 
 namespace common\components\addons;
@@ -36,7 +36,7 @@ class AddonsModule extends Module
 
         $store_id = Yii::$app->params['store_id'];
 
-        if (empty($store_id) && Yii::$app->id != 'app-api' && Yii::$app->id != 'app-frontend' && Yii::$app->id != 'app-console' && Yii::$app->request->getPathInfo() != 'wechat/basics/notify') {
+        if (empty($store_id) && Yii::$app->id != 'app-backend' && Yii::$app->id != 'app-frontend' ) {
             throw new HttpException(400, '请选择商户后操作');
         }
 

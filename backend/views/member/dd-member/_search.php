@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-11-02 18:00:21
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-29 23:06:34
+ * @Last Modified time: 2021-03-04 19:43:35
  */
  
 
@@ -24,6 +24,9 @@ use yii\widgets\ActiveForm;
     </el-form-item>
     <el-form-item label="openid">
         <el-input v-model="SearchFields.openid" placeholder="openid"></el-input>
+    </el-form-item>
+    <el-form-item label="手机号">
+        <el-input v-model="SearchFields.mobile" placeholder="手机号"></el-input>
     </el-form-item>
     <el-form-item label="状态">
         <el-select v-model="SearchFields.status" placeholder="状态">

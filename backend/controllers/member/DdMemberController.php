@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-11-02 15:01:16
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-27 01:51:15
+ * @Last Modified time: 2021-03-04 19:41:31
  */
  
 
@@ -27,8 +27,7 @@ use common\models\forms\PasswdForm;
  */
 class DdMemberController extends BaseController
 {
-    public $modelSearchName = "DdMemberSearch
-";
+    public $modelSearchName = "DdMemberSearch";
     
     /**
      * {@inheritdoc}
@@ -52,6 +51,7 @@ class DdMemberController extends BaseController
      */
     public function actionIndex()
     {
+        global $_GPC;
         $searchModel = new DdMemberSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         

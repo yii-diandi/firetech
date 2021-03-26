@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-11-02 15:42:40
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-29 23:09:19
+ * @Last Modified time: 2021-03-04 19:57:50
  */
  
 
@@ -42,15 +42,17 @@ class DdMemberSearch extends DdMember
     public function search($params)
     {
         global $_GPC;
-        $query = DdMember::find();
         
+        $query = DdMember::find();
         $this->load($params);
+        
 
         if (!$this->validate()) {
       
             return false;
         }
-
+   
+        
         // grid filtering conditions
         $query->andFilterWhere([
             'member_id' => $this->member_id,
@@ -111,7 +113,9 @@ class DdMemberSearch extends DdMember
             ->andFilterWhere(['like', 'site', $this->site])
             ->andFilterWhere(['like', 'bio', $this->bio])
             ->andFilterWhere(['like', 'interest', $this->interest]);
-
+        
+            // p($query->createCommand()->getRawSql());
+            
         $count = $query->count();
         $pageSize   = $_GPC['pageSize'];
         $page       = $_GPC['page'];

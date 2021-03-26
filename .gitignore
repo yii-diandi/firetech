@@ -14,7 +14,7 @@ nbproject
 Thumbs.db
 
 # composer vendor dir
-/vendor
+vendor/*
 
 
 # Mac DS_Store Files
@@ -41,14 +41,15 @@ frontend/web/ErrorFiles
 frontend/web/u.asp
 frontend/web/.uini
 frontend/web/u.php
-vendor
 common/widgets/adminlte/yii-vue/node_modules
 node_modules
 common/addons/*
 addons/*
 !addons/diandi_ai
+!addons/diandi_example
 frontend/web/backend/upload
 common/config/main-local.php
 console/config/main-local.php
 api/runtime
 common/widgets/adminlte/bower-asset
+frontend/web/backend/assets

@@ -30,6 +30,20 @@ window.sysInit = new Vue({
             menuBgColor:'',
             menuTextColor:'',
             menuActiveColor:'',
+            my_skins_class:[
+                'skin-blue',
+                'skin-black',
+                'skin-purple',
+                'skin-green',
+                'skin-red',
+                'skin-yellow',
+                'skin-blue-light',
+                'skin-black-light',
+                'skin-purple-light',
+                'skin-green-light',
+                'skin-red-light',
+                'skin-yellow-light'
+            ],
             my_skins: [
                 {
                     skinClass:'skin-blue',
@@ -132,10 +146,41 @@ window.sysInit = new Vue({
     },
     created: function () {
         let that = this;
-        console.log('全局vue')
         that.init();
     },
     methods: {
+        init(){
+            let that = this;
+            let  addons = Global.getUrlParam('addons')
+
+            let str = ''
+            if(addons){
+                str = '?addons='+addons;
+            }
+
+            that.$http.post('/backend/system/index/info'+str, {
+                addons:addons
+            }).then((response) => {
+                //响应成功回调
+                if (response.data.code == 200) {
+                    that.leftMenu  = response.data.data.AllNav.left
+                    that.topMenu   = response.data.data.AllNav.top
+
+                    that.menuCate   = that.topMenu.length>0?response.data.data.AllNav.top[0].mark:''
+
+                    that.is_addons = response.data.data.is_addons
+                    that.moduleAll = response.data.data.moduleAll
+                    that.Website   = response.data.data.Website
+                    that.sysInfo(that.Website)
+                    
+                }
+                
+            }, (response) => {
+                //响应错误回调
+                console.log(response)
+            });
+    
+        },
         addTabs(item){
             console.log(item) 
             addTabs({
@@ -157,11 +202,25 @@ window.sysInit = new Vue({
             this.$nextTick(function () {
                 let themcolor = Website.themcolor
                 var tmp = that.getStore('skin');
-                if(!tmp){
-                    tmp = themcolor
-                }
-                if (tmp && $.inArray(tmp, that.my_skins)){
+                
+                if ($.inArray(tmp, that.my_skins_class) !=-1){
+                    // 存在
                    
+                    that.my_skins.forEach((item,index)=>{
+                        $("body").removeClass(item.skinClass);
+                        if(item.skinClass == tmp){
+                            that.menuBgColor        =    item.bgColor
+                            that.menuTextColor      = item.text
+                            that.menuActiveColor    = item.active
+                        }
+                    })
+                    $("body").addClass(tmp);
+                }else{
+
+                    if($.inArray(themcolor, that.my_skins_class) !=-1){
+                        tmp = themcolor
+                    }
+
                     that.my_skins.forEach((item,index)=>{
                         $("body").removeClass(item.skinClass);
                         if(item.skinClass == tmp){
@@ -192,43 +251,10 @@ window.sysInit = new Vue({
                     // xl
                 }
                 
-                console.log('widwidth',that.widwidth)
 
             })
 
         },  
-        init(){
-            let that = this;
-            let  addons = Global.getUrlParam('addons')
-
-            let str = ''
-            if(addons){
-                str = '?addons='+addons;
-            }
-
-            console.log('Global',Global,Global.getUrlParam('addons'))
-            that.$http.post('/backend/system/index/info'+str, {
-                addons:addons
-            }).then((response) => {
-                //响应成功回调
-                if (response.data.code == 200) {
-                    that.leftMenu  = response.data.data.AllNav.left
-                    that.topMenu   = response.data.data.AllNav.top
-                    that.menuCate   = response.data.data.AllNav.top[0].mark
-
-                    that.is_addons = response.data.data.is_addons
-                    that.moduleAll = response.data.data.moduleAll
-                    that.Website   = response.data.data.Website
-                    that.sysInfo(that.Website)
-                    
-                }
-                
-            }, (response) => {
-                //响应错误回调
-                console.log(response)
-            });
-    
-        },
         handleOpen(key, keyPath) {
          console.log(key, keyPath);
         },

@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-03 07:34:16
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-02-28 14:15:35
+ * @Last Modified time: 2021-03-04 19:00:03
  */
 
 namespace backend\controllers;
@@ -26,7 +26,11 @@ class BaseController extends Controller
 
     // 是否根据商户检索
     public $storeField = 'store_id';
-
+    
+    
+    public $adminField = 'admin_id';
+    
+    
     // 主要数据的模型
     public $modelName = '';
 

@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-04-09 11:20:54
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-06-27 21:26:47
+ * @Last Modified time: 2021-03-15 13:03:07
  */
 
 namespace common\components;
@@ -98,33 +98,49 @@ class Upload extends Model
         $upload_path = Yii::getAlias("@frontend/web/attachment/");
         $path = $path ? $path . "/" : '';
         if (\Yii::$app->request->isPost) {
-            $file = UploadedFile::getInstanceByName($field);
-
+            $file = UploadedFile::getInstanceByName('file');
             $model->file = $file;
             //文件上传存放的目录
             $dir = $upload_path . $path . date("Ymd");
-            if (!is_dir($dir)) {
-                mkdir($dir, 0777, true);
-                chmod($dir, 0777);
-            }
+           
             if ($model->validate()) {
                 //生成文件名
                 $rand_name = rand(1000, 9999);
                 $fileName = date("YmdHis") . $rand_name . '_' . $model->file->baseName . "." . $model->file->extension;
                 $save_dir = $dir . "/" . $fileName;
+                if (!is_dir($dir)) {
+                    HelpersFileHelper::mkdirs($dir);
+                    chmod($dir, 0777);
+                }
                 $model->file->saveAs($save_dir);
                 $uploadSuccessPath = $path . date("Ymd") . "/" . $fileName;
-                $result['file_name'] = $model->file->baseName;
+                $result['file_name'] = $model->file->baseName . "." . $model->file->extension;
                 $result['file_path'] = $uploadSuccessPath;
-                return $result;
+                $result['extension'] = $model->file->extension;
+                $result['attachment'] = ImageHelper::tomedia($uploadSuccessPath);
+                
+                return [
+                    'code' => 0,
+                    'msg' =>  '上传成功',
+                    'data'=>$result
+                ];
+                
             } else {
                 //上传失败记录日志
                 $logPath = Yii::getAlias("@runtime/log/upload/" . date("YmdHis") . '.log');
                 HelpersFileHelper::writeLog($logPath, Json::encode($model->errors));
-                return false;
+
+                return [
+                    'code' => 1,
+                    'msg' =>  Json::encode($model->errors)
+                ];
             }
         } else {
-            return false;
+            
+            return [
+                'code' => 1,
+                'msg' =>  '必须post请求'
+            ];
         }
     }
 }

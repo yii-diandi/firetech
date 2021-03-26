@@ -3,21 +3,18 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-30 11:21:18
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-05-30 11:21:18
+ * @Last Modified time: 2021-03-24 19:49:43
  */
 
 /* @var $this yii\web\View */
 /* @var $generator yii\gii\generators\module\Generator */
 ?>
 <div class="<?= $generator->moduleID.'-default-index'; ?>">
-    <h1><?= '<?= '; ?>$this->context->action->uniqueId ?></h1>
-    <p>
-        This is the view content for action "<?= '<?= '; ?>$this->context->action->id ?>".
-        The action belongs to the controller "<?= '<?= '; ?>get_class($this->context) ?>"
-        in the "<?= '<?= '; ?>$this->context->module->id ?>" module.
-    </p>
-    <p>
-        You may customize this page by editing the following file:<br>
-        <code><?= '<?= '; ?>__FILE__ ?></code>
-    </p>
+
+  
+<div class="jumbotron text-muted">
+    <h1 class="def-title"><?= '<?= '; ?> $info['title']; ?></h1>
+    <p class="def-wel">Welcome To <?= '<?= '; ?> $info['identifie']; ?></p>
+    <p class="del-bottom">欢迎您，使用<?= '<?= '; ?> $info['description']; ?></p>
+  </div>
 </div>

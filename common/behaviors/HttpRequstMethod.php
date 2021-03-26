@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-16 09:37:55
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-16 13:29:07
+ * @Last Modified time: 2021-03-04 20:07:01
  */
 
 namespace common\behaviors;
@@ -26,8 +26,12 @@ class HttpRequstMethod extends Behavior
      * @var yii\web\Request
      */
     private $request;
+    
     public $bloc_id;
+    
     public $store_id;
+    
+    public $admin_id;
 
     private static $_data = [];
 
@@ -50,15 +54,8 @@ class HttpRequstMethod extends Behavior
         $bloc_id = Yii::$app->service->commonGlobalsService->getBloc_id();
         $store_id = Yii::$app->service->commonGlobalsService->getStore_id();
        
-        // 后台用户使用
-        // if (Yii::$app->user->identity->bloc_id) {
-        //     $bloc_id = Yii::$app->user->identity->bloc_id;
-        // }
-
-        // if (Yii::$app->user->identity->store_id) {
-        //     $store_id = Yii::$app->user->identity->store_id;
-        // }
-
+        $this->admin_id = Yii::$app->user->identity->id;
+        
         $this->bloc_id = $bloc_id;
         $this->store_id = $store_id;
     }
@@ -66,6 +63,8 @@ class HttpRequstMethod extends Behavior
     //@see http://www.yiichina.com/doc/api/2.0/yii-base-behavior#events()-detail
     public function events()
     {
+        global $_GPC;
+        
         $whereInit = [];
         $where = [];
         if ($this->owner->blocField) {
@@ -76,6 +75,11 @@ class HttpRequstMethod extends Behavior
             $whereInit[$this->owner->storeField] = $this->store_id;
         }
 
+        if ($this->owner->adminField) {
+            $whereInit[$this->owner->adminField] = $this->admin_id;
+        }
+
+        
         // $store = Yii::$app->service->commonGlobalsService->getStoreDetail($this->store_id);
         // // 以集团化管理且是顶级公司的需要查看所有数据的权利
         // if(!empty($store)){
@@ -89,11 +93,16 @@ class HttpRequstMethod extends Behavior
         // }
         
         if ($this->owner->modelSearchName && !empty($whereInit)) {
+            
             if (key_exists($this->owner->modelSearchName, Yii::$app->request->queryParams)) {
+                
                 $whereInit = array_merge($whereInit, Yii::$app->request->queryParams[$this->owner->modelSearchName]);
+                
             }
             
-            $where[$this->owner->modelSearchName] = $whereInit;
+            $whereGpc  = is_array($_GPC[$this->owner->modelSearchName]) ? $_GPC[$this->owner->modelSearchName]: [];
+            
+            $where[$this->owner->modelSearchName]  =  array_merge($whereInit,$whereGpc);
             
         }
         
@@ -101,7 +110,7 @@ class HttpRequstMethod extends Behavior
         $where = array_merge(\Yii::$app->request->get(), \Yii::$app->request->post(), $where);
         
         Yii::$app->request->setQueryParams($where);
-
+        
         return Yii::$app->request->queryParams;
     }
 

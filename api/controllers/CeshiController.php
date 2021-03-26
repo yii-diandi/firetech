@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-13 04:06:57
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-09-07 10:07:50
+ * @Last Modified time: 2021-03-17 21:45:21
  */
 
 
@@ -12,9 +12,9 @@ namespace api\controllers;
 
 use Yii;
 use api\controllers\AController;
+use common\helpers\FileHelper;
 
-
-class UserController extends AController
+class CeshiController extends AController
 {
     public $modelClass = '';
     protected $authOptional = ['swgdoc'];
@@ -65,5 +65,7 @@ class UserController extends AController
      */
     public function actionSwgdoc()
     {
+        $logPath = Yii::getAlias('@runtime/ceshi'.date('Y/md').'.log');
+        FileHelper::writeLog($logPath, '接口测试');
     }
 }

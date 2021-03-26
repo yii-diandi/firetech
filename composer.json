@@ -36,7 +36,7 @@
         "yii-diandi/yii2-admin": "^2.24",
         "yii-diandi/yii2-region": "^1.0",
         "yii-diandi/yii2-migration": "^2.0",
-        "yii-diandi/yii2-swoole": "^1.0",
+        "yii-diandi/yii2-swoole": "^1.98",
         "yii-diandi/yii2-addons": "^1.9",
         "phpoffice/phpspreadsheet": "^1.14",
         "yiisoft/yii2-smarty": "^2.0",

@@ -57,11 +57,21 @@ let formatJson = function(filterVal, jsonData) {
       }
     }))
 }
+
+let  getStore = function(name) {
+    if (typeof (Storage) !== "undefined") {
+      return localStorage.getItem(name);
+    } else {
+      window.alert('Please use a modern browser to properly view this template!');
+    }
+}
+
  
 export default {
     objToar,
     numFilter,
     getUrlParam,
     descartes,
-    formatJson
+    formatJson,
+    getStore
 }

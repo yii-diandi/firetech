@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-04 00:28:50
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-05-30 12:27:21
+ * @Last Modified time: 2021-03-24 21:24:09
  */
 echo "<?php\n";
 ?>
@@ -51,7 +51,7 @@ class DocController extends Controller
             'json-base' => [
                 'class' => 'yii2mod\swagger\OpenAPIRenderer',
                 'scanDir' => [
-                    Yii::getAlias('@<?= $generator->getControllerNamespace().'\\api'; ?>'),
+                    Yii::getAlias('@addons/<?= $generator->moduleID; ?>/api'),
                     Yii::getAlias('@frontend/controllers')
                 ],
                 'cacheKey' => '<?= $generator->getApiCachekey(); ?>',

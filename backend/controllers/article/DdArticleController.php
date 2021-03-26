@@ -3,8 +3,8 @@
 /**
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-02-29 18:32:46
- * @Last Modified by:   Wang Chunsheng 2192138785@qq.com
- * @Last Modified time: 2020-02-29 18:33:36
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2021-03-10 12:32:08
  */
 
 
@@ -62,7 +62,7 @@ class DdArticleController extends BaseController
     {
         $searchModel = new DdArticleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+     
 
         return $this->render('index', [
             'searchModel' => $searchModel,

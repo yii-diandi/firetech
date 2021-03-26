@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-14 23:50:50
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-02-27 18:24:26
+ * @Last Modified time: 2021-03-13 02:30:01
  */
 
 use common\widgets\adminlte\AdminLteAsset;
@@ -16,9 +16,13 @@ use yii\web\View;
 $is_addons = Yii::$app->params['is_addons'];
 /* @var $this \yii\web\View */
 /* @var $content string */
-$this->registerJs("window.sysinfo={
-    'CSRF_HEADER':'". \yii\web\Request::CSRF_HEADER ."',".
-    "csrfToken:'". Yii::$app->request->csrfToken."'};",View::POS_HEAD);
+$conf = json_encode([
+    'CSRF_HEADER'=>\yii\web\Request::CSRF_HEADER,
+    'csrfToken'=>Yii::$app->request->csrfToken,
+    'vueAsset'=>Yii::$app->assetManager->getPublishedUrl('@common/widgets/firevue/src')
+]);
+
+$this->registerJs("window.sysinfo={$conf};",View::POS_HEAD);
 
 if (Yii::$app->controller->action->id === 'login' || Yii::$app->controller->action->id === 'signup') {
     /**
@@ -42,6 +46,7 @@ if (Yii::$app->controller->action->id === 'login' || Yii::$app->controller->acti
     <head>
         <meta charset="<?= Yii::$app->charset ?>" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="__webpack_public_path__" content="<?= Yii::$app->assetManager->getPublishedUrl('@common/widgets/firevue') ?>">
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>

@@ -21,20 +21,18 @@ class VueJsAsset extends AssetBundle
     public $sourcePath = '@vue/';
 
     public $css = [
+        'src/css/build.css',
+        'src/css/require.css',
         // 'element-ui/lib/theme-chalk/index.css',
         'node_modules/element-ui/lib/theme-chalk/display.css'
     ];
 
     public $js = [
-        'src/build.js',
-        'src/require.js',
-        // YII_ENV_DEV ? 'node_modules/vue/dist/vue.js' : 'node_modules/vue/dist/vue.min.js',
-        // YII_ENV_DEV ? 'node_modules/vue-resource/dist/vue-resource.js' : 'node_modules/vue-resource/dist/vue-resource.min.js',
-        // // 'main.js',
-        // 'node_modules/element-ui/lib/index.js',
-        // 'app/components/popup/popup.js',
-        // 'node_modules/jquery-slimscroll/jquery.slimscroll.min.js',
-        'node_modules/fastclick/lib/fastclick.js',
+        'src/js/manifest.js',
+        // 'node_modules/vue/dist/vue.min.js',
+        'src/js/lib/build.js',
+        'src/js/lib/require.js',
+        'node_modules/element-ui/lib/index.js',
     ];
 
     public $jsOptions = [

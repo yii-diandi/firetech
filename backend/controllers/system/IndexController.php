@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-03-11 17:41:27
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-02-27 06:16:56
+ * @Last Modified time: 2021-03-07 16:41:55
  */
 
 
@@ -65,6 +65,9 @@ class IndexController extends BaseController
         $Website   = Yii::$app->settings->getAllBySection('Website');
         $Website['blogo']   = ImageHelper::tomedia($Website['blogo']);
         $Website['flogo']   = ImageHelper::tomedia($Website['flogo']);
+
+        $Website['themcolor']   = !empty(Yii::$app->cache->get('themcolor'))?Yii::$app->cache->get('themcolor'):$Website['themcolor'];
+        
         return ResultHelper::json(200,'获取成功',[
                 'AllNav'=>$AllNav,
                 'is_addons'=>$is_addons,

@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-08 12:17:00
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-02-27 06:01:59
+ * @Last Modified time: 2021-03-13 02:29:52
  */
 // use common\widgets\adminlte\VueJsAsset;
 
@@ -16,10 +16,13 @@ use yii\web\View;
 /* @var $this \yii\web\View */
 /* @var $content string */
 // VueJsAsset::register($this);
-$this->registerJs("window.sysinfo={
-    'CSRF_HEADER':'". \yii\web\Request::CSRF_HEADER ."',".
-    "csrfToken:'". Yii::$app->request->csrfToken."'};",View::POS_HEAD);
+$conf = json_encode([
+    'CSRF_HEADER'=>\yii\web\Request::CSRF_HEADER,
+    'csrfToken'=>Yii::$app->request->csrfToken,
+    'vueAsset'=>Yii::$app->assetManager->getPublishedUrl('@common/widgets/firevue/src')
+]);
 
+$this->registerJs("window.sysinfo={$conf};",View::POS_HEAD);
 // 加载单页面vue对应的js
 AddonsAsset::register($this);
 
@@ -47,6 +50,7 @@ if (Yii::$app->controller->action->id === 'login') {
     <head>
         <meta charset="<?= Yii::$app->charset; ?>" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="__webpack_public_path__" content="<?= Yii::$app->assetManager->getPublishedUrl('@common/widgets/firevue') ?>">
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <?= Html::csrfMetaTags(); ?>
         <title><?= Html::encode($this->title); ?></title>

@@ -59,6 +59,8 @@
     -moz-osx-font-smoothing: grayscale
 }
 
+
+
 .el-icon-ice-cream-round:before {
     content: "\e6a0"
 }
@@ -2272,7 +2274,9 @@
 }
 
 .el-radio-group {
-    font-size: 0
+    font-size: 0;
+    padding-top: 10px;
+
 }
 
 .el-radio-button {
@@ -2409,7 +2413,7 @@
     position: relative;
     font-size: 14px;
     line-height: 20px;
-    height: 20px;
+    height: 40px;
     vertical-align: middle
 }
 
@@ -5077,6 +5081,10 @@ form.el-form.el-form--label-top {
 .el-tabs__new-tab .el-icon-plus {
     -webkit-transform: scale(.8, .8);
     transform: scale(.8, .8)
+}
+
+.el-icon-plus, .el-icon-minus{
+    line-height: inherit;
 }
 
 .el-tabs__new-tab:hover {
@@ -9738,7 +9746,8 @@ form.el-form.el-form--label-top {
 
 .el-upload--picture-card i {
     font-size: 28px;
-    color: #8c939d
+    color: #8c939d;
+    line-height: inherit;
 }
 
 .el-upload--picture-card:hover,
@@ -15026,7 +15035,8 @@ form.el-form.el-form--label-top {
 }
 
 .el-checkbox-group {
-    font-size: 0
+    font-size: 0;
+    padding-top: 10px;
 }
 
 .el-radio,
@@ -15833,4 +15843,27 @@ form.el-form.el-form--label-top {
 .el-popconfirm__action {
     text-align: right;
     margin: 0
+}
+
+/* 文件上传处理 */
+.ele-upload-file-list .el-upload-list__item-content-name-icon {
+    width: 30px;
+    vertical-align: text-top;
+    border-radius: 4px;
+}
+
+/* 表单错误提醒 */
+.el-form-item__error {
+    color: #F56C6C;
+    font-size: 12px;
+    line-height: 1;
+    padding-top: 4px;
+    position: inherit;
+    top: 100%;
+    left: 0;
+}
+
+
+.el-transfer-panel .el-transfer-panel__header{
+    padding-top: 8px;
 }

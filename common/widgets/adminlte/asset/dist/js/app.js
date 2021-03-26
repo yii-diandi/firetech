@@ -2,27 +2,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-04-12 16:36:35
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-02-26 14:36:14
- */
-/*! AdminLTE app.js
- * ================
- * Main JS application file for AdminLTE v2. This file
- * should be included in all pages. It controls some layout
- * options and implements exclusive AdminLTE plugins.
- *
-
-//Make sure jQuery has been loaded before app.js
-if (typeof jQuery === "undefined") {
-    throw new Error("AdminLTE requires jQuery");
-}
-/* AdminLTE
- *
- * @type Object
- * @description $.AdminLTE is the main object for the template's app.
- *              It's used for implementing functions and options related
- *              to the template. Keeping everything wrapped in an object
- *              prevents conflict with other plugins and is a better
- *              way to organize our code.
+ * @Last Modified time: 2021-03-13 00:40:12
  */
 $.AdminLTE = {};
 

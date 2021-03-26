@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2020-05-17 08:19:56
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2020-12-17 01:31:18
+ * @Last Modified time: 2021-03-09 08:02:25
  */
 
 namespace common\widgets\adminlte;
@@ -139,9 +139,19 @@ Css
         
         $getIp = MapHelper::get_client_ip();    
         
+        
+
         if(!$this->secret_key){
+        
+            $list = [
+                'baidu'=>'百度',
+                'amap'=>'高德',
+                'tencent'=>'腾讯',
+            ];
+
+            $typeList = $list[$this->type];
             
-            throw new \yii\web\HttpException(402,'请在公司参数中设置百度地图secret_key');
+            throw new \yii\web\HttpException(402,'请在公司参数中设置'.$typeList.'地图secret_key');
         }
         
         $content = file_get_contents($http_type."api.map.baidu.com/location/ip?ak=".$this->secret_key."&ip={$getIp}&coor=bd09ll");

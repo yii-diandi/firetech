@@ -2,7 +2,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-04-06 15:36:19
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-02-27 04:24:31
+ * @Last Modified time: 2021-03-18 03:16:32
  */
 
 
@@ -16,6 +16,14 @@
      background: #ffffff;
      min-height: 100vh;
  }
+ 
+.setting-index ,.setting-create,.setting-update{
+    padding: 20px 10px 10px 10px;
+    background: #ffffff;
+    min-height: 100vh;
+}
+
+
  .dialogLoad{
      font-size: 50px;
      padding-top:100px;
@@ -1153,6 +1161,4 @@
  .form-search{
      width: 200px;
  }
- .el-form-item__label{
-     width: 5em;
- }
+

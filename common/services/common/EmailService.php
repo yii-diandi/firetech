@@ -1,4 +1,11 @@
 <?php
+/**
+ * @Author: Wang chunsheng  email:2192138785@qq.com
+ * @Date:   2021-03-07 11:15:09
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2021-03-07 11:26:18
+ */
+ 
 
 namespace common\services\common;
 
@@ -35,7 +42,7 @@ class EmailService extends BaseService
      * @param string $template 对应邮件模板
      * @throws \yii\base\InvalidConfigException
      */
-    public function send($user, $email, $subject, $template)
+    public function send($user, $email, $subject, $template,$options=[])
     {   
      
         $this->setConfig();
@@ -50,7 +57,7 @@ class EmailService extends BaseService
 
             return $messageId;
         }
-        return $this->realSend($user, $email, $subject, $template);
+        return $this->realSend($user, $email, $subject, $template,$options);
     }
 
     /**
@@ -63,15 +70,16 @@ class EmailService extends BaseService
      * @return bool
      * @throws \yii\base\InvalidConfigException
      */
-    public function realSend($user, $email, $subject, $template)
-    {
+    public function realSend($user, $email, $subject, $template,$options)
+    {   
         $Email = $this->config;
+        $params = array_merge(['user' => $user],$options);
         try {
             $result=Yii::$app
                 ->mailer
                 ->compose(
                     $template,
-                    ['user' => $user]
+                    $params
                 )
                 ->setFrom([$Email['username'] => $Email['title']])
                 ->setTo($email)

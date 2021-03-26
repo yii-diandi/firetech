@@ -3,7 +3,7 @@
  * @Author: Wang chunsheng  email:2192138785@qq.com
  * @Date:   2021-01-19 20:34:19
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-01-26 00:00:49
+ * @Last Modified time: 2021-03-22 22:27:37
  */
  
 /**
@@ -13,6 +13,7 @@
 
 namespace swooleService\controllers;
 
+use common\helpers\loggingHelper;
 use diandi\addons\models\Bloc;
 use swooleService\tasks\DemoTask;
 use Yii;
@@ -61,7 +62,13 @@ class SiteController extends Controller
 
     public function actionTask()
     {
-        Yii::$app->server->task([[DemoTask::class, 'demo'], ['a', '1']]);
-        return [];
+        return Yii::$app->webServer->task([[DemoTask::class, 'demo'], ['a', '1']]);
+    }
+
+    public function actionFinish($res)
+    {
+        loggingHelper::writeLog('swoole', 'swoole/actionFinish', '任务处理完成', $res);
+
+        return $res;
     }
 }

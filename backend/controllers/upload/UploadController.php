@@ -3,8 +3,8 @@
 /**
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-04-09 11:19:49
- * @Last Modified by:   Wang Chunsheng 2192138785@qq.com
- * @Last Modified time: 2020-04-09 14:57:51
+ * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
+ * @Last Modified time: 2021-03-15 12:11:31
  */
 
 namespace backend\controllers\upload;
@@ -16,9 +16,11 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
 use common\components\Upload;
+use common\helpers\ResultHelper;
 use common\models\UploadValidate;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\UploadedFile;
 
 /**
  *
@@ -47,9 +49,6 @@ class UploadController extends BaseController
         try {
             $model = new Upload();
             $info = $model->upImage();
-
-
-
             $info && is_array($info) ?
                 exit(Json::htmlEncode($info)) :
                 exit(Json::htmlEncode([
@@ -67,6 +66,8 @@ class UploadController extends BaseController
 
     public function actionUploadfile()
     {
+        global $_GPC;
+        
         try {
             $Upload = new Upload();
             //实例化上传验证类，传入上传配置参数项名称
@@ -76,24 +77,26 @@ class UploadController extends BaseController
             if (!$field) {
                 exit(Json::htmlEncode([
                     'code' => 1,
-                    'msg' => '必须指明上传的字段：field'
+                    'msg' => '必须指明上传的字段：file'
                 ]));
             }
             if (!$path) {
                 exit(Json::htmlEncode([
                     'code' => 1,
-                    'msg' => 'path'
+                    'msg' => '必须指明保存的路径：path'
                 ]));
             }
             //上传
             $info = $Upload::upFile($model, urldecode($field), urldecode($path));
-
-            $info && is_array($info) ?
-                exit(Json::htmlEncode($info)) :
-                exit(Json::htmlEncode([
-                    'code' => 1,
-                    'msg' => 'error'
-                ]));
+            
+            if($info['code']==0){
+                return ResultHelper::json(200,$info['msg'],$info['data']);
+            }else{
+                $msg = json_decode($info['msg'],true);
+                return ResultHelper::json(400,$msg['file'][0]);
+                
+            }
+            
         } catch (\Exception $e) {
             exit(Json::htmlEncode([
                 'code' => 1,

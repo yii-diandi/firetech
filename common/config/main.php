@@ -4,7 +4,7 @@
  * @Author: Wang Chunsheng 2192138785@qq.com
  * @Date:   2020-02-29 16:57:27
  * @Last Modified by:   Wang chunsheng  email:2192138785@qq.com
- * @Last Modified time: 2021-03-01 16:00:22
+ * @Last Modified time: 2021-03-17 13:24:40
  */
 
 return [
@@ -80,22 +80,6 @@ return [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             //'flushInterval' => 1,
             'targets' => [
-               [
-                  'class' => 'yii\log\EmailTarget', //默认邮件处理类
-                //   'class' => 'api\components\EmailTargetKen',//自定义日志处理类
-                  //'levels' => ['error', 'warning', 'trace', 'info'],//各种等级区分，根据需要使用
-                  'levels' => ['error', 'warning', 'trace', 'info'],
-                //   'categories' => ['email_log'],
-                  'mailer' => 'mailer',
-                  'message' => [
-                     'from' => ['ai@tuhuokeji.com' => 'admin'],
-                     'to' => ['ai@tuhuokeji.com'],
-                     'subject' => 'Log message',
-                  ],
-                  'except' => ['yii\web\HttpException:404'],  // 排除404，不然的话你会发现你的邮箱里全塞满了这些邮件
-                  'exportInterval' => 1, //阀值一个错误的时候就执行输出
-                  'logVars' => [],
-               ],
                [
                   'class' => 'yii\log\FileTarget', //默认文件处理类
                   'levels' => ['error', 'warning'],
